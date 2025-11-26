@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events | Alumni Portal</title>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Inbox System -->
+  <script src="inbox.js"></script>
+</head>
+
+<body>
+  
+
+<div class="container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a class="active" href="events.html"><i class="fas fa-calendar"></i> Events</a>
+    <a href="mentorship.html"><i class="fas fa-handshake"></i> Mentorship</a>
+    <a href="donations.html"><i class="fas fa-heart"></i> Donations</a>
+    <a href="feedback.html"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1>Event Insights</h1>
+    <p>Explore university and alumni events, filter by month or department, and identify the best sessions to attend next.</p>
+
+    <div class="card" style="margin-bottom:20px;background:#fff;border-radius:12px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+      <h3 style="margin-bottom:12px;">Filter Events</h3>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <select id="monthFilter" style="padding:8px;border-radius:8px;border:1px solid #d1d5db;min-width:160px;">
+          <option value="all">All Months</option>
+        </select>
+        <select id="departmentFilter" style="padding:8px;border-radius:8px;border:1px solid #d1d5db;min-width:160px;">
+          <option value="all">All Departments</option>
+        </select>
+        <button id="resetFilters" style="padding:8px 14px;border:none;border-radius:8px;background:#0b3d91;color:#fff;cursor:pointer;">
+          Reset Filters
+        </button>
+      </div>
+    </div>
+
+    <div id="eventsContainer">
+      <!-- Events will be rendered here -->
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script>
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "index.html";
+    }
+
+    function loadCSV(filePath) {
+      return new Promise((resolve, reject) => {
+        Papa.parse(filePath, {
+          download: true,
+          header: true,
+          complete: results => resolve(results.data.filter(row => Object.values(row).some(val => val))),
+          error: reject
+        });
+      });
+    }
+
+    function parseDate(dateStr) {
+      const parsed = new Date(dateStr);
+      if (!isNaN(parsed)) return parsed;
+      const parts = dateStr.split("/");
+      if (parts.length === 3) {
+        const dt = new Date(parseInt(parts[2], 10), parseInt(parts[0], 10) - 1, parseInt(parts[1], 10));
+        return isNaN(dt) ? null : dt;
+      }
+      return null;
+    }
+
+    const imageLibrary = {
+      networking: [
+        "images/Networking.jpeg",
+        "images/networking1.jpeg",
+        "images/networking2.jpeg",
+        "images/networking3.jpeg",
+        "images/networking4.jpeg",
+        "images/networking5.jpeg"
+      ],
+      career: ["images/Career.jpeg"],
+      gala: ["images/Gala.jpeg"],
+      mentor: [
+        "images/mentor1.jpeg",
+        "images/mentor2.jpeg",
+        "images/mentor3.jpeg",
+        "images/mentor4.jpeg",
+        "images/mentor5.jpeg",
+        "images/mentor6.jpeg"
+      ],
+      workshop: [
+        "images/workshop1.jpeg",
+        "images/workshop2.jpeg",
+        "images/workshop3.jpeg",
+        "images/workshop4.jpeg",
+        "images/workshop5.jpeg",
+        "images/workshop6.jpeg"
+      ],
+      webinar: ["images/webinar.jpeg"],
+      volunteer: ["images/volunteer.jpeg"]
+    };
+
+    function pickFrom(list, indexSeed = 0) {
+      if (!list || !list.length) return null;
+      return list[indexSeed % list.length];
+    }
+
+    function getEventImage(event) {
+      const raw = `${event.EventType || ""} ${event.EventName || ""}`.toLowerCase();
+      const seeds = [
+        raw.includes("network") ? { key: "networking" } : null,
+        raw.includes("mentor") ? { key: "mentor" } : null,
+        raw.includes("career") ? { key: "career" } : null,
+        raw.includes("gala") ? { key: "gala" } : null,
+        raw.includes("workshop") ? { key: "workshop" } : null,
+        raw.includes("webinar") ? { key: "webinar" } : null,
+        raw.includes("volunteer") || raw.includes("service") ? { key: "volunteer" } : null
+      ].filter(Boolean);
+
+      if (seeds.length) {
+        const { key } = seeds[0];
+        const pool = imageLibrary[key];
+        return pickFrom(pool, raw.length);
+      }
+
+      // Fallback by department
+      const dept = (event.Department || "").toLowerCase();
+      if (dept.includes("career")) return pickFrom(imageLibrary.career);
+      if (dept.includes("mentor")) return pickFrom(imageLibrary.mentor, raw.charCodeAt(0) || 0);
+
+      return "images/workshop1.jpeg";
+    }
+
+    function isUpcoming(eventDate) {
+      const dt = parseDate(eventDate);
+      if (!dt) return false;
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      return dt >= today;
+    }
+
+    function buildEventCard(event, options = {}) {
+      const dt = parseDate(event.EventDate);
+      const readable = dt ? dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : event.EventDate;
+      const upcoming = options.upcoming === true;
+      const registerBtn = upcoming
+        ? `<button class="register-btn" style="padding:10px 18px;border:none;border-radius:8px;background:#10b981;color:#fff;cursor:pointer;font-weight:600;" data-event='${JSON.stringify(event)}'>Register</button>`
+        : "";
+      const footerNote = upcoming ? "Secure your spot today." : "This event has concluded.";
+
+      return `
+        <div class="event-card" style="display:flex;flex-wrap:wrap;background:#fff;border-radius:16px;padding:18px;margin-bottom:18px;box-shadow:0 4px 16px rgba(0,0,0,0.08);gap:18px;align-items:center;">
+          <img src="${getEventImage(event)}" alt="${event.EventType || "Event"}" style="width:160px;height:120px;object-fit:cover;border-radius:12px;">
+          <div style="flex:1 1 240px;min-width:220px;">
+            <h3 style="margin:0 0 6px 0;color:#14213d;">${event.EventName || "Event"}</h3>
+            <p style="margin:0;color:#4b5563;">${readable} • ${event.Location || "TBA"} • ${event.Department || "All Departments"}</p>
+            <p style="margin:12px 0 0;color:#475569;font-size:14px;">${event.EventType || "Community gathering"} — ${event.AttendeeCount || 0} expected attendees</p>
+            <p style="margin:6px 0 0;color:${upcoming ? "#0b3d91" : "#6b7280"};font-size:13px;font-weight:500;">${footerNote}</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;min-width:140px;">
+            <button class="details-btn" style="padding:10px 18px;border:none;border-radius:8px;background:#0b3d91;color:#fff;cursor:pointer;font-weight:600;" data-event='${JSON.stringify(event)}'>
+              View Details
+            </button>
+            ${registerBtn}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderEvents(events) {
+      const container = document.getElementById("eventsContainer");
+      if (events.length === 0) {
+        container.innerHTML = `<p style="padding:16px;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.06);">No events match your filters. Try a different month or department.</p>`;
+        return;
+      }
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const eventsWithDates = events.map(evt => ({
+        evt,
+        date: parseDate(evt.EventDate)
+      }));
+
+      const upcomingEvents = eventsWithDates
+        .filter(({ date }) => date && date >= today)
+        .sort((a, b) => a.date - b.date)
+        .map(({ evt }) => evt);
+
+      const pastEvents = eventsWithDates
+        .filter(({ date }) => date && date < today)
+        .sort((a, b) => b.date - a.date)
+        .map(({ evt }) => evt);
+
+      const undatedEvents = eventsWithDates
+        .filter(({ date }) => !date)
+        .map(({ evt }) => evt);
+
+      const upcomingMarkup = upcomingEvents.length
+        ? upcomingEvents.slice(0, 4).map(event => buildEventCard(event, { upcoming: true })).join("")
+        : `<p style="padding:16px;background:#f8fafc;border-radius:12px;color:#475569;">No upcoming events match these filters. Check back soon!</p>`;
+
+      const pastSource = pastEvents.length ? pastEvents : undatedEvents;
+      const pastMarkup = pastSource.length
+        ? pastSource.slice(0, 6).map(event => buildEventCard(event, { upcoming: false })).join("")
+        : `<p style="padding:16px;background:#f8fafc;border-radius:12px;color:#475569;">No past events recorded for these filters yet.</p>`;
+
+      container.innerHTML = `
+        <section style="margin-bottom:28px;">
+          <h2 style="margin:0 0 14px 0;color:#14213d;">Upcoming Events</h2>
+          ${upcomingMarkup}
+        </section>
+        <section>
+          <h2 style="margin:0 0 14px 0;color:#14213d;">Past Events</h2>
+          ${pastMarkup}
+        </section>
+      `;
+
+      container.querySelectorAll(".details-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const evt = JSON.parse(btn.getAttribute("data-event"));
+          alert(`📅 ${evt.EventName}\nWhen: ${evt.EventDate}\nWhere: ${evt.Location}\nDepartment: ${evt.Department}\nAttendees expected: ${evt.AttendeeCount}`);
+        });
+      });
+
+      container.querySelectorAll(".register-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const evt = JSON.parse(btn.getAttribute("data-event"));
+          
+          // Store event registration in localStorage
+          const currentEmail = (localStorage.getItem("loggedInUser") || "").toLowerCase();
+          const eventRegistrationKey = `localEventRegistrations:${currentEmail}`;
+          const existingRegistrations = JSON.parse(localStorage.getItem(eventRegistrationKey) || "[]");
+          
+          // Generate a consistent EventID if not present
+          const eventId = evt.EventID || `${evt.EventName}-${evt.EventDate}`.replace(/[^a-zA-Z0-9-]/g, '-');
+          
+          // Check if already registered
+          const alreadyRegistered = existingRegistrations.some(reg => 
+            reg.EventID === eventId || 
+            (reg.EventName === evt.EventName && reg.EventDate === evt.EventDate)
+          );
+          
+          if (!alreadyRegistered) {
+            const newRegistration = {
+              EventID: eventId,
+              EventName: evt.EventName,
+              EventDate: evt.EventDate,
+              EventType: evt.EventType || "General",
+              Location: evt.Location || "TBA",
+              Department: evt.Department || "All Departments",
+              ParticipationDate: new Date().toISOString().split('T')[0], // Registration date
+              Source: "Portal"
+            };
+            
+            existingRegistrations.push(newRegistration);
+            localStorage.setItem(eventRegistrationKey, JSON.stringify(existingRegistrations));
+            
+            // Add message to user's inbox
+            if (typeof window.addUserMessage === 'function') {
+              window.addUserMessage({
+                type: 'event',
+                title: 'Event Registration Successful!',
+                message: `You've successfully registered for "${evt.EventName}" on ${evt.EventDate}. Check your email for confirmation details.`,
+                metadata: { 
+                  eventName: evt.EventName,
+                  eventDate: evt.EventDate,
+                  location: evt.Location,
+                  department: evt.Department
+                }
+              });
+            }
+            
+            alert(`✅ You're registered for ${evt.EventName}! We'll email the details to ${currentEmail || "your inbox"}.`);
+          } else {
+            alert(`You're already registered for ${evt.EventName}.`);
+          }
+        });
+      });
+    }
+
+    async function initEventsPage() {
+      const events = await loadCSV("./data/Event.csv");
+      const now = new Date();
+      const currentYear = now.getFullYear();
+
+      // Populate filters
+      const monthFilter = document.getElementById("monthFilter");
+      const departmentFilter = document.getElementById("departmentFilter");
+      const monthsSeen = new Set();
+      const departmentsSeen = new Set();
+
+      events.forEach(e => {
+        const dt = parseDate(e.EventDate);
+        if (dt) {
+          const key = `${dt.getFullYear()}-${dt.getMonth()}`;
+          if (!monthsSeen.has(key)) {
+            monthsSeen.add(key);
+            const option = document.createElement("option");
+            option.value = key;
+            option.textContent = dt.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+            monthFilter.appendChild(option);
+          }
+        }
+        if (e.Department && !departmentsSeen.has(e.Department)) {
+          departmentsSeen.add(e.Department);
+          const option = document.createElement("option");
+          option.value = e.Department;
+          option.textContent = e.Department;
+          departmentFilter.appendChild(option);
+        }
+      });
+
+      function applyFilters() {
+        const selectedMonth = monthFilter.value;
+        const selectedDept = departmentFilter.value;
+        const filtered = events.filter(e => {
+          const dt = parseDate(e.EventDate);
+          const monthMatches = selectedMonth === "all" || (dt && `${dt.getFullYear()}-${dt.getMonth()}` === selectedMonth);
+          const deptMatches = selectedDept === "all" || e.Department === selectedDept;
+          return monthMatches && deptMatches;
+        });
+        renderEvents(filtered);
+      }
+
+      monthFilter.addEventListener("change", applyFilters);
+      departmentFilter.addEventListener("change", applyFilters);
+      document.getElementById("resetFilters").addEventListener("click", () => {
+        monthFilter.value = "all";
+        departmentFilter.value = "all";
+        applyFilters();
+      });
+
+      renderEvents(events);
+    }
+
+    initEventsPage();
+  </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Workshop | Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="profile.html">Profile</a>
+    <a href="events.html" class="active">Events</a>
+    <a href="mentorship.html">Mentorship</a>
+    <a href="donations.html">Donations</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="index.html">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Career Growth Workshop</h1>
+    <img src="images/Career.jpeg" 
+         style="width: 100%; max-width: 700px; border-radius: 10px; margin-bottom: 20px;">
+
+    <p><strong>Location:</strong> Online (Zoom)</p>
+    <p><strong>Date:</strong> March 10, 2025</p>
+
+    <p>This workshop includes resume polishing, LinkedIn optimization, and interview
+       preparation led by professional career coaches.</p>
+
+    <h3>What You Will Learn</h3>
+    <ul>
+        <li>Resume + LinkedIn Optimization</li>
+        <li>Personal Branding for Job Applications</li>
+        <li>Mock Interview Tips</li>
+    </ul>
+
+    <button class="primary-btn" onclick="alert('You are registered for the Career Workshop!')">
+        Register Now
+    </button>
+
+</div>
+
+<script>
+  // Check if logged in
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donations - Alumni Portal</title>
+    <link rel="stylesheet" href="style.css">
+     <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Inbox System -->
+  <script src="inbox.js"></script>
+</head>
+
+<body>
+    
+
+     <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="events.html"><i class="fas fa-calendar"></i> Events</a>
+    <a href="mentorship.html"><i class="fas fa-handshake"></i> Mentorship</a>
+    <a class="active" href="donations.html"><i class="fas fa-heart"></i> Donations</a>
+    <a href="feedback.html"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <h2 class="section-title">Giving Overview</h2>
+        <p>Track your impact across campaigns, compare progress year-over-year, and discover where to direct your next contribution.</p>
+
+        <div class="card" style="background:#fff;border-radius:12px;padding:22px;box-shadow:0 4px 16px rgba(0,0,0,0.06);margin-bottom:24px;width:100%;box-sizing:border-box;">
+          <h3 style="margin-top:0;margin-bottom:16px;">Make a Donation</h3>
+          <form id="quickDonationForm" style="display:flex;flex-direction:column;gap:16px;">
+            <div>
+              <label for="quickDonationAmount" style="display:block;font-size:14px;font-weight:600;color:#1f2937;margin-bottom:6px;">Donation Amount</label>
+              <div style="position:relative;max-width:320px;">
+                <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#1f2937;font-weight:600;">$</span>
+                <input type="number" id="quickDonationAmount" min="1" step="1" placeholder="Enter amount" style="padding:12px 12px 12px 28px;border:1px solid #cbd5e1;border-radius:10px;width:100%;font-size:16px;box-sizing:border-box;">
+              </div>
+            </div>
+            <div>
+              <label for="quickDonationPaymentMethod" style="display:block;font-size:14px;font-weight:600;color:#1f2937;margin-bottom:6px;">Payment Method</label>
+              <select id="quickDonationPaymentMethod" style="padding:12px;border:1px solid #cbd5e1;border-radius:10px;width:100%;font-size:15px;box-sizing:border-box;background:white;">
+                <option value="Online">Online</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Check/Mail">Check/Mail</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="quickDonationMessage" style="display:block;font-size:14px;font-weight:600;color:#1f2937;margin-bottom:6px;">Message (optional)</label>
+              <textarea id="quickDonationMessage" placeholder="Write your note here..." style="border:1px solid #cbd5e1;border-radius:10px;padding:12px;font-size:15px;min-height:90px;"></textarea>
+            </div>
+            <button type="submit" style="background:#0f3c96;color:#fff;border:none;border-radius:10px;padding:12px;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 8px 20px rgba(15,60,150,0.25);">Donate</button>
+          </form>
+          <p id="quickDonationFeedback" style="margin-top:12px;font-size:14px;color:#0b3d91;display:none;"></p>
+        </div>
+
+        <div class="card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,0.06);margin-bottom:24px;">
+          <h3 style="margin-bottom:12px;">Filter Donation History</h3>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <select id="campaignFilter" style="padding:8px;border-radius:8px;border:1px solid #d1d5db;min-width:180px;">
+              <option value="all">All Campaigns</option>
+            </select>
+            <select id="yearFilter" style="padding:8px;border-radius:8px;border:1px solid #d1d5db;min-width:150px;">
+              <option value="all">All Years</option>
+            </select>
+            <button id="downloadSummary" style="padding:8px 14px;border:none;border-radius:8px;background:#0b3d91;color:#fff;cursor:pointer;">
+              Download Summary
+            </button>
+          </div>
+        </div>
+
+        <div id="donationHistory" class="donation-history" style="display:grid;gap:12px;"></div>
+
+        <div class="card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,0.06);margin-top:24px;">
+          <h3 style="margin-bottom:8px;">Plan Your Next Gift</h3>
+          <p style="font-size:14px;color:#4f4f4f;margin-bottom:12px;">Use this quick calculator to see the impact of your next donation.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <input type="number" id="plannedAmount" placeholder="Gift amount ($)" min="10" step="10" style="padding:8px;border:1px solid #d1d5db;border-radius:8px;min-width:160px;">
+            <button id="estimateImpact" style="padding:8px 14px;border:none;border-radius:8px;background:#22c55e;color:#fff;cursor:pointer;">Estimate Impact</button>
+          </div>
+          <div id="impactResult" style="margin-top:12px;font-size:14px;color:#0b3d91;"></div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script>
+        if (!localStorage.getItem("isLoggedIn")) {
+            window.location.href = "index.html";
+        }
+
+        function loadCSV(path) {
+            return new Promise((resolve, reject) => {
+                Papa.parse(path, {
+                    download: true,
+                    header: true,
+                    complete: results => resolve(results.data.filter(row => Object.values(row).some(v => v))),
+                    error: reject
+                });
+            });
+        }
+
+        function parseDate(str) {
+            const parsed = new Date(str);
+            if (!isNaN(parsed)) return parsed;
+            const parts = str.split("/");
+            if (parts.length === 3) {
+                const dt = new Date(parseInt(parts[2], 10), parseInt(parts[0], 10) - 1, parseInt(parts[1], 10));
+                return isNaN(dt) ? null : dt;
+            }
+            return null;
+        }
+
+        function formatCurrency(amount) {
+            return amount.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function getLocalDonationKey(email) {
+            return `localDonations:${email}`;
+        }
+
+        function loadLocalDonationsRaw(email) {
+            try {
+                return JSON.parse(localStorage.getItem(getLocalDonationKey(email)) || "[]");
+            } catch (err) {
+                console.warn("Unable to parse local donations", err);
+                return [];
+            }
+        }
+
+        function loadLocalDonations(email) {
+            return loadLocalDonationsRaw(email);
+        }
+
+        function storeLocalDonations(email, donations) {
+            localStorage.setItem(getLocalDonationKey(email), JSON.stringify(donations));
+        }
+
+        function renderDonations(rows) {
+            const container = document.getElementById("donationHistory");
+            if (rows.length === 0) {
+                container.innerHTML = `<p style="padding:16px;background:#fff;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.06);">No donations match your filters yet.</p>`;
+                return;
+            }
+            container.innerHTML = rows.map(row => {
+                const dt = parseDate(row.DonationDate);
+                const readable = dt ? dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : row.DonationDate;
+                return `
+                    <div class="donation-item" style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,0.05);">
+                        <span class="fund" style="font-weight:600;color:#0b3d91;">${row.CampaignName || row.DonationMethod || "Campaign"}</span>
+                        <span class="amount" style="font-weight:600;color:#111827;">$${formatCurrency(parseFloat(row.DonationAmount) || 0)}</span>
+                        <span class="date" style="color:#6b7280;font-size:13px;text-align:right;">
+                          ${readable}
+                          ${row.Message ? `<br><span style="color:#0f3c96;font-size:12px;">“${row.Message}”</span>` : ""}
+                        </span>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        async function initDonationsPage() {
+            const [donationRows, alumniRows] = await Promise.all([
+                loadCSV("./data/Donation.csv"),
+                loadCSV("./data/Alumni.csv")
+            ]);
+
+            const currentEmail = (localStorage.getItem("loggedInUser") || "").toLowerCase();
+            const currentAlumni = alumniRows.find(row => (row.Email || "").toLowerCase() === currentEmail);
+            const alumniId = currentAlumni ? currentAlumni.AlumniID : null;
+
+            const myDonations = donationRows.filter(row => row.AlumniID === alumniId);
+            const localStorageDonations = loadLocalDonations(currentEmail).map(entry => ({
+                DonationAmount: entry.amount,
+                DonationDate: entry.date,
+                CampaignName: entry.campaign || "Direct Gift",
+                DonationMethod: entry.paymentMethod || "Online",
+                Message: entry.message,
+                Source: "Local"
+            }));
+            const combinedDonations = myDonations.concat(localStorageDonations);
+            const currentYear = new Date().getFullYear();
+
+            const campaignFilter = document.getElementById("campaignFilter");
+            campaignFilter.innerHTML = `<option value="all">All Campaigns</option>`;
+            const allCampaigns = [...new Set(donationRows.map(row => row.CampaignName).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+            allCampaigns.forEach(c => {
+                const option = document.createElement("option");
+                option.value = c;
+                option.textContent = c;
+                campaignFilter.appendChild(option);
+            });
+
+            const yearFilter = document.getElementById("yearFilter");
+            yearFilter.innerHTML = `<option value="all">All Years</option>`;
+            const years = [...new Set(donationRows.map(row => {
+                const dt = parseDate(row.DonationDate);
+                return dt ? dt.getFullYear() : null;
+            }).filter(Boolean))].sort((a, b) => b - a);
+            years.forEach(y => {
+                const option = document.createElement("option");
+                option.value = y;
+                option.textContent = y;
+                yearFilter.appendChild(option);
+            });
+
+            function applyFilters() {
+                const selectedCampaign = campaignFilter.value;
+                const selectedYear = yearFilter.value;
+                const filtered = combinedDonations.filter(row => {
+                    const campaignMatches = selectedCampaign === "all" || row.CampaignName === selectedCampaign;
+                    const dt = parseDate(row.DonationDate);
+                    const yearMatches = selectedYear === "all" || (dt && dt.getFullYear().toString() === selectedYear);
+                    return campaignMatches && yearMatches;
+                });
+                renderDonations(filtered);
+            }
+
+            campaignFilter.addEventListener("change", applyFilters);
+            yearFilter.addEventListener("change", applyFilters);
+
+            document.getElementById("downloadSummary").addEventListener("click", () => {
+                const summary = combinedDonations.map(row => `${row.CampaignName || "Campaign"},${row.DonationAmount},${row.DonationDate}`).join("\n");
+                const blob = new Blob([`Campaign,Amount,Date\n${summary}`], { type: "text/csv;charset=utf-8;" });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute("download", `donation-summary-${currentYear}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            document.getElementById("estimateImpact").addEventListener("click", () => {
+                const amount = parseFloat(document.getElementById("plannedAmount").value);
+                if (isNaN(amount) || amount <= 0) {
+                    document.getElementById("impactResult").innerText = "Enter a positive amount to preview the impact.";
+                    return;
+                }
+                const scholarships = Math.max(1, Math.round(amount / 250));
+                const internships = Math.max(1, Math.round(amount / 500));
+                document.getElementById("impactResult").innerText =
+                    `$${formatCurrency(amount)} could unlock ${scholarships} scholarship(s) or ${internships} paid internship(s).`;
+            });
+
+            renderDonations(combinedDonations);
+
+            const quickDonationForm = document.getElementById("quickDonationForm");
+            const quickDonationFeedback = document.getElementById("quickDonationFeedback");
+            if (quickDonationForm) {
+                quickDonationForm.addEventListener("submit", event => {
+                    event.preventDefault();
+                    const amountInput = document.getElementById("quickDonationAmount");
+                    const messageInput = document.getElementById("quickDonationMessage");
+                    const paymentMethodInput = document.getElementById("quickDonationPaymentMethod");
+                    const amount = parseFloat(amountInput.value);
+                    if (isNaN(amount) || amount <= 0) {
+                        quickDonationFeedback.innerText = "Please enter a valid donation amount.";
+                        quickDonationFeedback.style.color = "#dc2626";
+                        quickDonationFeedback.style.display = "block";
+                        return;
+                    }
+            const existing = loadLocalDonationsRaw(currentEmail);
+                    existing.push({
+                        amount,
+                        message: (messageInput.value || "").trim(),
+                        date: new Date().toISOString(),
+                        campaign: "Direct Gift",
+                        paymentMethod: paymentMethodInput ? paymentMethodInput.value : "Online"
+                    });
+                    storeLocalDonations(currentEmail, existing);
+                    
+                    // Add message to user's inbox
+                    if (typeof window.addUserMessage === 'function') {
+                      window.addUserMessage({
+                        type: 'donation',
+                        title: 'Thank You for Your Donation!',
+                        message: `Your generous donation of $${amount.toFixed(2)} to ${existing[existing.length-1].campaign} has been processed successfully. You will receive a receipt via email shortly.`,
+                        metadata: { 
+                          amount: amount.toFixed(2),
+                          campaign: existing[existing.length-1].campaign,
+                          paymentMethod: existing[existing.length-1].paymentMethod
+                        }
+                      });
+                    }
+                    
+                    quickDonationForm.reset();
+                    alert("Thank you! Your gift has been recorded locally and will appear in your history.");
+                    window.location.reload();
+                });
+            }
+        }
+
+        initDonationsPage();
+    </script>
+
+</body>
+</html>

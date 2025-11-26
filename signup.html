@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account | Alumni Portal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="login-container">
+    <h2>Create Account</h2>
+    <p>Join the Alumni Community</p>
+
+    <input type="text" id="fullNameInput" placeholder="Enter your full name">
+    <input type="email" id="emailInput" placeholder="Enter your email">
+    <input type="password" id="passwordInput" placeholder="Create password">
+
+    <button onclick="signUpUser()">Sign Up</button>
+
+    <p class="signup-text">
+        Already have an account?
+        <a href="index.html">Log In</a>
+    </p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script>
+async function signUpUser() {
+    const fullName = document.getElementById("fullNameInput").value.trim();
+    const email = document.getElementById("emailInput").value.trim();
+    const password = document.getElementById("passwordInput").value;
+
+    if (!fullName || !email || !password) {
+        alert("Please complete all fields.");
+        return;
+    }
+
+    // Load Alumni CSV to check for existing user and generate new ID
+    let alumniData = [];
+    let maxID = 0;
+    
+    try {
+        alumniData = await loadCSV("data/Alumni.csv");
+        
+        // Check if email already exists
+        const existingUser = alumniData.find(a => a.Email && a.Email.toLowerCase() === email.toLowerCase());
+        
+        if (existingUser) {
+            alert("This email is already registered. Please log in instead.");
+            window.location.href = "index.html";
+            return;
+        }
+        
+        // Find max AlumniID to generate next sequential ID
+        alumniData.forEach(a => {
+            if (a.AlumniID && a.AlumniID.startsWith('ALU')) {
+                const idNum = parseInt(a.AlumniID.replace('ALU', ''));
+                if (!isNaN(idNum) && idNum > maxID) {
+                    maxID = idNum;
+                }
+            }
+        });
+    } catch (error) {
+        console.log("Could not load Alumni CSV, using fallback ID generation");
+        // Fallback: use timestamp-based ID if CSV can't be loaded
+        maxID = parseInt(String(Date.now()).slice(-6));
+    }
+
+    // Generate new AlumniID
+    const nameParts = fullName.split(' ');
+    const firstName = nameParts[0] || '';
+    const lastName = nameParts.slice(1).join(' ') || '';
+    const today = new Date();
+    const todayStr = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
+
+    // Generate sequential AlumniID
+    const newAlumniID = `ALU${String(maxID + 1).padStart(4, '0')}`;
+    
+    const emailKey = email.toLowerCase();
+
+    // Store new user data in localStorage (since we can't write to CSV from browser)
+    const newUserData = {
+        AlumniID: newAlumniID,
+        FirstName: firstName,
+        LastName: lastName,
+        Email: email,
+        Gender: '',
+        Country: '',
+        City: '',
+        Department: '',
+        GraduationYear: '',
+        EmploymentStatus: '',
+        Occupation: '',
+        DonationAmount: '0',
+        EventParticipationCount: '0',
+        Mentorship: 'No',
+        Feedback: '0',
+        LastEngagementDate: todayStr
+    };
+
+    // Persist per-user data so dashboards/profile can access before CSV updates
+    localStorage.setItem(`newUserData:${emailKey}`, JSON.stringify(newUserData));
+    localStorage.setItem(`profileData:${emailKey}`, JSON.stringify(newUserData));
+    localStorage.setItem("pendingSignupEmail", email);
+    
+    alert("Account created successfully! Please log in with your new credentials.");
+    window.location.href = "index.html";
+}
+
+function loadCSV(file) {
+    return new Promise((resolve, reject) => {
+        Papa.parse(file, {
+            download: true,
+            header: true,
+            complete: (results) => resolve(results.data.filter(row => row.AlumniID || row.Email)),
+            error: (error) => reject(error)
+        });
+    });
+}
+</script>
+
+</body>
+</html>

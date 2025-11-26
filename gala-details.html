@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Alumni Gala | Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+
+<div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="profile.html">Profile</a>
+    <a href="events.html" class="active">Events</a>
+    <a href="mentorship.html">Mentorship</a>
+    <a href="donations.html">Donations</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="logout.html">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Annual Alumni Gala</h1>
+    <img src="images/Gala.jpeg" 
+         style="width: 100%; max-width: 700px; border-radius: 10px; margin-bottom: 20px;">
+
+    <p><strong>Location:</strong> City Event Hall</p>
+    <p><strong>Date:</strong> April 20, 2025</p>
+
+    <p>The Annual Alumni Gala is a formal celebration honoring achievements of alumni,
+       with live music, dinner, awards, and networking.</p>
+
+    <h3>Event Highlights</h3>
+    <ul>
+        <li>Red Carpet Photos</li>
+        <li>Keynote Speaker & Awards</li>
+        <li>Formal Dinner & Live Band</li>
+    </ul>
+
+    <button class="primary-btn" onclick="alert('Your spot is reserved for the Gala!')">
+        Reserve Spot
+    </button>
+
+</div>
+
+<script>
+  // Check if logged in
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

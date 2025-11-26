@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Mentorship</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Inbox System -->
+  <script src="inbox.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+      <h2>Alumni Portal</h2>
+      <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+      <a href="events.html"><i class="fas fa-calendar"></i> Events</a>
+      <a href="mentorship.html" class="active"><i class="fas fa-handshake"></i> Mentorship</a>
+      <a href="donations.html"><i class="fas fa-heart"></i> Donations</a>
+      <a href="feedback.html"><i class="fas fa-comment-dots"></i> Feedback</a>
+      <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+      <h1>Request a Mentor</h1>
+      <p>Fill out the form below to request mentorship based on your career interest.</p>
+
+      <div class="dual-form-grid" style="display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start;">
+        <div class="form-card">
+          <form id="mentorForm">
+
+            <label for="career">Career Field</label>
+            <select id="career" required>
+              <option value="">Select your field...</option>
+              <option>Software Engineering</option>
+              <option>Data Analytics</option>
+              <option>Marketing</option>
+              <option>Business</option>
+              <option>Healthcare</option>
+            </select>
+
+            <label for="gradYear">Graduation Year</label>
+            <input type="number" id="gradYear" placeholder="e.g., 2024" required>
+
+            <button type="submit" class="primary-btn">Submit Request</button>
+          </form>
+        </div>
+
+        <div class="form-card">
+          <h2 style="margin-top:0;">Offer to Mentor</h2>
+          <p style="color:#475569;margin-bottom:16px;">Want to mentor instead? Let us know your focus and availability so we can match you with eager mentees.</p>
+          <form id="mentorOfferForm">
+            <label for="offerName">Full Name</label>
+            <input type="text" id="offerName" name="offerName" required placeholder="e.g., Jordan Lee">
+
+            <label for="offerEmail">Email</label>
+            <input type="email" id="offerEmail" name="offerEmail" required placeholder="you@example.com">
+
+            <label for="offerFocus">Focus Area</label>
+            <select id="offerFocus" name="offerFocus" required>
+              <option value="">Select a focus</option>
+              <option value="Leadership">Leadership</option>
+              <option value="Entrepreneurship">Entrepreneurship</option>
+              <option value="Graduate School Prep">Graduate School Prep</option>
+              <option value="Networking">Networking</option>
+              <option value="Career Guidance">Career Guidance</option>
+              <option value="Technical Skills">Technical Skills</option>
+            </select>
+
+            <label for="offerAvailability">Availability</label>
+            <select id="offerAvailability" name="offerAvailability" required>
+              <option value="">How often can you mentor?</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Bi-weekly">Bi-weekly</option>
+              <option value="Weekly">Weekly</option>
+              <option value="On-demand">On-demand / Project Based</option>
+            </select>
+
+            <label for="offerIntro">Short Intro (optional)</label>
+            <textarea id="offerIntro" name="offerIntro" placeholder="Share highlights from your experience, the type of mentee you’re eager to support, or preferred meeting style." style="min-height:90px;"></textarea>
+
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <button type="submit" class="primary-btn" style="flex:1 1 200px;"><i class="fas fa-paper-plane"></i> Submit Mentor Offer</button>
+              <button type="reset" class="primary-btn" style="flex:0 0 140px;background:#e2e8f0;color:#1f2937;">Clear</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="form-card" id="mentorOfferListCard" style="display:none;">
+        <h2 style="margin-top:0;">Recent Mentor Offers</h2>
+        <p style="color:#475569;margin-bottom:12px;">Here are the latest alumni who volunteered. Add your name to keep the momentum going.</p>
+        <ul id="mentorOfferList" style="margin:0;padding-left:18px;color:#475569;"></ul>
+      </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Check if logged in
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  }
+
+  // Handle mentor request form submission
+  document.getElementById("mentorForm").addEventListener("submit", function(event){
+    event.preventDefault();
+
+    const careerField = document.getElementById("career").value;
+    const gradYear = document.getElementById("gradYear").value;
+
+    if (!careerField || !gradYear) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    // Store mentorship request in localStorage
+    const currentEmail = (localStorage.getItem("loggedInUser") || "").toLowerCase();
+    const mentorshipRequestKey = `localMentorshipRequests:${currentEmail}`;
+    const existingRequests = JSON.parse(localStorage.getItem(mentorshipRequestKey) || "[]");
+    
+    const newRequest = {
+      FocusArea: careerField,
+      GraduationYear: gradYear,
+      RequestDate: new Date().toISOString().split('T')[0], // YYYY-MM-DD format
+      MentorshipStatus: "Pending",
+      Source: "Portal"
+    };
+    
+    existingRequests.push(newRequest);
+    localStorage.setItem(mentorshipRequestKey, JSON.stringify(existingRequests));
+    
+    // Add message to user's inbox
+    if (typeof window.addUserMessage === 'function') {
+      window.addUserMessage({
+        type: 'mentorship',
+        title: 'Mentorship Request Submitted!',
+        message: `Your request for mentorship in ${careerField} has been submitted. We'll match you with a suitable mentor soon and notify you via email.`,
+        metadata: { 
+          focusArea: careerField,
+          graduationYear: gradYear,
+          requestDate: newRequest.RequestDate
+        }
+      });
+    }
+    
+    // Store mentor name for success page
+    const profileKey = `profileData:${currentEmail}`;
+    const profileData = JSON.parse(localStorage.getItem(profileKey) || "{}");
+    const mentorName = `${profileData.FirstName || ""} ${profileData.LastName || ""}`.trim() || careerField;
+    localStorage.setItem("lastMentorRequested", mentorName);
+
+    alert("✅ Your mentorship request has been submitted! We will match you soon.");
+    window.location.href = "mentor-success.html";
+  });
+
+  const MENTOR_OFFER_KEY = "mentorOffers";
+  const mentorOfferForm = document.getElementById("mentorOfferForm");
+  const mentorOfferList = document.getElementById("mentorOfferList");
+  const mentorOfferListCard = document.getElementById("mentorOfferListCard");
+
+  function getMentorOffers() {
+    try {
+      return JSON.parse(localStorage.getItem(MENTOR_OFFER_KEY) || "[]");
+    } catch (err) {
+      console.warn("Unable to parse mentor offers", err);
+      return [];
+    }
+  }
+
+  function storeMentorOffers(offers) {
+    localStorage.setItem(MENTOR_OFFER_KEY, JSON.stringify(offers.slice(-10)));
+  }
+
+  function preloadOfferForm() {
+    const currentEmail = (localStorage.getItem("loggedInUser") || "").trim();
+    const profileKey = `profileData:${(localStorage.getItem("activeProfileEmail") || currentEmail).toLowerCase()}`;
+    const profileData = JSON.parse(localStorage.getItem(profileKey) || "{}");
+    const offerName = document.getElementById("offerName");
+    const offerEmail = document.getElementById("offerEmail");
+    const offerFocus = document.getElementById("offerFocus");
+    if (offerName && !offerName.value) {
+      offerName.value = `${profileData.FirstName || ""} ${profileData.LastName || ""}`.trim();
+    }
+    if (offerEmail && !offerEmail.value) {
+      offerEmail.value = profileData.Email || currentEmail;
+    }
+    if (offerFocus && !offerFocus.value) {
+      offerFocus.value = profileData.CareerField || profileData.FocusArea || "";
+    }
+  }
+
+  function renderOfferList() {
+    if (!mentorOfferList || !mentorOfferListCard) return;
+    const offers = getMentorOffers();
+    if (!offers.length) {
+      mentorOfferListCard.style.display = "none";
+      mentorOfferList.innerHTML = "";
+      return;
+    }
+    mentorOfferListCard.style.display = "block";
+    mentorOfferList.innerHTML = offers.slice().reverse().map(offer => `
+      <li>
+        <strong>${offer.name}</strong> • ${offer.focus} • ${offer.availability}<br>
+        <span style="font-size:12px;color:#64748b;">Submitted ${new Date(offer.timestamp).toLocaleString()}</span>
+        ${offer.intro ? `<div style="margin-top:4px;">“${offer.intro}”</div>` : ""}
+      </li>
+    `).join("");
+  }
+
+  if (mentorOfferForm) {
+    mentorOfferForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(mentorOfferForm);
+      const offer = {
+        name: formData.get("offerName").trim(),
+        email: formData.get("offerEmail").trim(),
+        focus: formData.get("offerFocus"),
+        availability: formData.get("offerAvailability"),
+        intro: formData.get("offerIntro").trim(),
+        timestamp: new Date().toISOString()
+      };
+      if (!offer.name || !offer.email || !offer.focus || !offer.availability) {
+        alert("Please complete all required fields before submitting.");
+        return;
+      }
+      const offers = getMentorOffers();
+      offers.push(offer);
+      storeMentorOffers(offers);
+      mentorOfferForm.reset();
+      preloadOfferForm();
+      renderOfferList();
+      alert("🎉 Thanks for offering to mentor! We'll reach out when a mentee match is ready.");
+    });
+  }
+
+  preloadOfferForm();
+  renderOfferList();
+</script>
+
+</body>
+</html>

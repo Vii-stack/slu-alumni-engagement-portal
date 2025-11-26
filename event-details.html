@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details | Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a class="active" href="events.html"><i class="fas fa-calendar"></i> Events</a>
+    <a href="mentorship.html"><i class="fas fa-handshake"></i> Mentorship</a>
+    <a href="donations.html"><i class="fas fa-heart"></i> Donations</a>
+    <a href="feedback.html"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div id="eventDetails">
+      <p>Loading event details...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Check if logged in
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  }
+
+  // Get event ID from URL and redirect to appropriate page
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventId = urlParams.get('id');
+
+  // Map event IDs to detail pages
+  const eventPages = {
+    '1': 'networking-details.html',
+    '2': 'career-details.html',
+    '3': 'gala-details.html'
+  };
+
+  // Redirect to appropriate event detail page
+  if (eventId && eventPages[eventId]) {
+    window.location.href = eventPages[eventId];
+  } else {
+    // Default to networking event
+    window.location.href = 'networking-details.html';
+  }
+</script>
+
+</body>
+</html>
+

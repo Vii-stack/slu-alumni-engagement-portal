@@ -1,0 +1,36 @@
+EventID,EventName,EventDate,EventType,Location,Department,AttendeeCount
+EVT0001,Alumni Networking Night,9/23/2024,Professional,East Isaac,Business,149
+EVT0002,Alumni BBQ,2/21/2025,Networking,Chapmanburgh,Education,202
+EVT0003,Alumni BBQ,11/23/2022,Fundraising,West Anitahaven,Computer Science,44
+EVT0004,Alumni Networking Night,7/13/2022,Fundraising,Sheltonmouth,Business,87
+EVT0005,Alumni BBQ,5/31/2022,Fundraising,East Jeremy,Business,72
+EVT0006,Alumni Networking Night,7/12/2023,Professional,South Tina,Arts,291
+EVT0007,Alumni Networking Night,5/2/2024,Mentorship,Williamport,Engineering,93
+EVT0008,Mentorship Meetup,11/7/2021,Social,Matthewmouth,Education,97
+EVT0009,Alumni Networking Night,11/4/2021,Social,Jacksonmouth,Education,213
+EVT0010,Alumni BBQ,8/23/2022,Networking,Joeborough,Education,170
+EVT0011,Annual Awards Night,9/24/2024,Networking,Tracyview,Business,146
+EVT0012,Professional Development Workshop,6/20/2025,Mentorship,Brownton,Engineering,89
+EVT0013,Student-Alumni Mixer,7/20/2023,Mentorship,Skinnerburgh,Computer Science,236
+EVT0014,Virtual Webinar,4/9/2026,Networking,Velazquezport,Computer Science,84
+EVT0015,Professional Development Workshop,9/10/2026,Networking,Changland,Education,295
+EVT0016,Mentorship Meetup,9/30/2026,Social,Antonioside,Education,60
+EVT0017,Mentorship Meetup,6/16/2026,Professional,Port Bradleychester,Nursing,262
+EVT0018,Guest Lecture,10/5/2026,Networking,Taylorchester,Arts,100
+EVT0019,Mentorship Meetup,10/20/2026,Mentorship,Hancockton,Nursing,152
+EVT0020,Virtual Webinar,12/1/2026,Fundraising,Howellburgh,Computer Science,177
+EVT0021,Fundraising Gala,3/14/2026,Networking,South Andrewborough,Business,254
+EVT0022,Homecoming Celebration,7/12/2026,Mentorship,Masonmouth,Education,100
+EVT0023,Alumni Networking Night,3/13/2026,Mentorship,Danielsfurt,Business,212
+EVT0024,Virtual Webinar,6/24/2026,Networking,Robinsonmouth,Arts,288
+EVT0025,Annual Awards Night,3/24/2025,Professional,Lake Chadbury,Education,62
+EVT0026,Innovation Summit,5/8/2025,Social,Theresaburgh,Nursing,119
+EVT0027,Virtual Webinar,2/1/2025,Fundraising,Rogersport,Arts,52
+EVT0028,Tech Talk Series,1/3/2025,Fundraising,Port Kayla,Engineering,219
+EVT0029,Innovation Summit,12/7/2021,Fundraising,South Scottburgh,Computer Science,278
+EVT0030,Innovation Summit,1/17/2024,Professional,Ruthview,Arts,43
+EVT0031,Annual Awards Night,4/10/2022,Mentorship,Lake Jenniferton,Business,278
+EVT0032,Homecoming Celebration,9/27/2022,Social,Romeroville,Business,148
+EVT0033,Alumni Networking Night,2/2/2022,Networking,North Susanmouth,Arts,153
+EVT0034,Professional Development Workshop,6/30/2024,Social,New Veronica,Business,218
+EVT0035,Guest Lecture,1/28/2022,Networking,Gallagherland,Computer Science,152

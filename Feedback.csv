@@ -1,0 +1,1001 @@
+FeedbackID,AlumniID,EventID,MentorshipID,FeedbackDate,Rating,Comments
+FB0001,ALU1712,,MENT0704,7/31/2025,3,Great networking opportunity!
+FB0002,ALU0822,EVT0006,,5/9/2024,2,Helpful mentorship experience.
+FB0003,ALU0281,EVT0011,,1/10/2025,5,Very informative session.
+FB0004,ALU1825,EVT0011,,12/8/2024,3,Helpful mentorship experience.
+FB0005,ALU0952,EVT0029,,1/27/2025,2,Enjoyed reconnecting with peers.
+FB0006,ALU1651,EVT0009,,8/22/2025,5,Excellent experience!
+FB0007,ALU0563,EVT0028,MENT0419,12/23/2023,3,Enjoyed reconnecting with peers.
+FB0008,ALU1704,,,5/13/2025,3,Could improve organization.
+FB0009,ALU1286,,,5/25/2025,1,Helpful mentorship experience.
+FB0010,ALU0171,EVT0024,,8/13/2024,4,Helpful mentorship experience.
+FB0011,ALU0205,EVT0031,,5/16/2024,5,Would love more frequent updates.
+FB0012,ALU0726,EVT0021,,7/14/2024,5,Excellent experience!
+FB0013,ALU1168,EVT0033,,3/3/2024,1,Could improve organization.
+FB0014,ALU0230,EVT0010,,7/21/2025,1,Could improve organization.
+FB0015,ALU1114,,,8/29/2025,4,Great networking opportunity!
+FB0016,ALU0414,,,1/2/2024,4,Very informative session.
+FB0017,ALU0577,,,8/28/2024,1,Good opportunity to connect.
+FB0018,ALU0364,EVT0031,,3/12/2025,4,Good opportunity to connect.
+FB0019,ALU0564,EVT0014,,12/29/2024,2,Could improve organization.
+FB0020,ALU0760,,,4/21/2024,2,Enjoyed reconnecting with peers.
+FB0021,ALU0695,EVT0030,,1/22/2025,2,The event was well-planned.
+FB0022,ALU0882,,,8/14/2025,5,Excellent experience!
+FB0023,ALU1581,EVT0028,MENT0189,7/23/2025,1,Excellent experience!
+FB0024,ALU0902,EVT0030,,3/26/2024,5,Appreciate the university’s support.
+FB0025,ALU0944,EVT0023,,4/30/2024,4,Great networking opportunity!
+FB0026,ALU1575,EVT0017,,4/15/2024,2,Appreciate the university’s support.
+FB0027,ALU1566,EVT0003,,11/4/2023,4,Would love more frequent updates.
+FB0028,ALU0206,EVT0019,,12/6/2023,4,Excellent experience!
+FB0029,ALU0878,EVT0019,,6/2/2024,5,Excellent experience!
+FB0030,ALU1065,EVT0010,MENT0100,5/22/2024,1,Could improve organization.
+FB0031,ALU1172,EVT0014,MENT0515,10/2/2024,3,Helpful mentorship experience.
+FB0032,ALU0375,EVT0024,,11/29/2023,3,Great networking opportunity!
+FB0033,ALU0236,EVT0028,,1/10/2025,2,Would love more frequent updates.
+FB0034,ALU0871,EVT0015,MENT0591,11/12/2024,4,Appreciate the university’s support.
+FB0035,ALU0636,,,10/12/2025,1,Could improve organization.
+FB0036,ALU0358,EVT0029,,9/18/2025,3,Helpful mentorship experience.
+FB0037,ALU0625,EVT0026,,2/6/2024,5,Excellent experience!
+FB0038,ALU0108,,,1/20/2025,5,Great networking opportunity!
+FB0039,ALU1536,EVT0034,,5/7/2024,1,Excellent experience!
+FB0040,ALU1844,EVT0027,MENT0399,9/7/2025,3,The event was well-planned.
+FB0041,ALU0649,,,6/27/2025,1,Good opportunity to connect.
+FB0042,ALU1466,EVT0001,,7/16/2024,5,The event was well-planned.
+FB0043,ALU0215,,,9/16/2024,2,Good opportunity to connect.
+FB0044,ALU0385,,,3/16/2024,3,Could improve organization.
+FB0045,ALU0056,EVT0028,MENT0697,1/9/2025,2,Enjoyed reconnecting with peers.
+FB0046,ALU1683,EVT0019,,5/19/2024,2,Enjoyed reconnecting with peers.
+FB0047,ALU0518,EVT0024,,12/30/2023,3,The event was well-planned.
+FB0048,ALU0731,EVT0002,MENT0737,11/21/2024,2,Very informative session.
+FB0049,ALU1956,EVT0004,MENT0705,7/21/2024,1,Great networking opportunity!
+FB0050,ALU0314,EVT0005,,11/11/2024,4,Good opportunity to connect.
+FB0051,ALU0957,EVT0032,MENT0350,8/16/2024,3,The event was well-planned.
+FB0052,ALU0033,EVT0026,MENT0530,12/13/2023,5,Enjoyed reconnecting with peers.
+FB0053,ALU0706,,,3/20/2025,4,Excellent experience!
+FB0054,ALU1654,EVT0003,,1/2/2025,4,The event was well-planned.
+FB0055,ALU0463,EVT0024,MENT0427,8/19/2025,1,The event was well-planned.
+FB0056,ALU1520,EVT0025,,8/31/2024,4,Would love more frequent updates.
+FB0057,ALU1236,EVT0004,,9/26/2024,3,Very informative session.
+FB0058,ALU0617,EVT0033,,10/4/2024,3,Would love more frequent updates.
+FB0059,ALU0561,,MENT0302,5/12/2024,2,Good opportunity to connect.
+FB0060,ALU0799,EVT0030,,12/25/2024,1,The event was well-planned.
+FB0061,ALU1281,,,5/5/2025,3,Appreciate the university’s support.
+FB0062,ALU1835,EVT0011,MENT0205,6/27/2024,4,Would love more frequent updates.
+FB0063,ALU1416,EVT0002,,5/19/2025,1,Excellent experience!
+FB0064,ALU1254,EVT0017,MENT0519,3/21/2025,2,Enjoyed reconnecting with peers.
+FB0065,ALU0034,,,5/3/2024,1,Very informative session.
+FB0066,ALU0759,EVT0011,MENT0699,7/13/2024,5,Great networking opportunity!
+FB0067,ALU0039,,,9/3/2025,4,Good opportunity to connect.
+FB0068,ALU0733,,MENT0139,12/29/2024,2,Could improve organization.
+FB0069,ALU1393,EVT0008,,10/28/2023,1,Helpful mentorship experience.
+FB0070,ALU0197,EVT0033,MENT0241,4/13/2025,3,Would love more frequent updates.
+FB0071,ALU0466,EVT0018,,9/8/2024,5,Appreciate the university’s support.
+FB0072,ALU0854,EVT0028,,2/14/2025,4,Excellent experience!
+FB0073,ALU0383,,,1/31/2025,4,Excellent experience!
+FB0074,ALU0304,EVT0016,,8/6/2025,4,Good opportunity to connect.
+FB0075,ALU1979,EVT0034,MENT0174,7/19/2024,5,Excellent experience!
+FB0076,ALU0115,EVT0005,MENT0204,8/29/2025,3,Would love more frequent updates.
+FB0077,ALU0598,EVT0015,,6/11/2024,3,Would love more frequent updates.
+FB0078,ALU0700,,,8/5/2024,2,The event was well-planned.
+FB0079,ALU1119,,MENT0412,9/11/2024,2,Great networking opportunity!
+FB0080,ALU1430,EVT0033,,3/31/2025,3,Good opportunity to connect.
+FB0081,ALU0393,EVT0032,,7/9/2025,3,Would love more frequent updates.
+FB0082,ALU0796,EVT0033,,8/13/2024,2,Could improve organization.
+FB0083,ALU1560,EVT0022,MENT0741,5/6/2025,3,Good opportunity to connect.
+FB0084,ALU1692,EVT0015,,2/9/2024,3,Good opportunity to connect.
+FB0085,ALU1782,EVT0009,,10/2/2025,5,Very informative session.
+FB0086,ALU1519,,,4/6/2025,4,Good opportunity to connect.
+FB0087,ALU1334,,MENT0050,6/15/2025,5,Very informative session.
+FB0088,ALU0257,EVT0019,,12/4/2023,5,Great networking opportunity!
+FB0089,ALU0190,,MENT0265,6/14/2024,4,Enjoyed reconnecting with peers.
+FB0090,ALU1028,EVT0028,,2/14/2025,4,Would love more frequent updates.
+FB0091,ALU0948,EVT0015,,11/18/2024,1,Appreciate the university’s support.
+FB0092,ALU0432,EVT0007,,1/22/2025,1,Excellent experience!
+FB0093,ALU1403,,,7/2/2025,3,Good opportunity to connect.
+FB0094,ALU0927,,,12/2/2023,4,Enjoyed reconnecting with peers.
+FB0095,ALU1541,EVT0012,,10/20/2025,5,The event was well-planned.
+FB0096,ALU0372,,,8/15/2024,5,Helpful mentorship experience.
+FB0097,ALU1922,EVT0023,,7/31/2024,5,Great networking opportunity!
+FB0098,ALU0820,EVT0023,,12/9/2024,4,Great networking opportunity!
+FB0099,ALU1678,,,2/11/2025,4,Could improve organization.
+FB0100,ALU0010,EVT0027,,10/7/2025,1,Could improve organization.
+FB0101,ALU0970,EVT0014,,5/8/2024,4,Very informative session.
+FB0102,ALU1355,EVT0032,,7/21/2025,2,Good opportunity to connect.
+FB0103,ALU0782,,MENT0286,2/10/2025,2,Would love more frequent updates.
+FB0104,ALU1546,,,2/27/2025,2,Great networking opportunity!
+FB0105,ALU0944,,MENT0479,8/27/2025,1,Excellent experience!
+FB0106,ALU1930,EVT0027,MENT0482,1/20/2025,4,Helpful mentorship experience.
+FB0107,ALU0732,EVT0032,,8/2/2025,4,Would love more frequent updates.
+FB0108,ALU1969,EVT0015,MENT0643,3/11/2025,1,Could improve organization.
+FB0109,ALU1440,,,1/6/2024,2,Enjoyed reconnecting with peers.
+FB0110,ALU1622,,MENT0561,6/2/2025,2,Would love more frequent updates.
+FB0111,ALU0937,EVT0012,,10/26/2024,4,Could improve organization.
+FB0112,ALU0345,,,12/1/2023,3,Enjoyed reconnecting with peers.
+FB0113,ALU0695,EVT0003,,1/19/2024,5,Very informative session.
+FB0114,ALU0008,,,9/27/2025,3,Good opportunity to connect.
+FB0115,ALU0571,EVT0018,MENT0644,5/22/2025,5,Would love more frequent updates.
+FB0116,ALU1106,,,10/21/2024,3,Very informative session.
+FB0117,ALU0364,EVT0012,,4/5/2024,3,Could improve organization.
+FB0118,ALU1125,EVT0018,MENT0706,6/30/2024,4,Enjoyed reconnecting with peers.
+FB0119,ALU1778,,,8/12/2024,2,Excellent experience!
+FB0120,ALU1783,EVT0026,MENT0193,7/22/2024,4,Excellent experience!
+FB0121,ALU0769,EVT0001,,1/23/2024,1,Helpful mentorship experience.
+FB0122,ALU0455,,MENT0464,12/5/2024,3,Helpful mentorship experience.
+FB0123,ALU0269,EVT0034,,1/25/2024,5,Excellent experience!
+FB0124,ALU1736,EVT0021,,12/21/2023,5,Great networking opportunity!
+FB0125,ALU0597,EVT0002,,11/22/2023,5,Excellent experience!
+FB0126,ALU0741,EVT0012,,6/22/2024,4,The event was well-planned.
+FB0127,ALU1620,EVT0005,,7/16/2024,3,Great networking opportunity!
+FB0128,ALU0365,EVT0010,MENT0355,3/30/2024,3,Excellent experience!
+FB0129,ALU0240,EVT0026,,6/23/2025,5,Excellent experience!
+FB0130,ALU0374,EVT0033,MENT0098,1/9/2024,4,Enjoyed reconnecting with peers.
+FB0131,ALU0393,EVT0028,,2/12/2024,4,Could improve organization.
+FB0132,ALU0049,EVT0018,,4/28/2025,5,Would love more frequent updates.
+FB0133,ALU0913,EVT0011,MENT0494,7/24/2025,3,Great networking opportunity!
+FB0134,ALU0023,EVT0007,,6/2/2024,1,Enjoyed reconnecting with peers.
+FB0135,ALU0818,,MENT0409,2/25/2024,1,Very informative session.
+FB0136,ALU1882,EVT0023,,10/22/2024,4,Helpful mentorship experience.
+FB0137,ALU0446,,,3/2/2025,5,Good opportunity to connect.
+FB0138,ALU0432,,MENT0044,5/12/2025,2,Could improve organization.
+FB0139,ALU1859,EVT0004,,12/2/2024,3,Helpful mentorship experience.
+FB0140,ALU0672,,MENT0565,2/1/2024,1,Appreciate the university’s support.
+FB0141,ALU0172,,,12/30/2023,3,The event was well-planned.
+FB0142,ALU1528,EVT0027,,5/6/2025,1,Great networking opportunity!
+FB0143,ALU0766,EVT0003,,11/7/2023,3,Great networking opportunity!
+FB0144,ALU0840,EVT0024,MENT0334,10/25/2025,1,Helpful mentorship experience.
+FB0145,ALU1851,,,9/28/2024,2,Enjoyed reconnecting with peers.
+FB0146,ALU1972,EVT0011,,6/24/2025,4,Enjoyed reconnecting with peers.
+FB0147,ALU0451,EVT0004,,6/17/2025,3,Great networking opportunity!
+FB0148,ALU1449,EVT0006,,6/20/2024,3,Very informative session.
+FB0149,ALU0221,,,10/4/2025,5,Good opportunity to connect.
+FB0150,ALU1746,EVT0019,MENT0635,5/10/2024,1,Enjoyed reconnecting with peers.
+FB0151,ALU0493,EVT0032,MENT0432,11/10/2024,5,Would love more frequent updates.
+FB0152,ALU0889,EVT0027,MENT0800,7/5/2025,2,Could improve organization.
+FB0153,ALU0311,EVT0024,MENT0100,8/28/2025,3,Enjoyed reconnecting with peers.
+FB0154,ALU1550,EVT0035,,1/7/2024,2,Helpful mentorship experience.
+FB0155,ALU1927,EVT0028,,10/27/2025,4,Would love more frequent updates.
+FB0156,ALU0144,EVT0010,,10/19/2025,4,Could improve organization.
+FB0157,ALU0128,EVT0009,MENT0298,3/9/2025,1,Could improve organization.
+FB0158,ALU0777,,,5/19/2024,5,Appreciate the university’s support.
+FB0159,ALU1328,EVT0032,MENT0626,7/11/2024,2,Good opportunity to connect.
+FB0160,ALU1364,EVT0032,,4/2/2025,2,Could improve organization.
+FB0161,ALU0208,EVT0004,,12/29/2023,1,Excellent experience!
+FB0162,ALU1458,EVT0004,MENT0765,7/1/2024,5,Would love more frequent updates.
+FB0163,ALU1763,EVT0034,,2/28/2025,4,Appreciate the university’s support.
+FB0164,ALU0958,EVT0009,,6/19/2024,4,Excellent experience!
+FB0165,ALU1542,EVT0011,,6/26/2024,5,Enjoyed reconnecting with peers.
+FB0166,ALU1683,EVT0027,,3/29/2025,2,Enjoyed reconnecting with peers.
+FB0167,ALU0610,EVT0032,MENT0439,12/9/2023,2,Enjoyed reconnecting with peers.
+FB0168,ALU1693,,MENT0729,9/12/2025,4,Excellent experience!
+FB0169,ALU0935,EVT0029,,4/1/2025,4,Great networking opportunity!
+FB0170,ALU0630,,MENT0632,8/16/2025,3,Good opportunity to connect.
+FB0171,ALU0444,EVT0022,,6/6/2024,4,Helpful mentorship experience.
+FB0172,ALU0517,,,9/19/2025,5,Great networking opportunity!
+FB0173,ALU0375,,,6/3/2024,3,Helpful mentorship experience.
+FB0174,ALU1734,EVT0031,MENT0739,1/18/2024,2,Excellent experience!
+FB0175,ALU0648,EVT0016,,6/16/2024,2,Appreciate the university’s support.
+FB0176,ALU0601,,MENT0204,6/24/2024,4,Would love more frequent updates.
+FB0177,ALU0818,EVT0003,,5/2/2024,1,Helpful mentorship experience.
+FB0178,ALU1276,,MENT0718,4/3/2024,5,Appreciate the university’s support.
+FB0179,ALU1572,EVT0008,,12/30/2024,5,The event was well-planned.
+FB0180,ALU1591,EVT0031,,3/3/2024,4,Appreciate the university’s support.
+FB0181,ALU0304,,MENT0552,11/21/2023,1,Could improve organization.
+FB0182,ALU1240,EVT0017,,1/30/2024,4,Helpful mentorship experience.
+FB0183,ALU0520,EVT0012,,4/6/2025,4,Great networking opportunity!
+FB0184,ALU1248,,MENT0477,10/15/2024,1,Helpful mentorship experience.
+FB0185,ALU1284,,,10/8/2025,5,Enjoyed reconnecting with peers.
+FB0186,ALU1103,EVT0003,MENT0236,5/22/2024,2,Helpful mentorship experience.
+FB0187,ALU0117,EVT0034,,7/8/2025,4,Great networking opportunity!
+FB0188,ALU0459,EVT0020,,8/13/2025,4,Excellent experience!
+FB0189,ALU0823,EVT0012,,8/8/2024,2,Could improve organization.
+FB0190,ALU1838,EVT0023,MENT0060,10/7/2024,2,The event was well-planned.
+FB0191,ALU0844,EVT0022,,6/9/2025,3,Could improve organization.
+FB0192,ALU1342,,,10/7/2024,4,Would love more frequent updates.
+FB0193,ALU1582,EVT0006,MENT0444,9/13/2025,4,Enjoyed reconnecting with peers.
+FB0194,ALU1562,EVT0017,,4/6/2024,1,Good opportunity to connect.
+FB0195,ALU0045,EVT0021,MENT0216,8/6/2024,4,Enjoyed reconnecting with peers.
+FB0196,ALU0402,EVT0021,,5/6/2024,5,Great networking opportunity!
+FB0197,ALU1261,EVT0012,MENT0122,3/25/2025,5,Good opportunity to connect.
+FB0198,ALU1241,EVT0016,,7/10/2024,4,Enjoyed reconnecting with peers.
+FB0199,ALU1236,EVT0026,,8/11/2024,3,Enjoyed reconnecting with peers.
+FB0200,ALU1815,EVT0011,MENT0176,8/4/2024,2,The event was well-planned.
+FB0201,ALU0394,EVT0026,,10/11/2024,4,Could improve organization.
+FB0202,ALU0945,EVT0005,,10/9/2025,4,The event was well-planned.
+FB0203,ALU1448,EVT0034,,7/7/2024,4,Great networking opportunity!
+FB0204,ALU1427,EVT0028,,10/1/2025,2,Good opportunity to connect.
+FB0205,ALU0425,EVT0030,,4/11/2024,1,Appreciate the university’s support.
+FB0206,ALU1777,EVT0015,,9/27/2024,1,Would love more frequent updates.
+FB0207,ALU0440,EVT0018,,9/18/2024,1,The event was well-planned.
+FB0208,ALU1713,,MENT0303,10/23/2025,4,Would love more frequent updates.
+FB0209,ALU1577,EVT0026,,5/9/2024,5,Great networking opportunity!
+FB0210,ALU0594,,MENT0105,3/3/2025,4,Excellent experience!
+FB0211,ALU0751,,,7/16/2024,3,The event was well-planned.
+FB0212,ALU1034,EVT0025,,11/7/2023,4,Good opportunity to connect.
+FB0213,ALU0350,,MENT0586,4/7/2025,5,Good opportunity to connect.
+FB0214,ALU0770,EVT0010,,6/12/2025,2,Enjoyed reconnecting with peers.
+FB0215,ALU0761,,MENT0417,7/20/2025,5,Helpful mentorship experience.
+FB0216,ALU0527,,,10/13/2025,5,Enjoyed reconnecting with peers.
+FB0217,ALU0550,,,11/22/2023,3,Good opportunity to connect.
+FB0218,ALU0584,EVT0009,,1/26/2025,5,Enjoyed reconnecting with peers.
+FB0219,ALU1952,EVT0012,MENT0313,9/27/2025,5,Could improve organization.
+FB0220,ALU0268,EVT0008,,8/14/2024,3,Excellent experience!
+FB0221,ALU1505,EVT0019,,3/25/2024,3,Good opportunity to connect.
+FB0222,ALU1484,EVT0012,MENT0556,3/22/2025,4,Could improve organization.
+FB0223,ALU1099,,MENT0516,6/3/2025,3,Would love more frequent updates.
+FB0224,ALU1030,,,2/18/2025,3,Great networking opportunity!
+FB0225,ALU0080,,MENT0203,11/18/2023,3,Great networking opportunity!
+FB0226,ALU0251,EVT0006,,2/5/2024,3,Very informative session.
+FB0227,ALU0679,EVT0017,,7/7/2024,5,Excellent experience!
+FB0228,ALU0339,,,5/6/2025,3,Good opportunity to connect.
+FB0229,ALU0532,EVT0013,MENT0114,5/10/2025,5,The event was well-planned.
+FB0230,ALU1370,,,6/18/2024,3,Appreciate the university’s support.
+FB0231,ALU1124,,,2/2/2025,5,The event was well-planned.
+FB0232,ALU0085,EVT0034,,7/20/2025,2,Excellent experience!
+FB0233,ALU0386,EVT0021,,12/27/2023,4,Enjoyed reconnecting with peers.
+FB0234,ALU1889,,MENT0035,8/13/2025,4,The event was well-planned.
+FB0235,ALU1056,,,3/21/2024,1,Enjoyed reconnecting with peers.
+FB0236,ALU0463,EVT0035,MENT0773,12/23/2024,5,Great networking opportunity!
+FB0237,ALU0792,EVT0006,,10/7/2025,3,Enjoyed reconnecting with peers.
+FB0238,ALU0400,,,8/31/2024,2,Could improve organization.
+FB0239,ALU1564,EVT0034,MENT0781,1/28/2024,2,Great networking opportunity!
+FB0240,ALU1595,EVT0006,MENT0727,5/31/2024,1,Could improve organization.
+FB0241,ALU0489,EVT0031,,5/16/2025,4,Excellent experience!
+FB0242,ALU0536,EVT0012,,3/9/2025,4,Great networking opportunity!
+FB0243,ALU0766,EVT0022,,7/22/2025,3,Very informative session.
+FB0244,ALU0922,EVT0021,,7/29/2024,5,The event was well-planned.
+FB0245,ALU1493,,,12/23/2024,4,Very informative session.
+FB0246,ALU0895,EVT0023,MENT0667,8/1/2025,2,Good opportunity to connect.
+FB0247,ALU1592,,,1/15/2024,1,The event was well-planned.
+FB0248,ALU0074,EVT0015,MENT0042,11/13/2024,5,Would love more frequent updates.
+FB0249,ALU0087,EVT0033,,1/4/2025,1,Could improve organization.
+FB0250,ALU1247,EVT0025,MENT0634,6/13/2025,5,Could improve organization.
+FB0251,ALU1162,EVT0016,MENT0173,4/4/2024,5,Very informative session.
+FB0252,ALU1566,EVT0019,,9/8/2024,2,Appreciate the university’s support.
+FB0253,ALU1823,EVT0030,,9/14/2024,5,Great networking opportunity!
+FB0254,ALU0431,EVT0001,,1/31/2025,4,Good opportunity to connect.
+FB0255,ALU0097,EVT0003,MENT0225,1/15/2024,5,Helpful mentorship experience.
+FB0256,ALU0738,EVT0007,,6/16/2024,1,Could improve organization.
+FB0257,ALU1549,EVT0031,MENT0304,10/6/2025,4,Good opportunity to connect.
+FB0258,ALU1625,EVT0005,MENT0228,12/5/2024,1,Would love more frequent updates.
+FB0259,ALU1635,EVT0012,,9/6/2024,5,Very informative session.
+FB0260,ALU0014,EVT0012,,8/8/2024,5,Helpful mentorship experience.
+FB0261,ALU0591,EVT0014,MENT0660,3/20/2024,5,Great networking opportunity!
+FB0262,ALU0186,,,4/14/2024,1,Could improve organization.
+FB0263,ALU1531,EVT0008,MENT0573,8/7/2025,5,Great networking opportunity!
+FB0264,ALU0646,EVT0001,,6/9/2025,1,Could improve organization.
+FB0265,ALU1990,,,5/2/2025,1,Enjoyed reconnecting with peers.
+FB0266,ALU0536,,,3/21/2024,5,Would love more frequent updates.
+FB0267,ALU0795,EVT0007,,2/13/2025,5,Very informative session.
+FB0268,ALU0166,EVT0017,,3/14/2024,4,Helpful mentorship experience.
+FB0269,ALU1407,,,10/15/2024,4,The event was well-planned.
+FB0270,ALU1617,EVT0027,MENT0242,2/10/2025,3,Could improve organization.
+FB0271,ALU0269,EVT0028,,3/17/2024,2,Good opportunity to connect.
+FB0272,ALU0468,EVT0018,,3/29/2024,1,Very informative session.
+FB0273,ALU1277,EVT0005,,4/9/2025,3,Could improve organization.
+FB0274,ALU1905,EVT0034,,9/30/2024,3,Helpful mentorship experience.
+FB0275,ALU1307,,MENT0442,8/10/2025,1,Would love more frequent updates.
+FB0276,ALU0207,EVT0009,,4/7/2024,1,Helpful mentorship experience.
+FB0277,ALU1328,EVT0001,,3/16/2025,5,Excellent experience!
+FB0278,ALU0252,EVT0032,MENT0738,7/7/2025,1,Helpful mentorship experience.
+FB0279,ALU1735,EVT0002,,5/29/2024,5,Helpful mentorship experience.
+FB0280,ALU1642,EVT0034,MENT0653,6/22/2025,5,Appreciate the university’s support.
+FB0281,ALU1289,EVT0023,MENT0725,7/30/2024,4,Would love more frequent updates.
+FB0282,ALU0343,,,11/25/2023,4,Very informative session.
+FB0283,ALU0278,,MENT0471,6/23/2024,2,Would love more frequent updates.
+FB0284,ALU1572,EVT0033,,10/7/2025,3,Appreciate the university’s support.
+FB0285,ALU0608,EVT0014,MENT0237,8/8/2025,3,Enjoyed reconnecting with peers.
+FB0286,ALU0694,EVT0018,,3/31/2025,2,Enjoyed reconnecting with peers.
+FB0287,ALU1099,EVT0033,MENT0309,10/25/2024,4,Good opportunity to connect.
+FB0288,ALU0917,EVT0015,,7/23/2025,1,Would love more frequent updates.
+FB0289,ALU1133,,,11/5/2024,4,Good opportunity to connect.
+FB0290,ALU0502,EVT0009,MENT0768,11/19/2024,1,Excellent experience!
+FB0291,ALU1424,EVT0011,,11/30/2023,5,Could improve organization.
+FB0292,ALU1446,,,11/27/2023,4,Would love more frequent updates.
+FB0293,ALU0360,EVT0028,,8/18/2024,1,Appreciate the university’s support.
+FB0294,ALU1749,EVT0032,MENT0605,2/1/2024,5,Excellent experience!
+FB0295,ALU0591,,MENT0392,4/7/2024,3,Good opportunity to connect.
+FB0296,ALU0763,EVT0016,,7/18/2025,4,Could improve organization.
+FB0297,ALU0758,EVT0005,MENT0536,7/12/2025,5,Could improve organization.
+FB0298,ALU0813,,,4/15/2025,4,Helpful mentorship experience.
+FB0299,ALU0912,EVT0015,,9/26/2025,3,Would love more frequent updates.
+FB0300,ALU0557,EVT0033,,11/9/2024,1,Very informative session.
+FB0301,ALU0279,EVT0029,,11/28/2023,4,The event was well-planned.
+FB0302,ALU0258,EVT0030,,7/24/2024,3,Appreciate the university’s support.
+FB0303,ALU1478,EVT0013,,6/28/2025,4,Could improve organization.
+FB0304,ALU0604,EVT0035,MENT0515,10/12/2024,5,Great networking opportunity!
+FB0305,ALU0132,,,2/12/2025,3,Excellent experience!
+FB0306,ALU1885,EVT0016,MENT0011,3/1/2024,1,Very informative session.
+FB0307,ALU1954,EVT0023,,12/17/2023,1,Excellent experience!
+FB0308,ALU1310,EVT0029,,3/6/2024,1,Would love more frequent updates.
+FB0309,ALU0805,EVT0017,,12/24/2024,5,Good opportunity to connect.
+FB0310,ALU1367,,,1/30/2024,1,The event was well-planned.
+FB0311,ALU0625,,MENT0692,7/14/2025,4,Very informative session.
+FB0312,ALU0410,,,10/15/2024,2,Could improve organization.
+FB0313,ALU0166,EVT0017,,7/6/2024,1,The event was well-planned.
+FB0314,ALU0624,EVT0035,,7/29/2024,1,Great networking opportunity!
+FB0315,ALU1567,EVT0027,,8/1/2024,1,Excellent experience!
+FB0316,ALU0646,,,7/3/2025,5,Excellent experience!
+FB0317,ALU0341,EVT0026,MENT0026,11/21/2023,2,Good opportunity to connect.
+FB0318,ALU1928,EVT0004,,2/18/2025,2,Good opportunity to connect.
+FB0319,ALU0276,,MENT0017,9/14/2025,3,Good opportunity to connect.
+FB0320,ALU1268,,,3/8/2024,2,The event was well-planned.
+FB0321,ALU0755,EVT0023,MENT0226,9/20/2024,3,Very informative session.
+FB0322,ALU0816,EVT0034,,4/13/2025,1,Very informative session.
+FB0323,ALU1493,EVT0019,,10/6/2025,2,Enjoyed reconnecting with peers.
+FB0324,ALU1542,,MENT0503,3/18/2024,3,Excellent experience!
+FB0325,ALU1520,EVT0002,,8/16/2025,3,Very informative session.
+FB0326,ALU0244,EVT0027,,1/3/2025,3,Very informative session.
+FB0327,ALU0309,,MENT0096,7/12/2025,3,Good opportunity to connect.
+FB0328,ALU1656,,,12/4/2024,4,The event was well-planned.
+FB0329,ALU0126,,,1/25/2025,2,Great networking opportunity!
+FB0330,ALU0935,,MENT0017,9/15/2024,5,Could improve organization.
+FB0331,ALU1395,EVT0034,MENT0607,6/14/2024,2,Enjoyed reconnecting with peers.
+FB0332,ALU1275,EVT0005,,3/24/2024,4,Helpful mentorship experience.
+FB0333,ALU0507,,,3/26/2025,2,Helpful mentorship experience.
+FB0334,ALU0805,EVT0031,,1/29/2025,1,Excellent experience!
+FB0335,ALU1453,EVT0031,MENT0407,1/15/2024,4,Helpful mentorship experience.
+FB0336,ALU0640,,,10/26/2024,5,The event was well-planned.
+FB0337,ALU0613,EVT0027,,11/18/2023,4,Very informative session.
+FB0338,ALU0796,EVT0003,MENT0064,12/12/2024,4,The event was well-planned.
+FB0339,ALU1760,EVT0019,,9/11/2025,4,Could improve organization.
+FB0340,ALU0131,EVT0021,,6/9/2025,3,Would love more frequent updates.
+FB0341,ALU1881,EVT0025,,7/1/2024,1,Enjoyed reconnecting with peers.
+FB0342,ALU1898,EVT0026,,7/7/2024,3,Could improve organization.
+FB0343,ALU0149,EVT0026,,5/27/2024,4,Would love more frequent updates.
+FB0344,ALU0912,,MENT0449,4/30/2024,1,Good opportunity to connect.
+FB0345,ALU0964,EVT0009,,9/8/2024,2,Excellent experience!
+FB0346,ALU0936,EVT0010,,4/21/2024,4,Great networking opportunity!
+FB0347,ALU0450,,,7/13/2024,2,Helpful mentorship experience.
+FB0348,ALU0959,EVT0019,,8/3/2025,2,Good opportunity to connect.
+FB0349,ALU0329,EVT0018,MENT0509,10/25/2024,2,Great networking opportunity!
+FB0350,ALU1281,EVT0035,MENT0598,8/29/2024,4,Appreciate the university’s support.
+FB0351,ALU1464,EVT0018,MENT0331,7/1/2025,1,Appreciate the university’s support.
+FB0352,ALU0864,,,8/31/2025,3,Good opportunity to connect.
+FB0353,ALU0844,EVT0032,,3/17/2024,4,Good opportunity to connect.
+FB0354,ALU1064,EVT0019,MENT0710,9/8/2025,2,Appreciate the university’s support.
+FB0355,ALU0472,EVT0029,,8/23/2025,2,Would love more frequent updates.
+FB0356,ALU1277,EVT0009,,8/15/2025,1,The event was well-planned.
+FB0357,ALU0865,EVT0033,MENT0080,5/10/2025,1,Helpful mentorship experience.
+FB0358,ALU0965,,MENT0429,11/12/2023,5,The event was well-planned.
+FB0359,ALU0063,EVT0027,,6/14/2024,3,Good opportunity to connect.
+FB0360,ALU0715,EVT0015,MENT0662,3/22/2024,5,Great networking opportunity!
+FB0361,ALU0168,EVT0027,,10/12/2024,4,Excellent experience!
+FB0362,ALU1276,EVT0009,,6/19/2024,4,Would love more frequent updates.
+FB0363,ALU1817,,MENT0580,11/14/2023,5,Very informative session.
+FB0364,ALU0119,EVT0010,,5/15/2024,1,Appreciate the university’s support.
+FB0365,ALU0067,,,6/21/2024,3,Would love more frequent updates.
+FB0366,ALU0954,,,4/2/2024,2,Good opportunity to connect.
+FB0367,ALU1470,,,12/10/2024,5,Could improve organization.
+FB0368,ALU1282,EVT0022,,2/15/2024,1,Could improve organization.
+FB0369,ALU1050,EVT0007,,4/20/2025,1,Great networking opportunity!
+FB0370,ALU0909,,,11/3/2024,5,Enjoyed reconnecting with peers.
+FB0371,ALU1101,,,9/23/2024,1,The event was well-planned.
+FB0372,ALU0981,EVT0015,,8/18/2025,4,Could improve organization.
+FB0373,ALU1051,EVT0015,MENT0628,12/22/2023,4,Enjoyed reconnecting with peers.
+FB0374,ALU1087,EVT0019,,6/28/2024,3,Very informative session.
+FB0375,ALU0962,EVT0026,,6/22/2024,2,Appreciate the university’s support.
+FB0376,ALU0730,,,4/12/2025,1,Good opportunity to connect.
+FB0377,ALU0803,EVT0011,,3/11/2024,2,Excellent experience!
+FB0378,ALU0627,EVT0021,,5/16/2024,4,The event was well-planned.
+FB0379,ALU0236,EVT0030,,6/3/2024,2,Very informative session.
+FB0380,ALU0957,EVT0019,,3/7/2025,4,Helpful mentorship experience.
+FB0381,ALU0005,EVT0025,,4/9/2024,5,Enjoyed reconnecting with peers.
+FB0382,ALU0079,EVT0005,,4/3/2025,2,Great networking opportunity!
+FB0383,ALU0350,,,9/21/2025,5,Very informative session.
+FB0384,ALU1517,EVT0018,MENT0020,11/18/2023,1,Excellent experience!
+FB0385,ALU0146,EVT0005,,9/30/2024,3,Excellent experience!
+FB0386,ALU0716,EVT0024,,8/4/2025,2,Would love more frequent updates.
+FB0387,ALU0707,EVT0029,,6/20/2025,3,Excellent experience!
+FB0388,ALU1433,EVT0002,,6/17/2025,4,Great networking opportunity!
+FB0389,ALU1580,,,6/24/2025,4,The event was well-planned.
+FB0390,ALU1070,,,2/26/2025,3,Very informative session.
+FB0391,ALU0176,,,7/12/2025,3,Helpful mentorship experience.
+FB0392,ALU0108,,,11/19/2024,3,Good opportunity to connect.
+FB0393,ALU0781,EVT0020,,4/25/2025,4,Appreciate the university’s support.
+FB0394,ALU1829,EVT0027,,10/4/2025,4,Would love more frequent updates.
+FB0395,ALU0872,EVT0016,,1/14/2025,1,Great networking opportunity!
+FB0396,ALU1302,,,12/29/2024,1,Great networking opportunity!
+FB0397,ALU1772,EVT0004,,4/24/2024,2,Appreciate the university’s support.
+FB0398,ALU0783,EVT0027,MENT0234,7/25/2025,3,Very informative session.
+FB0399,ALU1034,EVT0007,MENT0595,5/14/2024,2,Very informative session.
+FB0400,ALU1521,,,6/5/2024,3,Enjoyed reconnecting with peers.
+FB0401,ALU0238,EVT0015,,5/27/2025,3,Good opportunity to connect.
+FB0402,ALU0607,,,4/15/2025,1,Would love more frequent updates.
+FB0403,ALU0727,,,8/24/2024,5,Very informative session.
+FB0404,ALU1766,EVT0029,,12/8/2023,5,The event was well-planned.
+FB0405,ALU1013,,,4/16/2024,3,The event was well-planned.
+FB0406,ALU0783,EVT0026,MENT0366,8/5/2025,4,Good opportunity to connect.
+FB0407,ALU0017,,MENT0611,5/3/2024,5,Helpful mentorship experience.
+FB0408,ALU1838,,,5/6/2024,5,Helpful mentorship experience.
+FB0409,ALU1204,EVT0034,,3/1/2025,2,Could improve organization.
+FB0410,ALU0674,,,8/5/2025,3,Appreciate the university’s support.
+FB0411,ALU0253,EVT0003,,2/27/2024,2,Would love more frequent updates.
+FB0412,ALU1181,,MENT0432,12/30/2024,5,Enjoyed reconnecting with peers.
+FB0413,ALU1671,EVT0013,MENT0577,11/16/2024,2,The event was well-planned.
+FB0414,ALU0092,EVT0024,,3/17/2024,3,Excellent experience!
+FB0415,ALU1015,EVT0017,,1/22/2025,2,Appreciate the university’s support.
+FB0416,ALU0775,EVT0028,,3/10/2024,1,Appreciate the university’s support.
+FB0417,ALU0727,EVT0007,,2/19/2025,1,Appreciate the university’s support.
+FB0418,ALU0608,EVT0025,MENT0731,11/23/2023,1,Excellent experience!
+FB0419,ALU1270,EVT0028,,9/24/2024,4,Good opportunity to connect.
+FB0420,ALU0783,EVT0008,,2/3/2024,1,Helpful mentorship experience.
+FB0421,ALU1878,,,5/22/2025,4,Enjoyed reconnecting with peers.
+FB0422,ALU0373,EVT0012,,4/5/2025,1,Great networking opportunity!
+FB0423,ALU0156,,MENT0222,3/1/2024,4,Good opportunity to connect.
+FB0424,ALU0675,EVT0011,,10/7/2024,1,Enjoyed reconnecting with peers.
+FB0425,ALU1930,EVT0018,,5/31/2024,3,Appreciate the university’s support.
+FB0426,ALU0632,EVT0022,,1/13/2024,3,Would love more frequent updates.
+FB0427,ALU1170,EVT0022,,3/27/2025,1,Could improve organization.
+FB0428,ALU0528,,MENT0202,11/12/2023,5,Appreciate the university’s support.
+FB0429,ALU0116,,,6/14/2024,3,Appreciate the university’s support.
+FB0430,ALU0658,,,8/15/2025,5,Could improve organization.
+FB0431,ALU1134,,,6/22/2025,1,Appreciate the university’s support.
+FB0432,ALU1904,EVT0019,,5/30/2024,5,Excellent experience!
+FB0433,ALU1513,EVT0034,,6/14/2025,1,Helpful mentorship experience.
+FB0434,ALU1689,EVT0034,,2/14/2024,4,The event was well-planned.
+FB0435,ALU0935,EVT0012,,3/14/2025,2,Very informative session.
+FB0436,ALU0101,,,4/23/2024,5,The event was well-planned.
+FB0437,ALU1872,EVT0035,,11/13/2024,2,The event was well-planned.
+FB0438,ALU0938,,,3/19/2025,4,Excellent experience!
+FB0439,ALU0087,,MENT0679,4/3/2025,3,Enjoyed reconnecting with peers.
+FB0440,ALU0070,EVT0005,MENT0578,3/8/2024,4,Appreciate the university’s support.
+FB0441,ALU0841,,,7/18/2024,5,Would love more frequent updates.
+FB0442,ALU1978,EVT0008,,9/30/2025,3,Great networking opportunity!
+FB0443,ALU0010,EVT0031,MENT0316,9/30/2025,2,Excellent experience!
+FB0444,ALU1724,EVT0022,,8/10/2025,4,Could improve organization.
+FB0445,ALU1990,EVT0031,,4/18/2024,1,Could improve organization.
+FB0446,ALU0370,EVT0001,,5/30/2024,1,Good opportunity to connect.
+FB0447,ALU1493,EVT0025,,3/1/2024,3,Very informative session.
+FB0448,ALU0388,EVT0005,,4/9/2024,5,Enjoyed reconnecting with peers.
+FB0449,ALU0081,EVT0016,,5/3/2024,5,Good opportunity to connect.
+FB0450,ALU1324,EVT0009,,7/12/2025,3,Could improve organization.
+FB0451,ALU0665,EVT0011,MENT0589,6/30/2024,4,Could improve organization.
+FB0452,ALU1962,EVT0029,,3/18/2025,2,Could improve organization.
+FB0453,ALU0410,,MENT0560,11/27/2023,3,Great networking opportunity!
+FB0454,ALU1657,EVT0025,,7/1/2025,4,Great networking opportunity!
+FB0455,ALU1608,,,5/11/2024,4,Would love more frequent updates.
+FB0456,ALU1400,EVT0019,MENT0047,4/6/2024,1,Appreciate the university’s support.
+FB0457,ALU1023,EVT0008,MENT0423,1/1/2024,4,Would love more frequent updates.
+FB0458,ALU0468,EVT0024,,6/23/2025,2,Could improve organization.
+FB0459,ALU1289,,,12/25/2024,5,Could improve organization.
+FB0460,ALU1855,,,7/27/2024,1,Very informative session.
+FB0461,ALU1380,EVT0021,,11/2/2023,2,Great networking opportunity!
+FB0462,ALU1913,EVT0031,MENT0403,3/12/2024,2,Would love more frequent updates.
+FB0463,ALU1115,,,7/2/2024,4,Helpful mentorship experience.
+FB0464,ALU1469,EVT0006,MENT0781,10/6/2025,4,Helpful mentorship experience.
+FB0465,ALU0261,EVT0029,,10/16/2024,1,The event was well-planned.
+FB0466,ALU1874,EVT0017,,10/31/2023,1,Appreciate the university’s support.
+FB0467,ALU0351,EVT0017,,4/20/2024,1,Could improve organization.
+FB0468,ALU1377,EVT0027,MENT0591,6/28/2024,2,Good opportunity to connect.
+FB0469,ALU0583,,,3/5/2025,2,Appreciate the university’s support.
+FB0470,ALU0306,,,7/14/2025,2,Very informative session.
+FB0471,ALU1902,EVT0011,MENT0590,1/8/2024,5,Appreciate the university’s support.
+FB0472,ALU1647,EVT0026,,1/4/2025,2,Would love more frequent updates.
+FB0473,ALU0167,EVT0003,,10/22/2024,4,The event was well-planned.
+FB0474,ALU1593,EVT0008,,11/2/2023,2,Appreciate the university’s support.
+FB0475,ALU0008,EVT0031,,12/15/2024,1,Very informative session.
+FB0476,ALU0473,EVT0016,,3/28/2025,4,The event was well-planned.
+FB0477,ALU0998,,MENT0795,9/22/2025,3,Appreciate the university’s support.
+FB0478,ALU0776,EVT0020,MENT0701,6/4/2025,5,Could improve organization.
+FB0479,ALU1136,EVT0031,MENT0398,12/26/2023,1,Appreciate the university’s support.
+FB0480,ALU0239,,,3/8/2024,4,Enjoyed reconnecting with peers.
+FB0481,ALU0340,,,4/7/2024,3,Excellent experience!
+FB0482,ALU1014,EVT0001,MENT0627,2/14/2024,4,Enjoyed reconnecting with peers.
+FB0483,ALU0903,EVT0030,,5/1/2024,4,Enjoyed reconnecting with peers.
+FB0484,ALU0178,EVT0026,,6/26/2025,5,Appreciate the university’s support.
+FB0485,ALU1666,EVT0024,,1/4/2025,5,Good opportunity to connect.
+FB0486,ALU1934,,,10/20/2025,3,Could improve organization.
+FB0487,ALU1208,,,4/20/2025,2,Would love more frequent updates.
+FB0488,ALU1611,,MENT0451,2/20/2025,2,Would love more frequent updates.
+FB0489,ALU0166,,MENT0119,8/17/2024,1,Great networking opportunity!
+FB0490,ALU1699,EVT0012,,4/21/2024,5,Appreciate the university’s support.
+FB0491,ALU0860,EVT0006,,9/14/2025,3,Could improve organization.
+FB0492,ALU0605,EVT0008,,4/17/2024,3,Enjoyed reconnecting with peers.
+FB0493,ALU1927,EVT0004,,8/28/2024,1,Excellent experience!
+FB0494,ALU1712,EVT0009,,11/26/2024,5,Could improve organization.
+FB0495,ALU0771,EVT0014,,11/27/2023,2,Appreciate the university’s support.
+FB0496,ALU0362,EVT0018,,10/31/2023,2,Good opportunity to connect.
+FB0497,ALU0588,EVT0025,,1/25/2025,4,Appreciate the university’s support.
+FB0498,ALU0405,EVT0011,,10/3/2024,2,Helpful mentorship experience.
+FB0499,ALU0983,EVT0029,MENT0133,10/6/2024,1,Could improve organization.
+FB0500,ALU1210,EVT0004,,3/3/2024,5,Excellent experience!
+FB0501,ALU1960,EVT0004,MENT0088,12/20/2024,2,Excellent experience!
+FB0502,ALU1416,EVT0030,,10/14/2025,5,Very informative session.
+FB0503,ALU1189,EVT0015,MENT0596,1/23/2025,5,Very informative session.
+FB0504,ALU0257,EVT0012,,6/3/2024,5,Helpful mentorship experience.
+FB0505,ALU0387,EVT0032,,6/12/2024,4,Excellent experience!
+FB0506,ALU0454,,,11/3/2023,4,The event was well-planned.
+FB0507,ALU1761,EVT0004,MENT0019,11/27/2024,2,Very informative session.
+FB0508,ALU0978,EVT0008,MENT0296,10/16/2025,3,Helpful mentorship experience.
+FB0509,ALU1438,EVT0029,,6/29/2024,1,Helpful mentorship experience.
+FB0510,ALU0450,,,8/31/2025,4,Would love more frequent updates.
+FB0511,ALU1121,EVT0033,,8/6/2024,2,Would love more frequent updates.
+FB0512,ALU0981,,,11/28/2024,1,Good opportunity to connect.
+FB0513,ALU0736,,,7/1/2024,1,The event was well-planned.
+FB0514,ALU0433,,,8/21/2024,1,Enjoyed reconnecting with peers.
+FB0515,ALU0545,,,10/23/2024,2,Very informative session.
+FB0516,ALU0418,,MENT0384,9/13/2024,1,Excellent experience!
+FB0517,ALU0608,EVT0007,,5/19/2024,2,Great networking opportunity!
+FB0518,ALU0004,EVT0024,,10/27/2024,2,Would love more frequent updates.
+FB0519,ALU0011,EVT0011,,11/12/2024,1,Appreciate the university’s support.
+FB0520,ALU1175,,,12/20/2023,1,Good opportunity to connect.
+FB0521,ALU1705,EVT0015,,4/14/2024,1,Excellent experience!
+FB0522,ALU0465,EVT0003,,12/23/2023,1,Appreciate the university’s support.
+FB0523,ALU1867,EVT0035,,7/6/2024,4,Could improve organization.
+FB0524,ALU0602,,MENT0171,5/12/2025,2,Appreciate the university’s support.
+FB0525,ALU1613,EVT0001,MENT0562,7/17/2025,4,Excellent experience!
+FB0526,ALU1134,EVT0022,,5/28/2024,4,Enjoyed reconnecting with peers.
+FB0527,ALU0882,EVT0029,,2/15/2024,2,Would love more frequent updates.
+FB0528,ALU1629,EVT0008,,6/30/2025,1,Would love more frequent updates.
+FB0529,ALU1557,,,5/15/2024,1,Very informative session.
+FB0530,ALU1168,EVT0015,,11/16/2024,1,Appreciate the university’s support.
+FB0531,ALU0946,EVT0028,,5/10/2024,2,The event was well-planned.
+FB0532,ALU0048,EVT0032,,6/12/2025,5,Good opportunity to connect.
+FB0533,ALU1779,EVT0026,,5/11/2024,4,Very informative session.
+FB0534,ALU0577,EVT0029,MENT0415,8/20/2025,4,Enjoyed reconnecting with peers.
+FB0535,ALU0459,EVT0013,,11/5/2024,2,Great networking opportunity!
+FB0536,ALU1229,EVT0008,,3/15/2024,3,Helpful mentorship experience.
+FB0537,ALU1484,,,9/22/2024,5,Very informative session.
+FB0538,ALU1883,EVT0025,,10/13/2025,3,Very informative session.
+FB0539,ALU1403,EVT0020,,6/20/2024,4,Helpful mentorship experience.
+FB0540,ALU1574,,MENT0436,3/23/2025,1,Appreciate the university’s support.
+FB0541,ALU1098,,,7/10/2024,2,Great networking opportunity!
+FB0542,ALU1816,,,3/22/2024,5,Would love more frequent updates.
+FB0543,ALU1413,EVT0013,,6/9/2025,2,Great networking opportunity!
+FB0544,ALU1141,EVT0013,,7/8/2025,1,Helpful mentorship experience.
+FB0545,ALU0281,EVT0003,MENT0100,3/1/2024,2,Appreciate the university’s support.
+FB0546,ALU1224,EVT0010,,3/18/2025,4,Great networking opportunity!
+FB0547,ALU1232,EVT0026,MENT0332,2/29/2024,3,Could improve organization.
+FB0548,ALU1879,EVT0033,,9/23/2025,4,Very informative session.
+FB0549,ALU0859,EVT0022,,3/18/2024,2,Enjoyed reconnecting with peers.
+FB0550,ALU1073,EVT0009,,2/9/2024,3,Helpful mentorship experience.
+FB0551,ALU1943,EVT0025,,7/21/2024,3,The event was well-planned.
+FB0552,ALU0243,EVT0028,,9/6/2025,2,Very informative session.
+FB0553,ALU1405,EVT0015,,7/22/2024,1,Helpful mentorship experience.
+FB0554,ALU1530,EVT0019,,4/17/2025,1,Very informative session.
+FB0555,ALU1390,,MENT0624,4/26/2025,4,Very informative session.
+FB0556,ALU1481,,,11/26/2023,2,Good opportunity to connect.
+FB0557,ALU0369,EVT0012,,11/7/2024,2,Very informative session.
+FB0558,ALU1816,EVT0026,,5/8/2024,4,Would love more frequent updates.
+FB0559,ALU0200,,,7/15/2025,5,Would love more frequent updates.
+FB0560,ALU0696,EVT0032,,5/19/2024,3,Excellent experience!
+FB0561,ALU1293,,MENT0098,3/7/2024,5,Appreciate the university’s support.
+FB0562,ALU0759,EVT0026,,12/5/2024,5,Would love more frequent updates.
+FB0563,ALU2000,EVT0025,,8/14/2025,1,Enjoyed reconnecting with peers.
+FB0564,ALU0701,EVT0016,,2/25/2025,3,Very informative session.
+FB0565,ALU0482,EVT0032,,5/2/2024,1,Excellent experience!
+FB0566,ALU1869,EVT0020,,6/28/2024,3,Very informative session.
+FB0567,ALU0136,,,9/15/2024,2,Helpful mentorship experience.
+FB0568,ALU1489,EVT0009,MENT0171,9/22/2025,4,Helpful mentorship experience.
+FB0569,ALU0333,EVT0009,,12/17/2023,5,Enjoyed reconnecting with peers.
+FB0570,ALU0028,EVT0019,,3/9/2024,1,Great networking opportunity!
+FB0571,ALU0374,EVT0027,,2/18/2024,5,Appreciate the university’s support.
+FB0572,ALU0607,EVT0026,,8/4/2025,4,Helpful mentorship experience.
+FB0573,ALU0487,,,12/12/2023,4,Appreciate the university’s support.
+FB0574,ALU0434,EVT0015,,11/24/2023,2,Appreciate the university’s support.
+FB0575,ALU0380,,,4/12/2025,5,Good opportunity to connect.
+FB0576,ALU1161,EVT0004,MENT0013,3/27/2025,2,The event was well-planned.
+FB0577,ALU0115,EVT0018,,6/12/2024,4,Appreciate the university’s support.
+FB0578,ALU1711,EVT0010,MENT0151,6/15/2024,4,Great networking opportunity!
+FB0579,ALU1806,EVT0030,,8/6/2024,1,Great networking opportunity!
+FB0580,ALU1357,EVT0034,,5/22/2025,3,Great networking opportunity!
+FB0581,ALU0467,,,9/25/2024,2,Helpful mentorship experience.
+FB0582,ALU0976,EVT0024,MENT0279,10/19/2025,2,Great networking opportunity!
+FB0583,ALU0229,EVT0030,,10/29/2024,5,Very informative session.
+FB0584,ALU1612,,,5/10/2025,4,Excellent experience!
+FB0585,ALU1009,,,5/15/2025,5,Very informative session.
+FB0586,ALU1213,EVT0017,,1/19/2025,5,Would love more frequent updates.
+FB0587,ALU1124,EVT0028,,7/7/2025,4,Appreciate the university’s support.
+FB0588,ALU1247,EVT0008,,4/16/2025,1,Could improve organization.
+FB0589,ALU1233,,,9/28/2025,4,Very informative session.
+FB0590,ALU1165,,,1/1/2024,5,Helpful mentorship experience.
+FB0591,ALU1509,EVT0006,,9/29/2024,2,Excellent experience!
+FB0592,ALU1757,EVT0033,,2/18/2025,5,Would love more frequent updates.
+FB0593,ALU0339,,,11/17/2023,2,Great networking opportunity!
+FB0594,ALU0093,EVT0004,MENT0355,12/19/2023,3,Very informative session.
+FB0595,ALU1239,EVT0031,MENT0162,1/27/2024,2,Very informative session.
+FB0596,ALU1036,EVT0005,,10/11/2024,2,The event was well-planned.
+FB0597,ALU0536,,MENT0010,12/21/2023,1,Very informative session.
+FB0598,ALU1890,EVT0006,,10/30/2024,4,Helpful mentorship experience.
+FB0599,ALU0004,EVT0001,MENT0506,12/26/2024,1,Appreciate the university’s support.
+FB0600,ALU0948,EVT0020,,7/12/2025,4,Enjoyed reconnecting with peers.
+FB0601,ALU0015,EVT0024,,5/3/2024,5,Very informative session.
+FB0602,ALU1360,,MENT0738,11/4/2023,3,Great networking opportunity!
+FB0603,ALU0989,,,8/14/2025,5,Excellent experience!
+FB0604,ALU1871,,,11/18/2024,2,The event was well-planned.
+FB0605,ALU0752,EVT0005,MENT0601,4/12/2024,5,Good opportunity to connect.
+FB0606,ALU1090,EVT0019,,8/22/2024,2,Would love more frequent updates.
+FB0607,ALU1486,,,9/16/2025,5,Very informative session.
+FB0608,ALU1366,EVT0027,MENT0597,8/18/2024,4,Could improve organization.
+FB0609,ALU0070,EVT0013,,7/5/2025,3,Enjoyed reconnecting with peers.
+FB0610,ALU1580,EVT0009,,5/3/2024,2,Good opportunity to connect.
+FB0611,ALU0955,EVT0012,,6/21/2025,1,Good opportunity to connect.
+FB0612,ALU1147,EVT0004,,12/25/2024,3,Appreciate the university’s support.
+FB0613,ALU1014,EVT0027,MENT0571,10/29/2023,4,Excellent experience!
+FB0614,ALU1768,EVT0016,,8/15/2024,4,Could improve organization.
+FB0615,ALU0963,EVT0023,MENT0385,1/10/2024,3,Appreciate the university’s support.
+FB0616,ALU0962,EVT0031,MENT0669,2/16/2025,4,Would love more frequent updates.
+FB0617,ALU1623,EVT0005,MENT0769,5/28/2025,4,Excellent experience!
+FB0618,ALU1287,EVT0027,,3/6/2024,2,The event was well-planned.
+FB0619,ALU1775,EVT0022,,1/12/2025,1,Would love more frequent updates.
+FB0620,ALU0129,EVT0013,,10/19/2024,1,Good opportunity to connect.
+FB0621,ALU0938,EVT0018,MENT0161,1/19/2025,2,Would love more frequent updates.
+FB0622,ALU1028,,,10/24/2024,1,Good opportunity to connect.
+FB0623,ALU1115,EVT0027,,11/12/2023,2,Helpful mentorship experience.
+FB0624,ALU1630,EVT0027,,1/9/2025,1,Enjoyed reconnecting with peers.
+FB0625,ALU0596,EVT0029,MENT0516,10/20/2024,2,Appreciate the university’s support.
+FB0626,ALU1143,EVT0012,,8/18/2025,5,Excellent experience!
+FB0627,ALU0494,EVT0017,,3/3/2025,2,Could improve organization.
+FB0628,ALU0798,EVT0006,,12/25/2023,3,Very informative session.
+FB0629,ALU0058,EVT0015,,11/5/2023,1,Could improve organization.
+FB0630,ALU0594,,,4/14/2025,1,Appreciate the university’s support.
+FB0631,ALU1048,EVT0019,,5/5/2024,3,Enjoyed reconnecting with peers.
+FB0632,ALU1394,EVT0032,,11/30/2024,2,Could improve organization.
+FB0633,ALU1578,EVT0004,,6/4/2025,5,Very informative session.
+FB0634,ALU1381,,MENT0162,9/6/2025,2,Helpful mentorship experience.
+FB0635,ALU0197,EVT0029,,12/29/2024,3,Great networking opportunity!
+FB0636,ALU1180,EVT0005,,8/29/2025,3,Good opportunity to connect.
+FB0637,ALU1044,,,6/28/2025,4,Excellent experience!
+FB0638,ALU0357,EVT0034,,6/26/2025,1,Very informative session.
+FB0639,ALU0184,EVT0005,,10/20/2025,2,Could improve organization.
+FB0640,ALU1136,EVT0005,,11/19/2024,5,Helpful mentorship experience.
+FB0641,ALU1129,EVT0005,,12/16/2024,4,Helpful mentorship experience.
+FB0642,ALU0380,EVT0027,,3/1/2024,1,Helpful mentorship experience.
+FB0643,ALU0497,,,3/19/2025,3,Helpful mentorship experience.
+FB0644,ALU0843,EVT0015,MENT0070,11/30/2024,2,Great networking opportunity!
+FB0645,ALU1230,EVT0025,,7/31/2025,1,Good opportunity to connect.
+FB0646,ALU1099,EVT0017,,3/6/2025,4,Great networking opportunity!
+FB0647,ALU0489,EVT0033,,11/4/2023,5,The event was well-planned.
+FB0648,ALU1834,,,1/2/2024,4,Enjoyed reconnecting with peers.
+FB0649,ALU0655,EVT0003,,4/30/2024,5,Enjoyed reconnecting with peers.
+FB0650,ALU1712,EVT0032,,2/14/2024,1,The event was well-planned.
+FB0651,ALU1652,,,6/11/2024,1,Appreciate the university’s support.
+FB0652,ALU1789,EVT0010,,1/7/2024,5,Great networking opportunity!
+FB0653,ALU1234,EVT0027,,1/17/2024,2,The event was well-planned.
+FB0654,ALU1572,EVT0020,,4/18/2024,5,Very informative session.
+FB0655,ALU0319,EVT0018,,4/23/2024,2,Excellent experience!
+FB0656,ALU0983,EVT0004,,10/4/2024,4,Great networking opportunity!
+FB0657,ALU0670,EVT0023,MENT0559,12/10/2024,5,Excellent experience!
+FB0658,ALU1772,,,6/17/2025,3,Helpful mentorship experience.
+FB0659,ALU0277,EVT0020,MENT0224,8/20/2024,1,Would love more frequent updates.
+FB0660,ALU0954,EVT0019,,2/25/2024,5,Helpful mentorship experience.
+FB0661,ALU0605,,,1/3/2025,3,The event was well-planned.
+FB0662,ALU1678,EVT0013,,7/12/2024,5,Very informative session.
+FB0663,ALU1520,,MENT0521,8/11/2024,3,Could improve organization.
+FB0664,ALU1704,EVT0022,MENT0740,9/20/2024,3,The event was well-planned.
+FB0665,ALU1430,EVT0025,,10/21/2025,5,Very informative session.
+FB0666,ALU0357,EVT0005,MENT0531,9/30/2025,2,The event was well-planned.
+FB0667,ALU0281,EVT0003,MENT0293,4/14/2024,4,Very informative session.
+FB0668,ALU0962,,,3/20/2024,2,Appreciate the university’s support.
+FB0669,ALU1132,,,10/21/2025,1,The event was well-planned.
+FB0670,ALU1165,EVT0013,,11/19/2024,3,Good opportunity to connect.
+FB0671,ALU0264,EVT0028,,12/16/2024,5,Could improve organization.
+FB0672,ALU1634,EVT0022,,9/12/2024,2,Helpful mentorship experience.
+FB0673,ALU1016,,,6/5/2025,1,The event was well-planned.
+FB0674,ALU0151,EVT0020,,4/2/2025,1,Good opportunity to connect.
+FB0675,ALU1615,EVT0007,,5/18/2025,2,Very informative session.
+FB0676,ALU1667,EVT0027,,10/11/2025,5,Appreciate the university’s support.
+FB0677,ALU0471,EVT0025,,7/1/2024,3,Good opportunity to connect.
+FB0678,ALU0504,,,7/3/2025,5,Excellent experience!
+FB0679,ALU0006,,,3/13/2024,5,Enjoyed reconnecting with peers.
+FB0680,ALU1037,,MENT0754,4/25/2025,3,Great networking opportunity!
+FB0681,ALU1583,,,3/26/2024,4,Helpful mentorship experience.
+FB0682,ALU1140,,MENT0143,6/7/2024,5,Helpful mentorship experience.
+FB0683,ALU0718,EVT0006,,9/2/2024,3,Enjoyed reconnecting with peers.
+FB0684,ALU1890,EVT0017,,3/26/2024,3,Could improve organization.
+FB0685,ALU0988,EVT0002,MENT0738,10/23/2025,1,Appreciate the university’s support.
+FB0686,ALU1724,EVT0020,,2/27/2025,1,The event was well-planned.
+FB0687,ALU0388,EVT0023,,10/14/2025,3,The event was well-planned.
+FB0688,ALU0527,EVT0003,,3/18/2024,3,Good opportunity to connect.
+FB0689,ALU1587,EVT0019,MENT0607,7/15/2024,2,Excellent experience!
+FB0690,ALU0018,,MENT0749,11/16/2023,3,Would love more frequent updates.
+FB0691,ALU1493,EVT0018,,7/3/2024,1,Enjoyed reconnecting with peers.
+FB0692,ALU1377,EVT0035,,1/9/2025,4,The event was well-planned.
+FB0693,ALU1208,EVT0031,,5/31/2025,4,Helpful mentorship experience.
+FB0694,ALU0407,,,3/6/2024,3,The event was well-planned.
+FB0695,ALU0131,EVT0035,,2/22/2025,5,Enjoyed reconnecting with peers.
+FB0696,ALU0517,EVT0017,,6/10/2025,5,The event was well-planned.
+FB0697,ALU0933,EVT0035,,1/28/2024,3,The event was well-planned.
+FB0698,ALU1662,EVT0018,,8/27/2025,4,Good opportunity to connect.
+FB0699,ALU0640,,MENT0598,11/15/2023,2,Could improve organization.
+FB0700,ALU1312,,,1/22/2025,5,Enjoyed reconnecting with peers.
+FB0701,ALU0963,,,12/26/2023,3,Would love more frequent updates.
+FB0702,ALU1208,,,12/18/2023,1,The event was well-planned.
+FB0703,ALU1732,EVT0031,MENT0154,10/21/2024,2,Helpful mentorship experience.
+FB0704,ALU0336,,,9/28/2025,3,Helpful mentorship experience.
+FB0705,ALU0530,EVT0013,,10/11/2025,3,Excellent experience!
+FB0706,ALU0209,EVT0009,,11/26/2024,5,Enjoyed reconnecting with peers.
+FB0707,ALU0567,,MENT0328,1/1/2024,4,Excellent experience!
+FB0708,ALU1470,,,11/16/2024,1,Good opportunity to connect.
+FB0709,ALU0293,,,11/27/2023,3,Good opportunity to connect.
+FB0710,ALU1798,EVT0034,MENT0062,10/30/2024,5,Appreciate the university’s support.
+FB0711,ALU1222,EVT0002,,3/6/2025,1,Good opportunity to connect.
+FB0712,ALU1765,,,6/12/2024,5,The event was well-planned.
+FB0713,ALU1782,EVT0025,,8/17/2024,4,Could improve organization.
+FB0714,ALU0444,EVT0023,,8/28/2024,4,Helpful mentorship experience.
+FB0715,ALU1305,,,9/15/2024,2,Enjoyed reconnecting with peers.
+FB0716,ALU1820,EVT0027,,8/16/2024,3,Appreciate the university’s support.
+FB0717,ALU0969,EVT0015,,3/24/2025,1,Good opportunity to connect.
+FB0718,ALU1303,EVT0030,,11/11/2024,3,Very informative session.
+FB0719,ALU0052,EVT0008,,1/6/2025,5,Could improve organization.
+FB0720,ALU1122,EVT0010,MENT0037,9/23/2025,3,The event was well-planned.
+FB0721,ALU0398,EVT0025,,5/25/2024,2,Would love more frequent updates.
+FB0722,ALU0081,,,9/19/2024,1,Helpful mentorship experience.
+FB0723,ALU1609,EVT0030,,12/17/2023,1,Appreciate the university’s support.
+FB0724,ALU1872,EVT0016,MENT0478,7/20/2025,2,Great networking opportunity!
+FB0725,ALU1155,EVT0027,,9/19/2024,2,The event was well-planned.
+FB0726,ALU1327,EVT0032,,11/6/2023,3,Good opportunity to connect.
+FB0727,ALU1340,,,7/2/2025,5,Enjoyed reconnecting with peers.
+FB0728,ALU1315,EVT0019,,8/24/2025,1,Good opportunity to connect.
+FB0729,ALU0504,EVT0016,MENT0649,2/23/2025,1,Excellent experience!
+FB0730,ALU0176,,,1/5/2024,3,Excellent experience!
+FB0731,ALU1899,EVT0011,,12/23/2023,1,Good opportunity to connect.
+FB0732,ALU0497,EVT0035,,12/23/2023,2,Excellent experience!
+FB0733,ALU0630,,,2/25/2025,3,Excellent experience!
+FB0734,ALU0489,EVT0026,,5/19/2024,3,Enjoyed reconnecting with peers.
+FB0735,ALU1657,EVT0033,MENT0798,9/28/2025,1,Excellent experience!
+FB0736,ALU1083,EVT0024,MENT0619,10/15/2024,4,Good opportunity to connect.
+FB0737,ALU0873,EVT0001,MENT0105,11/25/2023,5,Helpful mentorship experience.
+FB0738,ALU0533,EVT0024,,4/19/2024,2,Helpful mentorship experience.
+FB0739,ALU0388,,MENT0428,11/11/2024,4,Helpful mentorship experience.
+FB0740,ALU1571,,,10/6/2025,1,Appreciate the university’s support.
+FB0741,ALU1272,EVT0013,MENT0546,4/3/2024,4,Helpful mentorship experience.
+FB0742,ALU1076,EVT0023,,9/21/2025,2,Enjoyed reconnecting with peers.
+FB0743,ALU1120,EVT0014,,7/4/2025,4,Great networking opportunity!
+FB0744,ALU1881,,MENT0228,9/3/2025,4,Excellent experience!
+FB0745,ALU1744,EVT0030,,5/20/2025,5,Excellent experience!
+FB0746,ALU1559,EVT0028,,1/28/2025,5,Good opportunity to connect.
+FB0747,ALU1118,EVT0006,MENT0562,5/27/2025,5,Could improve organization.
+FB0748,ALU1236,EVT0028,MENT0596,3/9/2024,1,Good opportunity to connect.
+FB0749,ALU1111,,,3/30/2025,2,Would love more frequent updates.
+FB0750,ALU1836,,MENT0665,6/2/2025,1,Helpful mentorship experience.
+FB0751,ALU0976,EVT0031,MENT0321,6/5/2025,2,Excellent experience!
+FB0752,ALU0776,EVT0022,,2/16/2024,3,Helpful mentorship experience.
+FB0753,ALU0886,EVT0002,,5/11/2024,4,Good opportunity to connect.
+FB0754,ALU0708,,MENT0594,4/24/2025,4,Great networking opportunity!
+FB0755,ALU1876,EVT0026,MENT0630,10/3/2024,2,Enjoyed reconnecting with peers.
+FB0756,ALU1417,,,11/20/2023,1,Helpful mentorship experience.
+FB0757,ALU1077,EVT0002,,10/7/2024,3,Helpful mentorship experience.
+FB0758,ALU1271,EVT0021,,4/8/2024,3,Would love more frequent updates.
+FB0759,ALU0912,EVT0016,,5/18/2025,1,Very informative session.
+FB0760,ALU1766,EVT0018,MENT0033,10/14/2024,3,Good opportunity to connect.
+FB0761,ALU0605,EVT0010,MENT0031,7/19/2025,3,Very informative session.
+FB0762,ALU1344,EVT0012,,2/19/2025,1,Helpful mentorship experience.
+FB0763,ALU0182,,,8/24/2024,5,The event was well-planned.
+FB0764,ALU1086,,MENT0407,6/5/2024,5,Very informative session.
+FB0765,ALU0491,EVT0018,MENT0639,5/5/2025,5,Appreciate the university’s support.
+FB0766,ALU1090,EVT0024,,5/3/2025,2,Helpful mentorship experience.
+FB0767,ALU0138,EVT0028,MENT0759,12/6/2023,3,Could improve organization.
+FB0768,ALU0546,EVT0012,,4/23/2024,2,Good opportunity to connect.
+FB0769,ALU1322,,MENT0149,12/26/2023,5,Good opportunity to connect.
+FB0770,ALU1738,EVT0015,,5/9/2024,4,Great networking opportunity!
+FB0771,ALU1362,EVT0022,,3/16/2024,4,Good opportunity to connect.
+FB0772,ALU1043,,MENT0497,10/18/2025,4,Excellent experience!
+FB0773,ALU0020,,MENT0456,6/2/2024,3,Enjoyed reconnecting with peers.
+FB0774,ALU1715,,,3/3/2025,4,Appreciate the university’s support.
+FB0775,ALU0595,EVT0021,,12/27/2024,4,Excellent experience!
+FB0776,ALU0353,EVT0035,,9/2/2024,2,Appreciate the university’s support.
+FB0777,ALU0466,EVT0011,MENT0538,3/16/2024,5,The event was well-planned.
+FB0778,ALU0192,EVT0033,MENT0512,7/22/2024,1,Would love more frequent updates.
+FB0779,ALU0324,,MENT0232,2/5/2025,4,Could improve organization.
+FB0780,ALU0371,EVT0021,MENT0499,8/23/2025,3,The event was well-planned.
+FB0781,ALU0224,,,11/8/2023,4,Very informative session.
+FB0782,ALU0370,EVT0028,,4/9/2024,4,Very informative session.
+FB0783,ALU1866,EVT0012,,6/10/2024,2,Great networking opportunity!
+FB0784,ALU0227,EVT0021,MENT0050,1/30/2025,4,Excellent experience!
+FB0785,ALU0570,EVT0026,MENT0787,11/5/2023,4,Great networking opportunity!
+FB0786,ALU1935,EVT0024,,7/2/2025,4,Excellent experience!
+FB0787,ALU0796,,,7/4/2025,4,Would love more frequent updates.
+FB0788,ALU0751,,,2/3/2024,1,Appreciate the university’s support.
+FB0789,ALU0269,EVT0025,,9/30/2024,2,Very informative session.
+FB0790,ALU0678,EVT0003,MENT0512,8/26/2025,5,Helpful mentorship experience.
+FB0791,ALU1070,,,12/10/2023,2,Appreciate the university’s support.
+FB0792,ALU1498,,MENT0414,6/10/2024,5,Good opportunity to connect.
+FB0793,ALU0482,EVT0020,MENT0788,5/27/2025,3,Enjoyed reconnecting with peers.
+FB0794,ALU0268,,MENT0205,1/26/2024,5,Appreciate the university’s support.
+FB0795,ALU0604,EVT0032,,5/27/2024,4,Great networking opportunity!
+FB0796,ALU0054,EVT0029,,9/16/2024,5,Helpful mentorship experience.
+FB0797,ALU0491,EVT0014,MENT0322,12/18/2023,2,Could improve organization.
+FB0798,ALU1462,,,9/19/2024,5,Helpful mentorship experience.
+FB0799,ALU1559,,,11/24/2024,2,Good opportunity to connect.
+FB0800,ALU0131,EVT0034,MENT0183,4/15/2024,1,Very informative session.
+FB0801,ALU0848,EVT0002,MENT0664,5/19/2024,5,Good opportunity to connect.
+FB0802,ALU0863,EVT0026,MENT0244,5/2/2025,5,Would love more frequent updates.
+FB0803,ALU1498,EVT0019,MENT0405,8/14/2025,4,Very informative session.
+FB0804,ALU0128,EVT0025,,7/13/2024,1,Enjoyed reconnecting with peers.
+FB0805,ALU0918,EVT0034,,7/11/2024,4,Very informative session.
+FB0806,ALU0948,EVT0034,,6/28/2024,4,Good opportunity to connect.
+FB0807,ALU0040,EVT0025,,11/25/2024,2,Great networking opportunity!
+FB0808,ALU1601,EVT0029,,6/2/2024,5,Very informative session.
+FB0809,ALU0160,EVT0022,MENT0567,3/18/2025,5,Could improve organization.
+FB0810,ALU0187,EVT0020,,5/11/2025,4,Good opportunity to connect.
+FB0811,ALU1239,EVT0022,,7/13/2025,2,The event was well-planned.
+FB0812,ALU1555,EVT0029,,8/28/2025,1,Excellent experience!
+FB0813,ALU0650,EVT0031,,7/10/2025,5,Very informative session.
+FB0814,ALU0236,EVT0016,MENT0319,11/2/2023,2,Could improve organization.
+FB0815,ALU0576,EVT0003,,2/12/2024,3,Enjoyed reconnecting with peers.
+FB0816,ALU0801,,,12/14/2023,4,Could improve organization.
+FB0817,ALU1158,EVT0021,MENT0418,11/4/2024,4,Appreciate the university’s support.
+FB0818,ALU0414,EVT0010,,7/10/2025,2,Very informative session.
+FB0819,ALU0042,EVT0017,,6/2/2024,3,The event was well-planned.
+FB0820,ALU1399,,MENT0270,7/22/2024,5,Would love more frequent updates.
+FB0821,ALU0623,EVT0005,,1/29/2025,4,Appreciate the university’s support.
+FB0822,ALU1302,EVT0028,,12/5/2024,5,Would love more frequent updates.
+FB0823,ALU0276,,MENT0235,7/21/2024,3,Could improve organization.
+FB0824,ALU0443,EVT0018,MENT0783,5/9/2024,2,Could improve organization.
+FB0825,ALU1585,EVT0009,,8/29/2025,3,Great networking opportunity!
+FB0826,ALU0164,EVT0003,MENT0112,1/3/2024,2,The event was well-planned.
+FB0827,ALU0927,EVT0013,,1/17/2024,3,Appreciate the university’s support.
+FB0828,ALU1236,EVT0009,MENT0480,8/15/2024,2,Appreciate the university’s support.
+FB0829,ALU1716,EVT0019,,5/31/2025,5,Good opportunity to connect.
+FB0830,ALU0568,EVT0007,MENT0739,6/12/2024,4,Great networking opportunity!
+FB0831,ALU1830,,,1/2/2025,2,Could improve organization.
+FB0832,ALU0732,EVT0031,,10/23/2025,3,Great networking opportunity!
+FB0833,ALU0194,EVT0005,,12/22/2024,5,Helpful mentorship experience.
+FB0834,ALU0209,,,10/30/2024,1,Would love more frequent updates.
+FB0835,ALU1741,,MENT0675,3/17/2025,1,Helpful mentorship experience.
+FB0836,ALU0423,,MENT0049,6/17/2024,2,Very informative session.
+FB0837,ALU1987,EVT0013,,8/10/2024,3,Excellent experience!
+FB0838,ALU1431,EVT0024,,4/27/2025,5,Helpful mentorship experience.
+FB0839,ALU1984,EVT0026,,4/26/2025,5,Great networking opportunity!
+FB0840,ALU0970,EVT0019,MENT0676,9/24/2025,2,Great networking opportunity!
+FB0841,ALU1425,EVT0019,MENT0220,6/12/2025,2,Great networking opportunity!
+FB0842,ALU0486,EVT0023,,4/20/2025,2,Good opportunity to connect.
+FB0843,ALU1822,,,7/31/2025,5,Good opportunity to connect.
+FB0844,ALU0391,,,11/14/2023,2,Helpful mentorship experience.
+FB0845,ALU0900,EVT0011,,3/27/2025,3,Great networking opportunity!
+FB0846,ALU1472,EVT0018,,3/20/2024,5,Good opportunity to connect.
+FB0847,ALU0483,EVT0008,,7/9/2025,2,Enjoyed reconnecting with peers.
+FB0848,ALU0188,EVT0015,,1/29/2024,1,Appreciate the university’s support.
+FB0849,ALU0844,EVT0006,,2/5/2024,2,Great networking opportunity!
+FB0850,ALU0908,EVT0022,,12/13/2023,3,The event was well-planned.
+FB0851,ALU1970,,,3/23/2025,5,Could improve organization.
+FB0852,ALU1353,EVT0028,,8/11/2024,1,Appreciate the university’s support.
+FB0853,ALU0675,EVT0017,MENT0362,2/1/2024,2,Great networking opportunity!
+FB0854,ALU0928,,,9/1/2024,3,The event was well-planned.
+FB0855,ALU0565,EVT0028,MENT0578,7/3/2024,5,Would love more frequent updates.
+FB0856,ALU1263,EVT0023,,3/12/2024,3,Helpful mentorship experience.
+FB0857,ALU1754,,,11/30/2024,5,Good opportunity to connect.
+FB0858,ALU0879,,MENT0363,4/2/2024,1,Helpful mentorship experience.
+FB0859,ALU0205,EVT0025,,4/25/2024,5,Very informative session.
+FB0860,ALU1141,EVT0028,MENT0561,6/24/2024,1,Helpful mentorship experience.
+FB0861,ALU0197,EVT0003,,9/13/2025,5,Enjoyed reconnecting with peers.
+FB0862,ALU0660,EVT0024,,4/17/2024,4,Great networking opportunity!
+FB0863,ALU1154,EVT0015,,1/24/2024,1,Good opportunity to connect.
+FB0864,ALU0724,EVT0017,MENT0063,2/20/2025,5,Could improve organization.
+FB0865,ALU1930,,,7/23/2025,1,Excellent experience!
+FB0866,ALU0395,EVT0001,,11/20/2024,3,The event was well-planned.
+FB0867,ALU0093,EVT0009,MENT0020,3/28/2024,1,Very informative session.
+FB0868,ALU0629,EVT0003,MENT0225,4/22/2025,3,Excellent experience!
+FB0869,ALU1192,EVT0031,,3/30/2025,3,Good opportunity to connect.
+FB0870,ALU1505,,,1/10/2024,1,The event was well-planned.
+FB0871,ALU1053,EVT0023,MENT0022,8/2/2025,2,Appreciate the university’s support.
+FB0872,ALU1469,,,1/4/2025,4,Great networking opportunity!
+FB0873,ALU0597,EVT0028,MENT0685,4/21/2025,4,Appreciate the university’s support.
+FB0874,ALU1251,EVT0006,,10/8/2025,3,Enjoyed reconnecting with peers.
+FB0875,ALU1906,EVT0020,MENT0505,11/17/2024,4,The event was well-planned.
+FB0876,ALU1143,,,7/30/2024,2,Excellent experience!
+FB0877,ALU1656,EVT0010,,6/2/2024,2,The event was well-planned.
+FB0878,ALU0851,EVT0019,,8/21/2025,1,Helpful mentorship experience.
+FB0879,ALU0079,EVT0013,MENT0101,2/3/2024,4,Would love more frequent updates.
+FB0880,ALU0443,EVT0005,,6/30/2025,3,Could improve organization.
+FB0881,ALU0944,EVT0008,,10/19/2025,4,Enjoyed reconnecting with peers.
+FB0882,ALU0455,EVT0032,,3/3/2025,4,Enjoyed reconnecting with peers.
+FB0883,ALU0009,EVT0014,,1/4/2024,1,Appreciate the university’s support.
+FB0884,ALU0425,EVT0035,,5/25/2025,2,The event was well-planned.
+FB0885,ALU1286,EVT0009,MENT0376,6/10/2024,3,Could improve organization.
+FB0886,ALU1366,,MENT0439,12/22/2023,4,The event was well-planned.
+FB0887,ALU1391,EVT0027,,8/14/2025,1,Would love more frequent updates.
+FB0888,ALU1669,EVT0014,MENT0698,12/1/2023,3,Great networking opportunity!
+FB0889,ALU1366,,MENT0383,6/4/2025,5,The event was well-planned.
+FB0890,ALU0127,EVT0010,,3/28/2025,1,Excellent experience!
+FB0891,ALU0420,EVT0007,MENT0050,5/11/2025,2,Helpful mentorship experience.
+FB0892,ALU1415,EVT0032,MENT0619,9/27/2025,4,The event was well-planned.
+FB0893,ALU0571,,,8/29/2025,1,The event was well-planned.
+FB0894,ALU1287,EVT0031,MENT0537,6/9/2025,3,Excellent experience!
+FB0895,ALU1113,EVT0014,,10/20/2024,4,Great networking opportunity!
+FB0896,ALU1632,,,12/2/2024,5,Great networking opportunity!
+FB0897,ALU0688,EVT0030,MENT0278,6/22/2024,1,Could improve organization.
+FB0898,ALU1720,EVT0003,,4/30/2024,2,Good opportunity to connect.
+FB0899,ALU0181,,,4/10/2025,3,Appreciate the university’s support.
+FB0900,ALU0905,,,9/23/2024,4,Excellent experience!
+FB0901,ALU1685,EVT0017,,5/12/2024,1,Very informative session.
+FB0902,ALU1450,EVT0012,,9/23/2025,1,The event was well-planned.
+FB0903,ALU1184,EVT0027,,9/7/2024,3,Appreciate the university’s support.
+FB0904,ALU1754,,,3/16/2024,4,Helpful mentorship experience.
+FB0905,ALU1548,EVT0017,,10/13/2025,4,Enjoyed reconnecting with peers.
+FB0906,ALU0498,EVT0031,MENT0448,7/10/2024,4,Helpful mentorship experience.
+FB0907,ALU1069,EVT0019,MENT0378,6/2/2024,5,Good opportunity to connect.
+FB0908,ALU1359,EVT0023,,11/18/2023,4,Would love more frequent updates.
+FB0909,ALU0613,EVT0015,,9/11/2024,2,The event was well-planned.
+FB0910,ALU1816,EVT0012,,1/19/2024,5,Good opportunity to connect.
+FB0911,ALU0617,EVT0027,MENT0408,5/11/2025,3,The event was well-planned.
+FB0912,ALU1957,EVT0011,MENT0470,9/5/2025,2,Helpful mentorship experience.
+FB0913,ALU0285,EVT0025,MENT0201,12/22/2023,1,Enjoyed reconnecting with peers.
+FB0914,ALU1440,,,3/10/2025,4,Great networking opportunity!
+FB0915,ALU0416,,,7/1/2024,2,Very informative session.
+FB0916,ALU0744,EVT0004,,1/3/2025,4,Helpful mentorship experience.
+FB0917,ALU1591,,,10/1/2025,3,Could improve organization.
+FB0918,ALU0521,,,3/9/2024,4,Helpful mentorship experience.
+FB0919,ALU1393,,,4/13/2025,5,Great networking opportunity!
+FB0920,ALU0366,EVT0013,,6/29/2025,2,Very informative session.
+FB0921,ALU1311,EVT0017,,12/1/2023,1,Could improve organization.
+FB0922,ALU0237,EVT0019,MENT0649,7/21/2024,3,Could improve organization.
+FB0923,ALU1568,EVT0029,MENT0420,11/20/2023,2,Excellent experience!
+FB0924,ALU1192,,MENT0131,11/17/2024,2,Excellent experience!
+FB0925,ALU1554,EVT0002,,12/30/2024,3,Very informative session.
+FB0926,ALU0066,,MENT0642,11/26/2024,5,Helpful mentorship experience.
+FB0927,ALU1676,EVT0028,MENT0370,12/12/2024,4,Would love more frequent updates.
+FB0928,ALU0995,EVT0028,,8/7/2024,3,Could improve organization.
+FB0929,ALU0484,,,5/17/2024,2,The event was well-planned.
+FB0930,ALU0260,EVT0001,,7/10/2024,4,Good opportunity to connect.
+FB0931,ALU0613,EVT0030,,1/3/2024,4,Appreciate the university’s support.
+FB0932,ALU0782,EVT0002,MENT0469,8/18/2024,1,Great networking opportunity!
+FB0933,ALU0655,EVT0008,,12/2/2024,3,The event was well-planned.
+FB0934,ALU1953,EVT0014,,5/18/2025,3,Enjoyed reconnecting with peers.
+FB0935,ALU1226,EVT0016,,3/24/2024,2,Good opportunity to connect.
+FB0936,ALU0904,EVT0004,,6/21/2024,3,Could improve organization.
+FB0937,ALU0793,EVT0031,,10/28/2023,3,Would love more frequent updates.
+FB0938,ALU1243,EVT0023,,6/30/2025,3,Good opportunity to connect.
+FB0939,ALU1005,EVT0027,MENT0597,1/25/2025,3,Could improve organization.
+FB0940,ALU1766,EVT0030,,10/25/2025,2,Good opportunity to connect.
+FB0941,ALU0675,,,11/8/2024,2,The event was well-planned.
+FB0942,ALU1410,EVT0023,,1/2/2024,5,Enjoyed reconnecting with peers.
+FB0943,ALU0304,,,2/12/2025,4,The event was well-planned.
+FB0944,ALU1211,EVT0017,,4/30/2024,3,Very informative session.
+FB0945,ALU1905,EVT0035,,11/15/2024,5,Very informative session.
+FB0946,ALU1543,,,4/29/2024,5,Helpful mentorship experience.
+FB0947,ALU1078,,,9/12/2025,5,The event was well-planned.
+FB0948,ALU0848,EVT0018,,9/7/2024,4,Could improve organization.
+FB0949,ALU1869,,MENT0039,2/7/2025,3,Would love more frequent updates.
+FB0950,ALU1126,EVT0033,MENT0421,8/31/2024,4,Excellent experience!
+FB0951,ALU0042,EVT0035,MENT0716,2/28/2024,3,Excellent experience!
+FB0952,ALU0059,EVT0011,,11/13/2024,4,Would love more frequent updates.
+FB0953,ALU0646,,MENT0643,2/13/2024,1,Appreciate the university’s support.
+FB0954,ALU1155,EVT0003,,12/21/2023,3,Enjoyed reconnecting with peers.
+FB0955,ALU0674,EVT0009,MENT0348,9/27/2024,5,Good opportunity to connect.
+FB0956,ALU1720,EVT0033,,6/19/2025,5,The event was well-planned.
+FB0957,ALU1648,EVT0022,MENT0764,8/21/2024,5,Appreciate the university’s support.
+FB0958,ALU1597,EVT0015,,2/8/2025,1,Could improve organization.
+FB0959,ALU0376,EVT0009,,9/22/2024,2,Enjoyed reconnecting with peers.
+FB0960,ALU0330,EVT0008,,8/16/2025,5,Good opportunity to connect.
+FB0961,ALU0354,,,2/4/2024,1,Enjoyed reconnecting with peers.
+FB0962,ALU1174,EVT0002,,8/28/2024,4,Very informative session.
+FB0963,ALU0194,EVT0023,,6/17/2024,4,Would love more frequent updates.
+FB0964,ALU1905,EVT0026,,9/5/2025,4,The event was well-planned.
+FB0965,ALU0153,,,3/24/2025,2,Enjoyed reconnecting with peers.
+FB0966,ALU0187,EVT0025,,12/22/2023,2,Good opportunity to connect.
+FB0967,ALU0215,,MENT0451,8/31/2025,3,The event was well-planned.
+FB0968,ALU1969,EVT0006,,10/1/2025,1,Very informative session.
+FB0969,ALU1769,EVT0027,,3/13/2024,2,Great networking opportunity!
+FB0970,ALU0848,EVT0032,MENT0624,3/6/2025,5,Helpful mentorship experience.
+FB0971,ALU0425,EVT0006,,10/6/2025,3,Appreciate the university’s support.
+FB0972,ALU0474,EVT0029,,3/25/2025,5,Helpful mentorship experience.
+FB0973,ALU0862,EVT0019,,9/4/2025,3,Could improve organization.
+FB0974,ALU1213,EVT0025,,11/27/2024,2,Would love more frequent updates.
+FB0975,ALU1569,,MENT0085,6/5/2025,2,Excellent experience!
+FB0976,ALU1683,EVT0030,MENT0670,6/4/2025,2,Helpful mentorship experience.
+FB0977,ALU1014,EVT0027,,6/6/2025,1,Could improve organization.
+FB0978,ALU1249,,,2/8/2025,1,Very informative session.
+FB0979,ALU0561,EVT0032,MENT0320,12/13/2023,4,Very informative session.
+FB0980,ALU1254,,,9/11/2025,1,Could improve organization.
+FB0981,ALU0058,EVT0025,MENT0207,5/15/2025,5,The event was well-planned.
+FB0982,ALU1132,EVT0029,MENT0522,7/13/2024,5,Appreciate the university’s support.
+FB0983,ALU1789,EVT0019,,5/11/2025,4,Would love more frequent updates.
+FB0984,ALU0093,,,1/3/2025,4,Appreciate the university’s support.
+FB0985,ALU1329,EVT0031,,3/28/2024,1,Would love more frequent updates.
+FB0986,ALU1579,EVT0003,MENT0181,3/15/2024,4,Excellent experience!
+FB0987,ALU1428,EVT0016,,7/13/2025,5,Very informative session.
+FB0988,ALU0123,EVT0010,MENT0257,8/26/2024,1,Would love more frequent updates.
+FB0989,ALU0276,EVT0002,MENT0087,12/6/2023,5,Great networking opportunity!
+FB0990,ALU1330,EVT0013,MENT0331,11/29/2023,1,Appreciate the university’s support.
+FB0991,ALU0085,EVT0030,,8/26/2024,2,Great networking opportunity!
+FB0992,ALU1578,EVT0025,MENT0232,2/6/2024,1,The event was well-planned.
+FB0993,ALU0048,EVT0033,,4/24/2024,5,Appreciate the university’s support.
+FB0994,ALU0253,EVT0031,,6/23/2024,3,Enjoyed reconnecting with peers.
+FB0995,ALU0622,EVT0002,,3/19/2024,3,Very informative session.
+FB0996,ALU0102,EVT0033,MENT0138,5/18/2025,2,Could improve organization.
+FB0997,ALU0814,EVT0004,,1/30/2025,4,Excellent experience!
+FB0998,ALU0614,EVT0002,,11/28/2024,4,Helpful mentorship experience.
+FB0999,ALU1263,EVT0023,MENT0706,7/4/2024,1,Could improve organization.
+FB1000,ALU1943,EVT0026,,5/9/2024,4,The event was well-planned.

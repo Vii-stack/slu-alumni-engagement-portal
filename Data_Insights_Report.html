@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Portal - Data Insights Report</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #1d3557;
+      padding: 40px 20px;
+    }
+    
+    .slide {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      background: white;
+      border-radius: 20px;
+      padding: 60px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      page-break-after: always;
+    }
+    
+    .slide:last-child {
+      page-break-after: auto;
+    }
+    
+    h1 {
+      font-size: 48px;
+      color: #1d3557;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    h2 {
+      font-size: 36px;
+      color: #1d3557;
+      margin-bottom: 30px;
+      border-bottom: 4px solid #667eea;
+      padding-bottom: 15px;
+    }
+    
+    h3 {
+      font-size: 24px;
+      color: #1d3557;
+      margin: 30px 0 15px 0;
+    }
+    
+    .subtitle {
+      font-size: 20px;
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+    }
+    
+    .insight-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      border-left: 5px solid #667eea;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .insight-card h4 {
+      font-size: 20px;
+      color: #1d3557;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .insight-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    
+    .insight-card li {
+      padding: 8px 0;
+      padding-left: 25px;
+      position: relative;
+      color: #475569;
+      line-height: 1.6;
+    }
+    
+    .insight-card li:before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #667eea;
+      font-weight: bold;
+    }
+    
+    .chart-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .chart-item {
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid #e2e8f0;
+    }
+    
+    .chart-item strong {
+      color: #667eea;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    
+    .stat-highlight {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin: 5px 5px 5px 0;
+    }
+    
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin: 30px 0;
+    }
+    
+    .decision-card {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .decision-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+      border-color: #667eea;
+    }
+    
+    .decision-card .icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+    
+    .decision-card h4 {
+      color: #1d3557;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    
+    .decision-card p {
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .key-metrics {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 30px 0;
+      padding: 30px;
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      border-radius: 15px;
+    }
+    
+    .metric {
+      text-align: center;
+      min-width: 150px;
+    }
+    
+    .metric-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: #667eea;
+      margin-bottom: 5px;
+    }
+    
+    .metric-label {
+      font-size: 14px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .slide {
+        margin-bottom: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Slide 1: Dashboard Overview -->
+  <div class="slide">
+    <h1>📊 Alumni Portal Dashboard</h1>
+    <p class="subtitle">Data Insights Report</p>
+    
+    <h2>What Your Dashboard Shows</h2>
+    
+    <div class="key-metrics">
+      <div class="metric">
+        <div class="metric-value">5</div>
+        <div class="metric-label">Key Metrics</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">6</div>
+        <div class="metric-label">Interactive Charts</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">Real-time</div>
+        <div class="metric-label">Data Updates</div>
+      </div>
+    </div>
+    
+    <h3>📈 Main Visualizations</h3>
+    <div class="chart-list">
+      <div class="chart-item">
+        <strong>📅 Engagement Overview</strong>
+        Line chart tracking events offered vs. events attended monthly, with interactive drill-down capabilities
+      </div>
+      <div class="chart-item">
+        <strong>🤝 Mentorship Lifecycle</strong>
+        Status distribution chart showing active, pending, and completed mentorship sessions
+      </div>
+      <div class="chart-item">
+        <strong>🎯 Mentorship by Focus Area</strong>
+        Bar chart displaying mentorship distribution across different focus areas (Career Development, Networking, etc.)
+      </div>
+      <div class="chart-item">
+        <strong>📊 Event Participation Funnel</strong>
+        Visual funnel showing the journey from event registrations to actual attendance
+      </div>
+      <div class="chart-item">
+        <strong>👥 Alumni Activity Patterns</strong>
+        Monthly Active Users (MAU) chart tracking community engagement over time
+      </div>
+      <div class="chart-item">
+        <strong>💻 Event Performance Analysis</strong>
+        Comparison chart analyzing virtual vs. in-person event participation rates
+      </div>
+    </div>
+    
+    <h3>📋 Key Metrics Dashboard</h3>
+    <div class="content-grid">
+      <div class="insight-card">
+        <h4>📅 Events</h4>
+        <ul>
+          <li>Total events this year</li>
+          <li>Events registered by user</li>
+          <li>Growth trends and patterns</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h4>🤝 Mentorship</h4>
+        <ul>
+          <li>Active mentorship sessions</li>
+          <li>Focus area distribution</li>
+          <li>Lifecycle status tracking</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h4>💰 Donations</h4>
+        <ul>
+          <li>Annual donation totals</li>
+          <li>Goal progress tracking</li>
+          <li>Personalized recommendations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Key Insights -->
+  <div class="slide">
+    <h2>🔍 Key Insights & Patterns</h2>
+    
+    <h3>📊 Engagement Trends</h3>
+    <div class="content-grid">
+      <div class="insight-card">
+        <h4>📈 Participation Patterns</h4>
+        <ul>
+          <li>Identify peak engagement months for event planning</li>
+          <li>Track registration-to-attendance conversion rates</li>
+          <li>Monitor year-over-year growth in community participation</li>
+          <li>Spot seasonal trends in alumni activity</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h4>🎯 Mentorship Insights</h4>
+        <ul>
+          <li>Identify most popular mentorship focus areas</li>
+          <li>Track mentorship lifecycle completion rates</li>
+          <li>Monitor mentor-to-mentee matching efficiency</li>
+          <li>Spot gaps in mentorship coverage by focus area</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h3>💡 Critical Discoveries</h3>
+    <div class="content-grid">
+      <div class="insight-card">
+        <h4>⚡ Event Performance</h4>
+        <ul>
+          <li><span class="stat-highlight">Virtual vs. In-Person:</span> Compare participation rates to optimize event formats</li>
+          <li><span class="stat-highlight">Funnel Analysis:</span> Identify drop-off points between registration and attendance</li>
+          <li><span class="stat-highlight">Monthly Trends:</span> Discover best times to schedule events for maximum engagement</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h4>👥 Community Health</h4>
+        <ul>
+          <li><span class="stat-highlight">Active Users:</span> Track monthly active alumni to measure community vitality</li>
+          <li><span class="stat-highlight">Engagement Depth:</span> Analyze multi-touchpoint interactions (events + donations + mentorship)</li>
+          <li><span class="stat-highlight">Retention Patterns:</span> Identify factors that drive sustained alumni participation</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h3>⚠️ Potential Issues & Opportunities</h3>
+    <div class="content-grid">
+      <div class="insight-card">
+        <h4>🔴 Red Flags</h4>
+        <ul>
+          <li>Low registration-to-attendance conversion rates</li>
+          <li>Declining monthly active users</li>
+          <li>Unbalanced mentorship focus areas</li>
+          <li>Seasonal engagement drops</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h4>🟢 Opportunities</h4>
+        <ul>
+          <li>High-performing event types to replicate</li>
+          <li>Underutilized mentorship focus areas to promote</li>
+          <li>Peak engagement periods for strategic campaigns</li>
+          <li>Virtual event success stories to expand</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Decision-Making Support -->
+  <div class="slide">
+    <h2>🎯 How This Supports Decision-Making</h2>
+    
+    <h3>💼 Strategic Planning</h3>
+    <div class="decision-grid">
+      <div class="decision-card">
+        <div class="icon">📅</div>
+        <h4>Event Planning</h4>
+        <p>Use engagement trends to schedule events during peak months and optimize formats (virtual vs. in-person) based on participation data</p>
+      </div>
+      <div class="decision-card">
+        <div class="icon">🤝</div>
+        <h4>Mentorship Strategy</h4>
+        <p>Identify focus area gaps and allocate resources to high-demand mentorship areas while promoting underutilized categories</p>
+      </div>
+      <div class="decision-card">
+        <div class="icon">💰</div>
+        <h4>Fundraising</h4>
+        <p>Track donation patterns and set realistic goals based on historical giving trends and engagement levels</p>
+      </div>
+    </div>
+    
+    <h3>📊 Data-Driven Actions</h3>
+    <div class="content-grid">
+      <div class="insight-card">
+        <h4>🎯 For Administrators</h4>
+        <ul>
+          <li><strong>Resource Allocation:</strong> Direct budget and staff time to high-impact activities</li>
+          <li><strong>Campaign Timing:</strong> Launch initiatives during peak engagement periods</li>
+          <li><strong>Format Optimization:</strong> Choose virtual vs. in-person based on participation data</li>
+          <li><strong>Program Development:</strong> Expand successful programs and address gaps in services</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h4>👤 For Individual Alumni</h4>
+        <ul>
+          <li><strong>Personal Goals:</strong> Set donation targets and track progress with visual feedback</li>
+          <li><strong>Engagement Planning:</strong> Identify best times to participate in events</li>
+          <li><strong>Mentorship Matching:</strong> Discover focus areas with available mentors</li>
+          <li><strong>Activity Tracking:</strong> Monitor personal engagement across all portal activities</li>
+        </ul>
+      </div>
+    </div>
+    
+    <h3>🔄 Continuous Improvement</h3>
+    <div class="content-grid">
+      <div class="insight-card">
+        <h4>📈 Performance Monitoring</h4>
+        <ul>
+          <li>Real-time tracking of key engagement metrics</li>
+          <li>Monthly trend analysis to catch issues early</li>
+          <li>Year-over-year comparisons for strategic planning</li>
+          <li>Interactive drill-downs for detailed investigation</li>
+        </ul>
+      </div>
+      <div class="insight-card">
+        <h4>🎯 Actionable Intelligence</h4>
+        <ul>
+          <li>Automated insights highlight key patterns</li>
+          <li>Personalized recommendations based on user data</li>
+          <li>Filter capabilities for targeted analysis</li>
+          <li>Export-ready data for deeper analysis</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white; text-align: center;">
+      <h3 style="color: white; margin-bottom: 15px;">✨ Key Takeaway</h3>
+      <p style="font-size: 18px; line-height: 1.8;">
+        The dashboard transforms raw alumni data into <strong>actionable insights</strong>, enabling both administrators and alumni to make informed decisions that strengthen community engagement, optimize resource allocation, and drive meaningful connections.
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
+

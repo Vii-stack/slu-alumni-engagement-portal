@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Feedback - Alumni Portal</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- Inbox System -->
+  <script src="inbox.js"></script>
+  
+  <style>
+    .star-rating {
+      display: flex;
+      gap: 8px;
+      font-size: 32px;
+      margin: 8px 0;
+    }
+    
+    .star {
+      cursor: pointer;
+      color: #cbd5e1;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    
+    .star:hover,
+    .star.hovered {
+      color: #fbbf24;
+      transform: scale(1.1);
+    }
+    
+    .star.selected {
+      color: #fbbf24;
+    }
+    
+    /* Platform Experience Survey Modal */
+    .survey-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .survey-modal.active {
+      display: flex;
+    }
+    
+    .survey-popup {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .survey-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .survey-header h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+    
+    .survey-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    
+    .survey-close:hover {
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+    
+    .survey-body {
+      padding: 24px;
+    }
+    
+    .survey-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+    
+    .survey-question {
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    
+    .survey-stars {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    
+    .survey-star {
+      font-size: 32px;
+      color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    
+    .survey-star:hover,
+    .survey-star.active {
+      color: #fbbf24;
+      transform: scale(1.1);
+    }
+    
+    .survey-comment-label {
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    .survey-comment-box {
+      width: 100%;
+      min-height: 120px;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
+      margin-bottom: 8px;
+    }
+    
+    .survey-comment-box:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    
+    .survey-char-count {
+      text-align: right;
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+    
+    .survey-submit-btn {
+      width: 100%;
+      padding: 12px 24px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .survey-submit-btn:hover {
+      background: #2563eb;
+    }
+    
+    .survey-submit-btn:disabled {
+      background: #d1d5db;
+      cursor: not-allowed;
+    }
+  </style>
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="events.html"><i class="fas fa-calendar"></i> Events</a>
+    <a href="mentorship.html"><i class="fas fa-handshake"></i> Mentorship</a>
+    <a href="donations.html"><i class="fas fa-heart"></i> Donations</a>
+    <a href="feedback.html" class="active"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <h2 class="section-title">Submit Feedback</h2>
+        <p>Your feedback helps us improve alumni programs and services.</p>
+
+        <div class="card" style="max-width: 550px;">
+            <form id="feedbackForm">
+                <label for="feedbackTheme">Topic</label>
+                <select id="feedbackTheme" required>
+                    <option value="">Select a topic...</option>
+                    <option value="events">Events</option>
+                    <option value="mentorship">Mentorship</option>
+                    <option value="donations">Donations</option>
+                    <option value="dashboard">Dashboard & Analytics</option>
+                    <option value="support">Support & Service</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="feedbackRating">Rating</label>
+                <div class="star-rating" id="starRating">
+                    <span class="star" data-value="1">☆</span>
+                    <span class="star" data-value="2">☆</span>
+                    <span class="star" data-value="3">☆</span>
+                    <span class="star" data-value="4">☆</span>
+                    <span class="star" data-value="5">☆</span>
+                </div>
+                <input type="hidden" id="feedbackRating" value="0">
+                <p id="ratingText" style="color: #64748b; font-size: 14px; margin-top: 8px;">Click to rate</p>
+
+                <label for="feedbackMessage">Your Feedback</label>
+                <textarea id="feedbackMessage" placeholder="Write your feedback here..." required></textarea>
+
+                <button type="submit" class="details-btn">Submit Feedback</button>
+
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Platform Experience Survey Modal -->
+    <div class="survey-modal" id="platformSurveyModal">
+      <div class="survey-popup">
+        <div class="survey-header">
+          <h3>Tell us what you think</h3>
+          <button class="survey-close" onclick="closePlatformSurvey()">&times;</button>
+        </div>
+        <div class="survey-body">
+          <div class="survey-title">Platform experience survey</div>
+          <div class="survey-question">
+            How would you rate your overall experience on the Alumni Portal?<br>
+            <small style="color: #6b7280;">(1 = very difficult, 5 = very easy)</small>
+          </div>
+          <div class="survey-stars" id="surveyStars">
+            <span class="survey-star" data-rating="1">☆</span>
+            <span class="survey-star" data-rating="2">☆</span>
+            <span class="survey-star" data-rating="3">☆</span>
+            <span class="survey-star" data-rating="4">☆</span>
+            <span class="survey-star" data-rating="5">☆</span>
+          </div>
+          <label class="survey-comment-label">
+            Please tell us more about your rating <span style="color: #9ca3af;">(Optional)</span>
+          </label>
+          <textarea 
+            class="survey-comment-box" 
+            id="surveyComment" 
+            placeholder="Share your thoughts about the platform..."
+            maxlength="500"
+          ></textarea>
+          <div class="survey-char-count">
+            <span id="surveyCharCount">0</span>/500
+          </div>
+          <button class="survey-submit-btn" id="surveySubmitBtn" onclick="submitPlatformSurvey()" disabled>
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+
+<script>
+  const currentEmail = (localStorage.getItem("profileEmail") || localStorage.getItem("loggedInUser") || "").toLowerCase();
+  const USER_FEEDBACK_KEY = `alumniFeedback:${currentEmail || "anonymous"}`;
+  const GLOBAL_FEEDBACK_KEY = "alumniFeedback:global";
+
+  // Redirect if not logged in
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  }
+
+  // Star rating functionality
+  let currentRating = 0;
+  const stars = document.querySelectorAll('.star');
+  const ratingInput = document.getElementById('feedbackRating');
+  const ratingText = document.getElementById('ratingText');
+
+  const ratingLabels = {
+    1: 'Poor',
+    2: 'Fair',
+    3: 'Good',
+    4: 'Very Good',
+    5: 'Excellent'
+  };
+
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      currentRating = parseInt(star.dataset.value);
+      ratingInput.value = currentRating;
+      updateStars(currentRating);
+      ratingText.textContent = ratingLabels[currentRating];
+      ratingText.style.color = '#0ea5e9';
+      ratingText.style.fontWeight = '600';
+    });
+
+    star.addEventListener('mouseenter', () => {
+      const value = parseInt(star.dataset.value);
+      updateStars(value, true);
+    });
+  });
+
+  document.getElementById('starRating').addEventListener('mouseleave', () => {
+    updateStars(currentRating);
+  });
+
+  function updateStars(rating, isHover = false) {
+    stars.forEach(star => {
+      const value = parseInt(star.dataset.value);
+      if (value <= rating) {
+        star.textContent = '★';
+        star.classList.add(isHover ? 'hovered' : 'selected');
+        star.classList.remove(isHover ? 'selected' : 'hovered');
+      } else {
+        star.textContent = '☆';
+        star.classList.remove('selected', 'hovered');
+      }
+    });
+  }
+
+  function getStoredFeedback(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key) || "[]");
+    } catch (err) {
+      console.warn("Unable to parse stored feedback", err);
+      return [];
+    }
+  }
+
+  // Feedback list removed - now viewable on dashboard modal
+
+  document.getElementById("feedbackForm").addEventListener("submit", event => {
+    event.preventDefault();
+    const messageInput = document.getElementById("feedbackMessage");
+    const themeSelect = document.getElementById("feedbackTheme");
+    const ratingInput = document.getElementById("feedbackRating");
+
+    if (!themeSelect.value) {
+      alert("Please choose a topic for your feedback.");
+      return;
+    }
+
+    const rating = parseInt(ratingInput.value);
+    if (!rating || rating < 1 || rating > 5) {
+      alert("Please select a rating (1-5 stars).");
+      return;
+    }
+
+    const message = messageInput.value.trim();
+    if (!message) {
+      alert("Please enter your feedback.");
+      return;
+    }
+
+    const name = localStorage.getItem("profileFullName") || "Anonymous";
+    const email = localStorage.getItem("profileEmail") || "No Email";
+
+    const feedbackData = {
+      name,
+      email,
+      message,
+      rating,
+      theme: themeSelect.value,
+      themeLabel: themeSelect.options[themeSelect.selectedIndex].text,
+      date: new Date().toLocaleString()
+    };
+
+    const feedbacks = getStoredFeedback(USER_FEEDBACK_KEY);
+    feedbacks.push(feedbackData);
+    localStorage.setItem(USER_FEEDBACK_KEY, JSON.stringify(feedbacks));
+
+    const globalFeedbacks = getStoredFeedback(GLOBAL_FEEDBACK_KEY);
+    globalFeedbacks.push(feedbackData);
+    localStorage.setItem(GLOBAL_FEEDBACK_KEY, JSON.stringify(globalFeedbacks));
+
+    // Add message to user inbox
+    if (window.addUserMessage) {
+      window.addUserMessage({
+        type: 'feedback',
+        title: 'Feedback Submitted Successfully!',
+        message: `Thank you for your ${rating}-star feedback on "${feedbackData.themeLabel}"! Your input helps us improve the alumni experience.`,
+        metadata: { 
+          rating: rating,
+          theme: feedbackData.theme,
+          themeLabel: feedbackData.themeLabel
+        }
+      });
+    }
+
+    alert("Thank you for your feedback!");
+    messageInput.value = "";
+    themeSelect.value = "";
+    ratingInput.value = "0";
+    currentRating = 0;
+    updateStars(0);
+    ratingText.textContent = "Click to rate";
+    ratingText.style.color = "#64748b";
+    ratingText.style.fontWeight = "normal";
+  });
+
+  // ============================================================================
+  // PLATFORM EXPERIENCE SURVEY
+  // ============================================================================
+  
+  const PLATFORM_SURVEY_KEY = `platformSurveySubmitted:${currentEmail || "anonymous"}`;
+  let surveyRating = 0;
+  
+  // Check if survey should be shown (not shown if already submitted)
+  function shouldShowSurvey() {
+    const submitted = localStorage.getItem(PLATFORM_SURVEY_KEY);
+    return !submitted; // Show if not submitted
+  }
+  
+  // Show survey modal after a short delay
+  function showPlatformSurvey() {
+    if (!shouldShowSurvey()) return;
+    
+    const modal = document.getElementById('platformSurveyModal');
+    if (modal) {
+      setTimeout(() => {
+        modal.classList.add('active');
+      }, 2000); // Show after 2 seconds
+    }
+  }
+  
+  // Close survey modal
+  function closePlatformSurvey() {
+    const modal = document.getElementById('platformSurveyModal');
+    if (modal) {
+      modal.classList.remove('active');
+    }
+  }
+  
+  // Handle survey star rating
+  const surveyStars = document.querySelectorAll('.survey-star');
+  surveyStars.forEach(star => {
+    star.addEventListener('click', function() {
+      const rating = parseInt(this.getAttribute('data-rating'));
+      surveyRating = rating;
+      
+      // Update star display
+      surveyStars.forEach((s, index) => {
+        if (index < rating) {
+          s.classList.add('active');
+          s.textContent = '★';
+        } else {
+          s.classList.remove('active');
+          s.textContent = '☆';
+        }
+      });
+      
+      // Enable submit button
+      const submitBtn = document.getElementById('surveySubmitBtn');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+      }
+    });
+    
+    star.addEventListener('mouseenter', function() {
+      const rating = parseInt(this.getAttribute('data-rating'));
+      surveyStars.forEach((s, index) => {
+        if (index < rating) {
+          s.style.color = '#fbbf24';
+        } else {
+          s.style.color = '#d1d5db';
+        }
+      });
+    });
+    
+    star.addEventListener('mouseleave', function() {
+      if (surveyRating === 0) {
+        surveyStars.forEach(s => {
+          s.style.color = '#d1d5db';
+        });
+      } else {
+        surveyStars.forEach((s, index) => {
+          if (index < surveyRating) {
+            s.style.color = '#fbbf24';
+          } else {
+            s.style.color = '#d1d5db';
+          }
+        });
+      }
+    });
+  });
+  
+  // Handle comment character count
+  const surveyComment = document.getElementById('surveyComment');
+  const surveyCharCount = document.getElementById('surveyCharCount');
+  if (surveyComment && surveyCharCount) {
+    surveyComment.addEventListener('input', function() {
+      const length = this.value.length;
+      surveyCharCount.textContent = length;
+      
+      if (length > 500) {
+        this.value = this.value.substring(0, 500);
+        surveyCharCount.textContent = 500;
+      }
+    });
+  }
+  
+  // Submit platform survey
+  function submitPlatformSurvey() {
+    if (surveyRating === 0) {
+      alert('Please select a rating before submitting.');
+      return;
+    }
+    
+    const comment = surveyComment ? surveyComment.value.trim() : '';
+    
+    // Save survey response
+    const surveyResponse = {
+      rating: surveyRating,
+      comment: comment,
+      date: new Date().toLocaleString(),
+      timestamp: Date.now()
+    };
+    
+    // Store in localStorage
+    const SURVEY_STORAGE_KEY = `platformSurveyResponses:${currentEmail || "anonymous"}`;
+    const existingSurveys = JSON.parse(localStorage.getItem(SURVEY_STORAGE_KEY) || "[]");
+    existingSurveys.push(surveyResponse);
+    localStorage.setItem(SURVEY_STORAGE_KEY, JSON.stringify(existingSurveys));
+    
+    // Mark as submitted
+    localStorage.setItem(PLATFORM_SURVEY_KEY, 'true');
+    
+    // Also save to global feedback if needed
+    const globalSurveys = JSON.parse(localStorage.getItem('platformSurveyResponses:global') || "[]");
+    globalSurveys.push({
+      ...surveyResponse,
+      email: currentEmail || "anonymous"
+    });
+    localStorage.setItem('platformSurveyResponses:global', JSON.stringify(globalSurveys));
+    
+    // Add to inbox
+    if (typeof window.addUserMessage === 'function') {
+      window.addUserMessage({
+        type: 'feedback',
+        title: 'Thank You for Your Feedback!',
+        message: `Thank you for rating your platform experience ${surveyRating} out of 5 stars! Your input helps us improve.`,
+        metadata: { 
+          rating: surveyRating,
+          type: 'platform_experience_survey'
+        }
+      });
+    }
+    
+    // Close modal
+    closePlatformSurvey();
+    
+    // Show thank you message
+    alert('Thank you for your feedback! Your response has been recorded.');
+  }
+  
+  // Close modal when clicking outside
+  document.getElementById('platformSurveyModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+      closePlatformSurvey();
+    }
+  });
+  
+  // Initialize survey on page load
+  window.addEventListener('load', function() {
+    showPlatformSurvey();
+  });
+  
+  // Make functions globally accessible
+  window.closePlatformSurvey = closePlatformSurvey;
+  window.submitPlatformSurvey = submitPlatformSurvey;
+</script>
+
+</body>
+</html>

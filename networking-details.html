@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Networking Night | Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="profile.html">Profile</a>
+    <a href="events.html" class="active">Events</a>
+    <a href="mentorship.html">Mentorship</a>
+    <a href="donations.html">Donations</a>
+    <a href="feedback.html">Feedback</a>
+    <a href="index.html">Logout</a>
+</div>
+
+<div class="main-content">
+
+    <h1>Alumni Networking Night</h1>
+    <img src="images/Networking.jpeg" 
+         style="width: 100%; max-width: 700px; border-radius: 10px; margin-bottom: 20px;">
+
+    <p><strong>Location:</strong> Campus Center</p>
+    <p><strong>Date:</strong> February 25, 2025</p>
+
+    <p>This event brings together alumni across different fields to connect, collaborate,
+       and explore professional opportunities. Meet new people and grow your network!</p>
+
+    <h3>Agenda</h3>
+    <ul>
+        <li>Welcome & Opening Remarks</li>
+        <li>Networking Roundtables</li>
+        <li>Career Connection Mixer</li>
+    </ul>
+
+    <button class="primary-btn" onclick="alert('You are registered for Networking Night!')">
+        Register Now
+    </button>
+
+</div>
+
+<script>
+  // Check if logged in
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

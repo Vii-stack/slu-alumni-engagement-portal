@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation Analytics - Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <style>
+    .drilldown-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .drilldown-content {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .drilldown-content h3 {
+      margin-top: 0;
+      color: #1d3557;
+    }
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f1f5f9;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #64748b;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .close-btn:hover {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .insights-grid {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .insight-chart {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .insight-chart h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      color: #475569;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="events.html"><i class="fas fa-calendar"></i> Events</a>
+    <a href="mentorship-report.html"><i class="fas fa-users"></i> Mentorship Report</a>
+    <a href="event-report.html"><i class="fas fa-chart-bar"></i> Event Report</a>
+    <a href="donations.html"><i class="fas fa-heart"></i> Donations</a>
+    <a href="donation-analytics.html" class="active"><i class="fas fa-chart-line"></i> Donation Analytics</a>
+    <a href="feedback-report.html"><i class="fas fa-comment-dots"></i> Feedback Insight</a>
+    <a href="feedback.html"><i class="fas fa-comment"></i> Submit Feedback</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="report-wrapper" style="max-width: 1100px; margin: 0 auto;">
+      
+      <!-- Header -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <div>
+          <h2 class="section-title" style="margin: 0;">System-Wide Donation Analytics</h2>
+          <p style="color: #64748b; margin: 8px 0 0 0;">Comprehensive insights into alumni giving patterns and trends</p>
+        </div>
+        <a href="donation-report.html" class="details-btn" style="text-decoration: none;">
+          <i class="fas fa-user"></i> View Your Personal Donation Report
+        </a>
+      </div>
+
+      <!-- Summary Statistics -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 32px;" id="summaryStats">
+        <div style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0 0 8px 0; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Donations</h4>
+          <p style="margin: 0; color: white; font-size: 32px; font-weight: 700;" id="totalDonations">-</p>
+        </div>
+        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0 0 8px 0; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Amount Raised</h4>
+          <p style="margin: 0; color: white; font-size: 32px; font-weight: 700;" id="totalAmount">-</p>
+        </div>
+        <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0 0 8px 0; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Active Donors</h4>
+          <p style="margin: 0; color: white; font-size: 32px; font-weight: 700;" id="activeDonors">-</p>
+        </div>
+        <div style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0 0 8px 0; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Average Donation</h4>
+          <p style="margin: 0; color: white; font-size: 32px; font-weight: 700;" id="avgDonation">-</p>
+        </div>
+      </div>
+
+      <!-- Deep Insights Button -->
+      <div style="display: flex; justify-content: center; margin-bottom: 32px;">
+        <button onclick="showDeepInsightsModal()" 
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(139, 92, 246, 0.4)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(139, 92, 246, 0.3)'"
+                style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; border: none; padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3); transition: transform 0.2s, box-shadow 0.2s;">
+          <i class="fas fa-chart-pie"></i> View Deep Insights
+        </button>
+      </div>
+
+      <!-- Chart 1: Donations Over Time -->
+      <div class="chart-card">
+        <h3>Donations Over Time</h3>
+          <h4>Monthly donation trends with 3-month moving average</h4>
+          
+          <div class="filter-section">
+            <label for="timelineFilterYear">Year:</label>
+            <select id="timelineFilterYear">
+              <option value="all">All Years</option>
+            </select>
+            <button onclick="applyTimelineFilter()">Apply</button>
+            <button class="secondary" onclick="resetTimelineFilter()">Reset</button>
+          </div>
+          
+        <canvas id="donationsOverTimeChart" style="cursor: pointer;"></canvas>
+        <p class="chart-note">Click on any point to see detailed breakdown for that month</p>
+      </div>
+
+      <!-- Chart 2: Donations by Year -->
+      <div class="chart-card">
+        <h3>Donations by Year</h3>
+          <h4>Annual donation trends and growth patterns</h4>
+        <canvas id="donationsByYearChart" style="cursor: pointer;"></canvas>
+        <p class="chart-note">Click on any year to see monthly breakdown and donor details</p>
+      </div>
+
+      <!-- Chart 3: Donations by Campaign -->
+      <div class="chart-card">
+        <h3>Donations by Campaign</h3>
+          <h4>Performance of fundraising campaigns</h4>
+          
+          <div class="filter-section">
+            <label for="campaignFilterYear">Year:</label>
+            <select id="campaignFilterYear">
+              <option value="all">All Years</option>
+            </select>
+            <button onclick="applyCampaignFilter()">Apply</button>
+            <button class="secondary" onclick="resetCampaignFilter()">Reset</button>
+          </div>
+          
+        <canvas id="donationsByCampaignChart" style="cursor: pointer;"></canvas>
+        <p class="chart-note">Click on any campaign to see donor list and contribution details</p>
+      </div>
+
+      <!-- Chart 4: Donations by Payment Method -->
+      <div class="chart-card">
+        <h3>Donations by Payment Method</h3>
+        <h4>Distribution of payment methods used by donors</h4>
+        
+        <div class="filter-section">
+          <label for="paymentMethodFilterYear">Year:</label>
+          <select id="paymentMethodFilterYear">
+            <option value="all">All Years</option>
+          </select>
+          <label for="paymentMethodFilterMonth">Month:</label>
+          <select id="paymentMethodFilterMonth">
+            <option value="all">All Months</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+          <button onclick="applyPaymentMethodFilter()">Apply</button>
+          <button class="secondary" onclick="resetPaymentMethodFilter()">Reset</button>
+        </div>
+        
+        <div style="max-width: 500px; margin: 0 auto;">
+          <canvas id="paymentMethodChart" style="cursor: pointer;"></canvas>
+        </div>
+        <p class="chart-note">Click on any payment method to see transaction details</p>
+      </div>
+
+      <!-- Chart 5: Donation Frequency -->
+      <div class="chart-card">
+        <h3>Donation Frequency Distribution</h3>
+          <h4>How often alumni contribute to the community</h4>
+          
+          <div class="filter-section">
+            <label for="frequencyFilterYear">Year:</label>
+            <select id="frequencyFilterYear">
+              <option value="all">All Years</option>
+            </select>
+            <label for="frequencyFilterMonth">Month:</label>
+            <select id="frequencyFilterMonth">
+              <option value="all">All Months</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <button onclick="applyFrequencyFilter()">Apply</button>
+            <button class="secondary" onclick="resetFrequencyFilter()">Reset</button>
+          </div>
+          
+        <canvas id="donationFrequencyChart" style="cursor: pointer;"></canvas>
+        <p class="chart-note">Click on any frequency group to see donor profiles</p>
+      </div>
+
+      <!-- Chart 6: Annual Goal Progress -->
+      <div class="chart-card">
+        <h3>Annual Goal Progress</h3>
+        <h4>Progress toward fundraising goals</h4>
+        
+        <div class="filter-section">
+          <label for="goalYear">Year:</label>
+          <select id="goalYear">
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+          </select>
+          <button onclick="updateGoalProgress()">Apply</button>
+        </div>
+        
+        <div style="max-width: 400px; margin: 0 auto; cursor: pointer;" onclick="showGoalAnalysisModal()">
+          <canvas id="goalProgressChart"></canvas>
+        </div>
+        <div id="goalInfo" style="text-align: center; margin-top: 20px; font-size: 16px; color: #1e293b;"></div>
+        <p style="text-align: center; color: #64748b; font-size: 14px; margin-top: 12px; cursor: pointer;" onclick="showGoalAnalysisModal()">
+          <i class="fas fa-chart-line"></i> Click chart for detailed progress analysis
+        </p>
+      </div>
+
+      <!-- How to Use & Recommendations -->
+      <div class="report-card" style="margin-top: 32px;">
+        <h3 style="color: #1d3557; margin-bottom: 16px;">📊 How to Use This Analysis</h3>
+        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; border-left: 4px solid #0ea5e9;">
+          <ul style="margin: 0; padding-left: 20px; color: #475569; line-height: 1.8;">
+            <li><strong>Click on any chart element</strong> to view detailed breakdowns, donor lists, and transaction details</li>
+            <li><strong>Use year filters</strong> to analyze donation patterns across different time periods</li>
+            <li><strong>Compare campaigns</strong> to understand which initiatives resonate most with alumni</li>
+            <li><strong>Track goal progress</strong> to see how the community is working toward fundraising targets</li>
+            <li><strong>Click "Deep Insights"</strong> to see comprehensive analysis with multiple visualization perspectives</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="report-card" style="margin-top: 24px;">
+        <h3 style="color: #1d3557; margin-bottom: 16px;">💡 For Alumni</h3>
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 8px; color: white;">
+          <ul style="margin: 0; padding-left: 20px; line-height: 1.8;">
+            <li>See how your contributions compare to community-wide giving patterns</li>
+            <li>Discover which campaigns are receiving the most support from fellow alumni</li>
+            <li>Understand seasonal giving trends to plan your contributions</li>
+            <li>Track progress toward community goals and celebrate collective achievements</li>
+            <li>Visit your personal donation report to see your individual impact and history</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Deep Insights Modal -->
+  <div class="drilldown-modal" id="deepInsightsModal">
+    <div class="drilldown-content" style="max-width: 1200px;">
+      <button class="close-btn" onclick="closeDeepInsightsModal()">&times;</button>
+      <h3 style="color: #1d3557; margin-bottom: 20px;">Deep Donation Insights</h3>
+      
+      <div class="insights-grid" style="grid-template-columns: repeat(2, 1fr);">
+        <!-- Chart 1: Top Campaigns -->
+        <div class="insight-chart">
+          <h4>Top 5 Campaigns by Total Amount</h4>
+          <canvas id="topCampaignsChart" style="max-height: 250px;"></canvas>
+        </div>
+        
+        <!-- Chart 2: Donor Retention -->
+        <div class="insight-chart">
+          <h4>Repeat Donors vs One-Time Donors</h4>
+          <canvas id="donorRetentionChart" style="max-height: 250px;"></canvas>
+        </div>
+      </div>
+      
+      <div id="deepInsightsText" style="background: #f0f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid #0ea5e9; margin-top: 24px;">
+        <h4 style="margin: 0 0 12px 0; font-size: 15px; color: #0c4a6e; font-weight: 600;">Key Insights</h4>
+        <p id="insightsContent" style="margin: 0; font-size: 14px; color: #475569; line-height: 1.8;"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="drilldown-modal" id="detailModal" style="z-index: 2000;">
+    <div class="drilldown-content" style="max-width: 800px;">
+      <button class="close-btn" onclick="closeDetailModal()">&times;</button>
+      <h3 id="detailModalTitle" style="color: #1d3557; margin-bottom: 20px;"></h3>
+      <div id="detailModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Goal Progress Analysis Modal -->
+  <div class="drilldown-modal" id="goalAnalysisModal">
+    <div class="drilldown-content" style="max-width: 1000px;">
+      <button class="close-btn" onclick="closeGoalAnalysisModal()">&times;</button>
+      <h3 style="color: #1d3557; margin-bottom: 20px;">Goal Progress Analysis - <span id="goalAnalysisYear"></span></h3>
+      
+      <div class="insights-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 24px;">
+        <!-- Chart 1: Monthly Progress -->
+        <div class="insight-chart">
+          <h4>Monthly Fundraising Progress</h4>
+          <canvas id="monthlyProgressChart" style="max-height: 200px;"></canvas>
+        </div>
+        
+        <!-- Chart 2: Monthly Donation Amounts -->
+        <div class="insight-chart">
+          <h4>Monthly Donation Amounts</h4>
+          <canvas id="donorGrowthChart" style="max-height: 200px;"></canvas>
+        </div>
+      </div>
+      
+      <!-- Analysis Text -->
+      <div id="goalAnalysisText" style="background: #f8fafc; padding: 20px; border-radius: 8px; line-height: 1.8; color: #475569;"></div>
+    </div>
+  </div>
+
+  <script>
+    // Global variables
+    let allDonations = [];
+    let allAlumni = [];
+    let chartInstances = {};
+    let deepInsightsCharts = {};
+    
+    let timelineFilter = { year: 'all' };
+    let campaignFilter = { year: 'all' };
+    let paymentMethodFilter = { year: 'all', month: 'all' };
+    let frequencyFilter = { year: 'all', month: 'all' };
+
+    // Redirect if not logged in
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "index.html";
+    }
+
+    // Load CSV helper
+    function loadCSV(filePath) {
+      return new Promise((resolve, reject) => {
+        Papa.parse(filePath, {
+          download: true,
+          header: true,
+          skipEmptyLines: true,
+          complete: (results) => resolve(results.data),
+          error: (error) => reject(error)
+        });
+      });
+    }
+
+    // Initialize the page
+    async function initAnalytics() {
+      try {
+        console.log('Loading CSV files...');
+        [allDonations, allAlumni] = await Promise.all([
+          loadCSV("data/Donation.csv"),
+          loadCSV("data/Alumni.csv")
+        ]);
+
+        console.log('Loaded donations:', allDonations.length);
+        console.log('Loaded alumni:', allAlumni.length);
+
+        if (allDonations.length === 0) {
+          console.warn('No donation data found!');
+          document.getElementById('totalDonations').textContent = 'No data';
+          return;
+        }
+
+        // Populate year filters
+        const years = new Set();
+        allDonations.forEach(d => {
+          if (d.DonationDate) {
+            const year = new Date(d.DonationDate).getFullYear();
+            if (!isNaN(year)) years.add(year);
+          }
+        });
+        const sortedYears = Array.from(years).sort((a, b) => b - a);
+        
+        console.log('Available years:', sortedYears);
+        
+        ['timelineFilterYear', 'campaignFilterYear', 'paymentMethodFilterYear', 'frequencyFilterYear'].forEach(selectId => {
+          const select = document.getElementById(selectId);
+          sortedYears.forEach(year => {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            select.appendChild(option);
+          });
+        });
+
+        renderAnalytics();
+      } catch (error) {
+        console.error('Error loading data:', error);
+        alert('Error loading donation data. Please check the console for details.');
+      }
+    }
+
+    // Main render function
+    function renderAnalytics() {
+      console.log('Rendering analytics...');
+      
+      // Build alumni map
+      const alumniMap = {};
+      allAlumni.forEach(alumni => {
+        if (alumni.AlumniID) {
+          alumniMap[alumni.AlumniID] = alumni;
+        }
+      });
+
+      // Filter donations (use correct column names from CSV)
+      const validDonations = allDonations.filter(d => d.DonationDate && d.DonationAmount);
+      console.log('Valid donations:', validDonations.length);
+
+      if (validDonations.length === 0) {
+        console.warn('No valid donations found with both DonationDate and DonationAmount');
+        document.getElementById('totalDonations').textContent = '0';
+        document.getElementById('totalAmount').textContent = '$0.00';
+        document.getElementById('activeDonors').textContent = '0';
+        document.getElementById('avgDonation').textContent = '$0.00';
+        return;
+      }
+
+      // Calculate summary statistics
+      const totalDonations = validDonations.length;
+      const totalAmount = validDonations.reduce((sum, d) => sum + parseFloat(d.DonationAmount || 0), 0);
+      const uniqueDonors = new Set(validDonations.map(d => d.AlumniID)).size;
+      const avgDonation = totalDonations > 0 ? totalAmount / totalDonations : 0;
+
+      console.log('Stats - Total:', totalDonations, 'Amount:', totalAmount, 'Donors:', uniqueDonors);
+
+      document.getElementById('totalDonations').textContent = totalDonations.toLocaleString();
+      document.getElementById('totalAmount').textContent = `$${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('activeDonors').textContent = uniqueDonors.toLocaleString();
+      document.getElementById('avgDonation').textContent = `$${avgDonation.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      // Destroy existing charts
+      Object.values(chartInstances).forEach(chart => {
+        if (chart) chart.destroy();
+      });
+      chartInstances = {};
+
+      // Chart 1: Donations Over Time
+      console.log('Rendering Donations Over Time chart...');
+      renderDonationsOverTime(validDonations, alumniMap);
+
+      // Chart 2: Donations by Year
+      console.log('Rendering Donations by Year chart...');
+      renderDonationsByYear(validDonations, alumniMap);
+
+      // Chart 3: Donations by Campaign
+      console.log('Rendering Donations by Campaign chart...');
+      renderDonationsByCampaign(validDonations, alumniMap);
+
+      // Chart 4: Payment Method
+      console.log('Rendering Payment Method chart...');
+      renderPaymentMethod(validDonations, alumniMap);
+
+      // Chart 5: Donation Frequency
+      console.log('Rendering Donation Frequency chart...');
+      renderDonationFrequency(validDonations, alumniMap);
+
+      // Chart 6: Goal Progress
+      console.log('Rendering Goal Progress chart...');
+      updateGoalProgress();
+      
+      console.log('All charts rendered successfully');
+    }
+
+    // Helper function to determine donor category
+    function getDonorCategory(alumniId, allDonations) {
+      const donorDonations = allDonations.filter(d => d.AlumniID === alumniId);
+      const donationCount = donorDonations.length;
+      const maxSingleDonation = Math.max(...donorDonations.map(d => parseFloat(d.DonationAmount || 0)));
+      
+      // Get all unique donors and their counts for ranking
+      const allDonorCounts = {};
+      allDonations.forEach(d => {
+        if (d.AlumniID) {
+          allDonorCounts[d.AlumniID] = (allDonorCounts[d.AlumniID] || 0) + 1;
+        }
+      });
+      
+      const counts = Object.values(allDonorCounts).sort((a, b) => a - b);
+      const donorRank = counts.filter(c => c < donationCount).length;
+      const percentile = (donorRank / counts.length) * 100;
+      
+      // Classification using percentile-based thresholds (internal calculation only)
+      if (maxSingleDonation >= 5000 || percentile >= 95) {
+        return 'Major Donor';
+      }
+      else if (percentile >= 85) {
+        return 'Recurring Donor';
+      }
+      else if (percentile >= 70) {
+        return 'Frequent Donor';
+      }
+      else if (percentile >= 40) {
+        return 'Engaged Donor';
+      }
+      else {
+        return 'Occasional Donor';
+      }
+    }
+
+    // Chart 1: Donations Over Time with Moving Average
+    function renderDonationsOverTime(donations, alumniMap) {
+      let filteredDonations = donations;
+      if (timelineFilter.year !== 'all') {
+        filteredDonations = donations.filter(d => {
+          const date = new Date(d.DonationDate);
+          const year = date.getFullYear();
+          return year === parseInt(timelineFilter.year);
+        });
+      }
+
+      console.log('Timeline filter:', timelineFilter);
+      console.log('Filtered donations for timeline:', filteredDonations.length);
+      if (filteredDonations.length > 0) {
+        console.log('Sample filtered donation:', filteredDonations[0]);
+      }
+
+      const monthlyData = {};
+      filteredDonations.forEach(d => {
+        const date = new Date(d.DonationDate);
+        const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+        if (!monthlyData[monthKey]) {
+          monthlyData[monthKey] = { count: 0, amount: 0, donations: [] };
+        }
+        monthlyData[monthKey].count++;
+        monthlyData[monthKey].amount += parseFloat(d.DonationAmount || 0);
+        monthlyData[monthKey].donations.push(d);
+      });
+
+      const sortedMonths = Object.keys(monthlyData).sort();
+      console.log('Sorted months:', sortedMonths);
+      console.log('Monthly data:', monthlyData);
+      
+      // If no data after filtering, show empty chart
+      if (sortedMonths.length === 0) {
+        console.warn('No donations found for the selected filters');
+        if (chartInstances.timeline) {
+          chartInstances.timeline.destroy();
+        }
+        // Create empty chart with message
+        const ctx = document.getElementById('donationsOverTimeChart').getContext('2d');
+        ctx.font = '16px Arial';
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'center';
+        ctx.fillText('No donations found for the selected period', ctx.canvas.width / 2, ctx.canvas.height / 2);
+        return;
+      }
+      
+      const counts = sortedMonths.map(m => monthlyData[m].count);
+      console.log('Monthly data points:', sortedMonths.length);
+      
+      // Calculate 3-month moving average (only if we have enough data points)
+      let movingAvg = [];
+      if (counts.length >= 3) {
+        movingAvg = counts.map((val, idx, arr) => {
+          if (idx < 2) return null;
+          return (arr[idx] + arr[idx - 1] + arr[idx - 2]) / 3;
+        });
+      }
+
+      // Prepare datasets
+      const datasets = [{
+        label: 'Donations',
+        data: counts,
+        borderColor: '#0ea5e9',
+        backgroundColor: 'rgba(14, 165, 233, 0.1)',
+        tension: 0.4,
+        fill: true,
+        pointRadius: 5,
+        pointHoverRadius: 7
+      }];
+
+      // Only add moving average if we have enough data points
+      if (movingAvg.length > 0 && counts.length >= 3) {
+        datasets.push({
+          label: '3-Month Moving Avg',
+          data: movingAvg,
+          borderColor: '#ef4444',
+          borderDash: [5, 5],
+          tension: 0.4,
+          fill: false,
+          pointRadius: 3
+        });
+      }
+
+      // Destroy existing chart before creating new one
+      if (chartInstances.timeline) {
+        chartInstances.timeline.destroy();
+      }
+
+      chartInstances.timeline = new Chart(document.getElementById('donationsOverTimeChart'), {
+        type: 'line',
+        data: {
+          labels: sortedMonths.map(m => {
+            const [year, month] = m.split('-');
+            return `${month}/${year}`;
+          }),
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'top' }
+          },
+          scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1 } }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const monthKey = sortedMonths[index];
+              showMonthDetails(monthKey, monthlyData[monthKey], alumniMap);
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 2: Donations by Year
+    function renderDonationsByYear(donations, alumniMap) {
+      const yearData = {};
+      donations.forEach(d => {
+        const year = new Date(d.DonationDate).getFullYear();
+        if (!yearData[year]) {
+          yearData[year] = { count: 0, amount: 0, donations: [] };
+        }
+        yearData[year].count++;
+        yearData[year].amount += parseFloat(d.DonationAmount || 0);
+        yearData[year].donations.push(d);
+      });
+
+      const years = Object.keys(yearData).sort();
+
+      chartInstances.byYear = new Chart(document.getElementById('donationsByYearChart'), {
+        type: 'bar',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'Number of Donations',
+            data: years.map(y => yearData[y].count),
+            backgroundColor: '#10b981',
+            borderColor: '#059669',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1 } }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const year = years[index];
+              showYearDetails(year, yearData[year], alumniMap);
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 3: Donations by Campaign
+    function renderDonationsByCampaign(donations, alumniMap) {
+      let filteredDonations = donations;
+      if (campaignFilter.year !== 'all') {
+        filteredDonations = donations.filter(d => {
+          const year = new Date(d.DonationDate).getFullYear();
+          return year === parseInt(campaignFilter.year);
+        });
+      }
+
+      const campaignData = {};
+      filteredDonations.forEach(d => {
+        const campaign = d.CampaignName || 'General Fund';
+        if (!campaignData[campaign]) {
+          campaignData[campaign] = { count: 0, amount: 0, donations: [] };
+        }
+        campaignData[campaign].count++;
+        campaignData[campaign].amount += parseFloat(d.DonationAmount || 0);
+        campaignData[campaign].donations.push(d);
+      });
+
+      const campaigns = Object.keys(campaignData).sort((a, b) => 
+        campaignData[b].amount - campaignData[a].amount
+      );
+
+      chartInstances.byCampaign = new Chart(document.getElementById('donationsByCampaignChart'), {
+        type: 'bar',
+        data: {
+          labels: campaigns,
+          datasets: [{
+            label: 'Total Amount',
+            data: campaigns.map(c => campaignData[c].amount),
+            backgroundColor: '#f59e0b',
+            borderColor: '#d97706',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: { beginAtZero: true }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const campaign = campaigns[index];
+              showCampaignDetails(campaign, campaignData[campaign], alumniMap);
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 4: Payment Method
+    function renderPaymentMethod(donations, alumniMap) {
+      // Apply filters
+      let filteredDonations = donations;
+      if (paymentMethodFilter.year !== 'all' || paymentMethodFilter.month !== 'all') {
+        filteredDonations = donations.filter(d => {
+          const date = new Date(d.DonationDate);
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1;
+          
+          if (paymentMethodFilter.year !== 'all' && year !== parseInt(paymentMethodFilter.year)) {
+            return false;
+          }
+          if (paymentMethodFilter.month !== 'all' && month !== parseInt(paymentMethodFilter.month)) {
+            return false;
+          }
+          return true;
+        });
+      }
+
+      // Destroy existing chart
+      if (chartInstances.paymentMethod) {
+        chartInstances.paymentMethod.destroy();
+      }
+
+      const methodData = {};
+      filteredDonations.forEach(d => {
+        const method = d.DonationMethod || 'Unknown';
+        if (!methodData[method]) {
+          methodData[method] = { count: 0, amount: 0, donations: [] };
+        }
+        methodData[method].count++;
+        methodData[method].amount += parseFloat(d.DonationAmount || 0);
+        methodData[method].donations.push(d);
+      });
+
+      const methods = Object.keys(methodData);
+
+      chartInstances.paymentMethod = new Chart(document.getElementById('paymentMethodChart'), {
+        type: 'doughnut',
+        data: {
+          labels: methods,
+          datasets: [{
+            data: methods.map(m => methodData[m].count),
+            backgroundColor: ['#0ea5e9', '#10b981', '#f59e0b', '#8b5cf6', '#ef4444'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom' }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const method = methods[index];
+              showPaymentMethodDetails(method, methodData[method], alumniMap);
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 5: Donation Frequency
+    function renderDonationFrequency(donations, alumniMap) {
+      // Apply filters for display purposes
+      let filteredDonations = donations;
+      if (frequencyFilter.year !== 'all' || frequencyFilter.month !== 'all') {
+        filteredDonations = donations.filter(d => {
+          const date = new Date(d.DonationDate);
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1;
+          
+          if (frequencyFilter.year !== 'all' && year !== parseInt(frequencyFilter.year)) {
+            return false;
+          }
+          if (frequencyFilter.month !== 'all' && month !== parseInt(frequencyFilter.month)) {
+            return false;
+          }
+          return true;
+        });
+      }
+
+      // Destroy existing chart
+      if (chartInstances.frequency) {
+        chartInstances.frequency.destroy();
+      }
+
+      // Get unique donors from filtered donations
+      const uniqueDonors = [...new Set(filteredDonations.map(d => d.AlumniID))];
+
+      // Categorize donors based on LIFETIME donations (not filtered)
+      const frequencyBuckets = {
+        'Occasional Donor': { donors: [], count: 0, description: 'First-time or infrequent contributors' },
+        'Engaged Donor': { donors: [], count: 0, description: 'Moderate and consistent supporters' },
+        'Frequent Donor': { donors: [], count: 0, description: 'Regular and committed givers' },
+        'Recurring Donor': { donors: [], count: 0, description: 'Highly active and loyal supporters' },
+        'Major Donor': { donors: [], count: 0, description: 'Most active donors or $5,000+ single gift' }
+      };
+
+      // Create array of donors with their donation counts for ranking
+      const donorData = uniqueDonors.map(alumniId => {
+        const donorDonations = allDonations.filter(d => d.AlumniID === alumniId);
+        return {
+          alumniId,
+          count: donorDonations.length,
+          maxSingle: Math.max(...donorDonations.map(d => parseFloat(d.DonationAmount || 0)))
+        };
+      });
+
+      // Sort by donation count for ranking
+      donorData.sort((a, b) => a.count - b.count);
+      const totalDonors = donorData.length;
+
+      donorData.forEach((donor, index) => {
+        const percentile = (index / totalDonors) * 100;
+        
+        // Classify using percentile-based thresholds (internal only)
+        if (donor.maxSingle >= 5000 || percentile >= 95) {
+          frequencyBuckets['Major Donor'].donors.push(donor.alumniId);
+          frequencyBuckets['Major Donor'].count++;
+        }
+        else if (percentile >= 85) {
+          frequencyBuckets['Recurring Donor'].donors.push(donor.alumniId);
+          frequencyBuckets['Recurring Donor'].count++;
+        }
+        else if (percentile >= 70) {
+          frequencyBuckets['Frequent Donor'].donors.push(donor.alumniId);
+          frequencyBuckets['Frequent Donor'].count++;
+        }
+        else if (percentile >= 40) {
+          frequencyBuckets['Engaged Donor'].donors.push(donor.alumniId);
+          frequencyBuckets['Engaged Donor'].count++;
+        }
+        else {
+          frequencyBuckets['Occasional Donor'].donors.push(donor.alumniId);
+          frequencyBuckets['Occasional Donor'].count++;
+        }
+      });
+
+      console.log('Donor category distribution:');
+      Object.keys(frequencyBuckets).forEach(cat => {
+        console.log(`  ${cat}: ${frequencyBuckets[cat].count} donors`);
+      });
+
+      const labels = Object.keys(frequencyBuckets);
+
+      chartInstances.frequency = new Chart(document.getElementById('donationFrequencyChart'), {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Number of Donors',
+            data: labels.map(l => frequencyBuckets[l].count),
+            backgroundColor: '#8b5cf6',
+            borderColor: '#7c3aed',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1 } }
+          },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const bucket = labels[index];
+              showFrequencyDetails(bucket, frequencyBuckets[bucket], alumniMap);
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 6: Goal Progress
+    function updateGoalProgress() {
+      const year = parseInt(document.getElementById('goalYear').value);
+      const yearDonations = allDonations.filter(d => {
+        const donationYear = new Date(d.DonationDate).getFullYear();
+        return donationYear === year;
+      });
+
+      const totalRaised = yearDonations.reduce((sum, d) => sum + parseFloat(d.DonationAmount || 0), 0);
+      const goal = year === 2025 ? 500000 : year === 2024 ? 450000 : year === 2023 ? 400000 : 350000;
+      const percentComplete = (totalRaised / goal) * 100;
+
+      if (chartInstances.goalProgress) {
+        chartInstances.goalProgress.destroy();
+      }
+
+      chartInstances.goalProgress = new Chart(document.getElementById('goalProgressChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Raised', 'Remaining'],
+          datasets: [{
+            data: [totalRaised, Math.max(0, goal - totalRaised)],
+            backgroundColor: ['#10b981', '#e5e7eb'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          cutout: '70%',
+          plugins: {
+            legend: { display: true, position: 'bottom' }
+          }
+        }
+      });
+
+      document.getElementById('goalInfo').innerHTML = `
+        <div style="color: #64748b;">
+          $${totalRaised.toLocaleString(undefined, { minimumFractionDigits: 2 })} raised of $${goal.toLocaleString()} goal
+        </div>
+        <div style="color: #64748b; font-size: 14px; margin-top: 8px;">
+          ${yearDonations.length} donations from ${new Set(yearDonations.map(d => d.AlumniID)).size} donors
+        </div>
+      `;
+    }
+
+    // Filter functions
+    function applyTimelineFilter() {
+      timelineFilter.year = document.getElementById('timelineFilterYear').value;
+      renderAnalytics();
+    }
+
+    function resetTimelineFilter() {
+      timelineFilter.year = 'all';
+      document.getElementById('timelineFilterYear').value = 'all';
+      renderAnalytics();
+    }
+
+    function applyCampaignFilter() {
+      campaignFilter.year = document.getElementById('campaignFilterYear').value;
+      renderAnalytics();
+    }
+
+    function resetCampaignFilter() {
+      campaignFilter.year = 'all';
+      document.getElementById('campaignFilterYear').value = 'all';
+      renderAnalytics();
+    }
+
+    function applyPaymentMethodFilter() {
+      paymentMethodFilter.year = document.getElementById('paymentMethodFilterYear').value;
+      paymentMethodFilter.month = document.getElementById('paymentMethodFilterMonth').value;
+      renderAnalytics();
+    }
+
+    function resetPaymentMethodFilter() {
+      paymentMethodFilter.year = 'all';
+      paymentMethodFilter.month = 'all';
+      document.getElementById('paymentMethodFilterYear').value = 'all';
+      document.getElementById('paymentMethodFilterMonth').value = 'all';
+      renderAnalytics();
+    }
+
+    function applyFrequencyFilter() {
+      frequencyFilter.year = document.getElementById('frequencyFilterYear').value;
+      frequencyFilter.month = document.getElementById('frequencyFilterMonth').value;
+      renderAnalytics();
+    }
+
+    function resetFrequencyFilter() {
+      frequencyFilter.year = 'all';
+      frequencyFilter.month = 'all';
+      document.getElementById('frequencyFilterYear').value = 'all';
+      document.getElementById('frequencyFilterMonth').value = 'all';
+      renderAnalytics();
+    }
+
+    // Drill-down functions
+    function showMonthDetails(monthKey, data, alumniMap) {
+      const [year, month] = monthKey.split('-');
+      const monthName = new Date(year, month - 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+      let content = `
+        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+          <h4 style="margin: 0 0 8px 0; color: #1d3557;">${monthName}</h4>
+          <p style="margin: 0; color: #64748b; font-size: 14px;">
+            ${data.count} donations • $${data.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })} raised
+          </p>
+        </div>
+      `;
+
+      data.donations.slice(0, 20).forEach(d => {
+        const alumni = alumniMap[d.AlumniID];
+        const donorCategory = getDonorCategory(d.AlumniID, allDonations);
+        const categoryColors = {
+          'Occasional Donor': '#64748b',
+          'Engaged Donor': '#0ea5e9',
+          'Frequent Donor': '#10b981',
+          'Recurring Donor': '#8b5cf6',
+          'Major Donor': '#f59e0b'
+        };
+
+        content += `
+          <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div style="flex: 1;">
+                <h5 style="margin: 0 0 4px 0; color: #1e293b; font-size: 15px;">
+                  ${alumni ? `${alumni.FirstName} ${alumni.LastName}` : 'Anonymous'}
+                </h5>
+                <p style="margin: 0 0 4px 0; color: #64748b; font-size: 13px;">
+                  ${d.CampaignName || 'General Fund'} • ${d.DonationMethod || 'N/A'}
+                </p>
+                <span style="background: ${categoryColors[donorCategory] || '#64748b'}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block;">
+                  ${donorCategory}
+                </span>
+              </div>
+              <div style="text-align: right;">
+                <span style="background: #10b981; color: white; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 600;">
+                  $${parseFloat(d.DonationAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                </span>
+              </div>
+            </div>
+            <p style="margin: 8px 0 0 0; color: #94a3b8; font-size: 12px;">
+              ${new Date(d.DonationDate).toLocaleDateString()}
+            </p>
+          </div>
+        `;
+      });
+
+      if (data.donations.length > 20) {
+        content += `<p style="text-align: center; color: #64748b; margin-top: 16px;">Showing first 20 of ${data.donations.length} donations</p>`;
+      }
+
+      document.getElementById('detailModalTitle').textContent = `${monthName} - Donation Details`;
+      document.getElementById('detailModalContent').innerHTML = content;
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function showYearDetails(year, data, alumniMap) {
+      // Group by month
+      const monthlyData = {};
+      data.donations.forEach(d => {
+        const month = new Date(d.DonationDate).getMonth() + 1;
+        if (!monthlyData[month]) {
+          monthlyData[month] = { count: 0, amount: 0 };
+        }
+        monthlyData[month].count++;
+        monthlyData[month].amount += parseFloat(d.DonationAmount || 0);
+      });
+
+      const months = Array.from({ length: 12 }, (_, i) => i + 1);
+      const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+      let content = `
+        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+          <h4 style="margin: 0 0 8px 0; color: #1d3557;">${year} Annual Summary</h4>
+          <p style="margin: 0; color: #64748b; font-size: 14px;">
+            ${data.count} donations • $${data.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })} raised
+          </p>
+        </div>
+
+        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
+          <h4 style="margin: 0 0 16px 0; color: #1e293b;">Monthly Breakdown</h4>
+          <canvas id="yearBreakdownChart" style="max-height: 200px;"></canvas>
+        </div>
+      `;
+
+      document.getElementById('detailModalTitle').textContent = `${year} - Annual Breakdown`;
+      document.getElementById('detailModalContent').innerHTML = content;
+      document.getElementById('detailModal').style.display = 'flex';
+
+      setTimeout(() => {
+        new Chart(document.getElementById('yearBreakdownChart'), {
+          type: 'bar',
+          data: {
+            labels: monthNames,
+            datasets: [{
+              label: 'Donations',
+              data: months.map(m => monthlyData[m]?.count || 0),
+              backgroundColor: '#10b981'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+          }
+        });
+      }, 100);
+    }
+
+    function showCampaignDetails(campaign, data, alumniMap) {
+      let content = `
+        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+          <h4 style="margin: 0 0 8px 0; color: #1d3557;">${campaign}</h4>
+          <p style="margin: 0; color: #64748b; font-size: 14px;">
+            ${data.count} donations • $${data.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })} raised
+          </p>
+        </div>
+      `;
+
+      // Sort by amount
+      const sortedDonations = data.donations.sort((a, b) => parseFloat(b.DonationAmount) - parseFloat(a.DonationAmount));
+
+      sortedDonations.slice(0, 15).forEach(d => {
+        const alumni = alumniMap[d.AlumniID];
+        const donorCategory = getDonorCategory(d.AlumniID, allDonations);
+        const categoryColors = {
+          'Occasional Donor': '#64748b',
+          'Engaged Donor': '#0ea5e9',
+          'Frequent Donor': '#10b981',
+          'Recurring Donor': '#8b5cf6',
+          'Major Donor': '#f59e0b'
+        };
+
+        content += `
+          <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div style="flex: 1;">
+                <h5 style="margin: 0 0 4px 0; color: #1e293b; font-size: 15px;">
+                  ${alumni ? `${alumni.FirstName} ${alumni.LastName}` : 'Anonymous'}
+                </h5>
+                <p style="margin: 0 0 4px 0; color: #64748b; font-size: 13px;">
+                  ${alumni ? `${alumni.Department || 'N/A'} • Class of ${alumni.GraduationYear || 'N/A'}` : 'N/A'}
+                </p>
+                <span style="background: ${categoryColors[donorCategory] || '#64748b'}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block;">
+                  ${donorCategory}
+                </span>
+              </div>
+              <div style="text-align: right;">
+                <span style="background: #f59e0b; color: white; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 600;">
+                  $${parseFloat(d.DonationAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                </span>
+              </div>
+            </div>
+            <p style="margin: 8px 0 0 0; color: #94a3b8; font-size: 12px;">
+              ${new Date(d.DonationDate).toLocaleDateString()} • ${d.DonationMethod || 'N/A'}
+            </p>
+          </div>
+        `;
+      });
+
+      if (sortedDonations.length > 15) {
+        content += `<p style="text-align: center; color: #64748b; margin-top: 16px;">Showing top 15 of ${sortedDonations.length} donations</p>`;
+      }
+
+      document.getElementById('detailModalTitle').textContent = `${campaign} - Campaign Details`;
+      document.getElementById('detailModalContent').innerHTML = content;
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function showPaymentMethodDetails(method, data, alumniMap) {
+      let content = `
+        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+          <h4 style="margin: 0 0 8px 0; color: #1d3557;">${method} Payments</h4>
+          <p style="margin: 0; color: #64748b; font-size: 14px;">
+            ${data.count} transactions • $${data.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })} processed
+          </p>
+        </div>
+      `;
+
+      data.donations.slice(0, 15).forEach(d => {
+        const alumni = alumniMap[d.AlumniID];
+        const donorCategory = getDonorCategory(d.AlumniID, allDonations);
+        const categoryColors = {
+          'Occasional Donor': '#64748b',
+          'Engaged Donor': '#0ea5e9',
+          'Frequent Donor': '#10b981',
+          'Recurring Donor': '#8b5cf6',
+          'Major Donor': '#f59e0b'
+        };
+
+        content += `
+          <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+              <div style="flex: 1;">
+                <h5 style="margin: 0 0 4px 0; color: #1e293b; font-size: 15px;">
+                  ${alumni ? `${alumni.FirstName} ${alumni.LastName}` : 'Anonymous'}
+                </h5>
+                <p style="margin: 0 0 4px 0; color: #64748b; font-size: 13px;">
+                  ${d.CampaignName || 'General Fund'}
+                </p>
+                <span style="background: ${categoryColors[donorCategory] || '#64748b'}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; display: inline-block;">
+                  ${donorCategory}
+                </span>
+              </div>
+              <div style="text-align: right;">
+                <span style="background: #0ea5e9; color: white; padding: 6px 12px; border-radius: 6px; font-size: 14px; font-weight: 600;">
+                  $${parseFloat(d.DonationAmount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                </span>
+              </div>
+            </div>
+            <p style="margin: 8px 0 0 0; color: #94a3b8; font-size: 12px;">
+              ${new Date(d.DonationDate).toLocaleDateString()}
+            </p>
+          </div>
+        `;
+      });
+
+      if (data.donations.length > 15) {
+        content += `<p style="text-align: center; color: #64748b; margin-top: 16px;">Showing first 15 of ${data.donations.length} transactions</p>`;
+      }
+
+      document.getElementById('detailModalTitle').textContent = `${method} - Transaction Details`;
+      document.getElementById('detailModalContent').innerHTML = content;
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function showFrequencyDetails(bucket, data, alumniMap) {
+      let content = `
+        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+          <h4 style="margin: 0 0 4px 0; color: #1d3557;">${bucket}</h4>
+          <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px;">
+            ${data.description}
+          </p>
+          <p style="margin: 8px 0 0 0; color: #475569; font-size: 14px; font-weight: 600;">
+            ${data.count} donors in this category
+          </p>
+        </div>
+      `;
+
+      data.donors.slice(0, 20).forEach(alumniId => {
+        const alumni = alumniMap[alumniId];
+        const donorDonations = allDonations.filter(d => d.AlumniID === alumniId);
+        const totalAmount = donorDonations.reduce((sum, d) => sum + parseFloat(d.DonationAmount || 0), 0);
+        const donorCategory = getDonorCategory(alumniId, allDonations);
+
+        // Get color for donor category badge
+        const categoryColors = {
+          'Occasional Donor': '#64748b',
+          'Engaged Donor': '#0ea5e9',
+          'Frequent Donor': '#10b981',
+          'Recurring Donor': '#8b5cf6',
+          'Major Donor': '#f59e0b'
+        };
+
+        content += `
+          <div style="background: white; padding: 18px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+              <div style="flex: 1;">
+                <h5 style="margin: 0 0 6px 0; color: #1e293b; font-size: 16px; font-weight: 600;">
+                  ${alumni ? `${alumni.FirstName} ${alumni.LastName}` : 'Anonymous'}
+                </h5>
+                <p style="margin: 0 0 4px 0; color: #64748b; font-size: 13px;">
+                  <i class="fas fa-graduation-cap" style="margin-right: 4px;"></i>
+                  ${alumni && alumni.Department ? alumni.Department : 'Program not available'}
+                </p>
+                <p style="margin: 0; color: #64748b; font-size: 13px;">
+                  <i class="fas fa-calendar" style="margin-right: 4px;"></i>
+                  Class of ${alumni && alumni.GraduationYear ? alumni.GraduationYear : 'N/A'}
+                </p>
+              </div>
+              <div style="text-align: right;">
+                <span style="background: ${categoryColors[donorCategory] || '#64748b'}; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-block; margin-bottom: 8px;">
+                  ${donorCategory}
+                </span>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #f8fafc; padding: 12px; border-radius: 6px;">
+              <div>
+                <p style="margin: 0; color: #64748b; font-size: 12px;">Total Donations</p>
+                <p style="margin: 4px 0 0 0; color: #1e293b; font-size: 16px; font-weight: 600;">
+                  ${donorDonations.length}
+                </p>
+              </div>
+              <div>
+                <p style="margin: 0; color: #64748b; font-size: 12px;">Total Amount</p>
+                <p style="margin: 4px 0 0 0; color: #10b981; font-size: 16px; font-weight: 600;">
+                  $${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                </p>
+              </div>
+            </div>
+            <button onclick="window.requestConnection('${alumniId}', '${alumni ? (alumni.FirstName + ' ' + alumni.LastName).replace(/'/g, "\\'") : 'Anonymous'}')" 
+                    style="margin-top: 12px; padding: 8px 16px; background: #0ea5e9; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; width: 100%;">
+              <i class="fas fa-user-plus" style="margin-right: 6px;"></i>Connect
+            </button>
+          </div>
+        `;
+      });
+
+      if (data.donors.length > 20) {
+        content += `<p style="text-align: center; color: #64748b; margin-top: 16px;">Showing first 20 of ${data.donors.length} donors</p>`;
+      }
+
+      document.getElementById('detailModalTitle').textContent = `${bucket.charAt(0).toUpperCase() + bucket.slice(1)} - Donor Profiles`;
+      document.getElementById('detailModalContent').innerHTML = content;
+      document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    window.requestConnection = function(alumniId, alumniName) {
+      // Store connection request in localStorage
+      const currentUser = localStorage.getItem('loggedInUser') || 'current.user@alumni.com';
+      const connectionRequests = JSON.parse(localStorage.getItem('connectionRequests') || '[]');
+      
+      // Check if already requested
+      const alreadyRequested = connectionRequests.some(req => 
+        req.from === currentUser && req.to === alumniId
+      );
+      
+      if (alreadyRequested) {
+        alert(`You have already sent a connection request to ${alumniName}.`);
+        return;
+      }
+      
+      // Add new connection request
+      connectionRequests.push({
+        from: currentUser,
+        to: alumniId,
+        toName: alumniName,
+        timestamp: new Date().toISOString(),
+        status: 'pending'
+      });
+      
+      localStorage.setItem('connectionRequests', JSON.stringify(connectionRequests));
+      alert(`Connection request sent to ${alumniName}! If ${alumniName} approves, you will be notified.`);
+    };
+
+    function closeDetailModal() {
+      document.getElementById('detailModal').style.display = 'none';
+    }
+
+    // Deep Insights Modal
+    function showDeepInsightsModal() {
+      document.getElementById('deepInsightsModal').style.display = 'flex';
+
+      // Destroy existing charts
+      Object.values(deepInsightsCharts).forEach(chart => {
+        if (chart) chart.destroy();
+      });
+      deepInsightsCharts = {};
+
+      // Top Campaigns
+      const campaignData = {};
+      allDonations.forEach(d => {
+        const campaign = d.CampaignName || 'General Fund';
+        if (!campaignData[campaign]) {
+          campaignData[campaign] = 0;
+        }
+        campaignData[campaign] += parseFloat(d.DonationAmount || 0);
+      });
+
+      const topCampaigns = Object.keys(campaignData)
+        .sort((a, b) => campaignData[b] - campaignData[a])
+        .slice(0, 5);
+
+      deepInsightsCharts.topCampaigns = new Chart(document.getElementById('topCampaignsChart'), {
+        type: 'bar',
+        data: {
+          labels: topCampaigns,
+          datasets: [{
+            label: 'Total Amount',
+            data: topCampaigns.map(c => campaignData[c]),
+            backgroundColor: '#f59e0b'
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: { x: { beginAtZero: true } }
+        }
+      });
+
+      // Donor Retention
+      const donorFrequency = {};
+      allDonations.forEach(d => {
+        donorFrequency[d.AlumniID] = (donorFrequency[d.AlumniID] || 0) + 1;
+      });
+
+      const oneTime = Object.values(donorFrequency).filter(f => f === 1).length;
+      const repeat = Object.values(donorFrequency).filter(f => f > 1).length;
+
+      deepInsightsCharts.retention = new Chart(document.getElementById('donorRetentionChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Repeat Donors', 'One-Time Donors'],
+          datasets: [{
+            data: [repeat, oneTime],
+            backgroundColor: ['#10b981', '#e5e7eb'],
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
+
+      // Generate insights
+      const totalDonations = allDonations.length;
+      const totalAmount = allDonations.reduce((sum, d) => sum + parseFloat(d.DonationAmount || 0), 0);
+      const topCampaign = topCampaigns[0];
+      const topCampaignAmount = campaignData[topCampaign];
+      const retentionRate = ((repeat / (repeat + oneTime)) * 100).toFixed(1);
+
+      document.getElementById('insightsContent').innerHTML = `
+        <strong>Top Campaign:</strong> ${topCampaign} has raised $${topCampaignAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}, making it the most successful campaign.
+        <br><br>
+        <strong>Donor Retention:</strong> ${retentionRate}% of donors have given multiple times, showing strong community commitment with ${repeat} repeat donors.
+        <br><br>
+        <strong>Overall Impact:</strong> ${totalDonations} total donations from ${repeat + oneTime} unique donors have raised $${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })} for the alumni community.
+      `;
+    }
+
+    function closeDeepInsightsModal() {
+      document.getElementById('deepInsightsModal').style.display = 'none';
+      Object.values(deepInsightsCharts).forEach(chart => {
+        if (chart) chart.destroy();
+      });
+      deepInsightsCharts = {};
+    }
+
+    // Goal Progress Analysis Modal
+    let goalAnalysisCharts = { monthly: null, donors: null };
+
+    function showGoalAnalysisModal() {
+      const year = parseInt(document.getElementById('goalYear').value);
+      document.getElementById('goalAnalysisYear').textContent = year;
+      document.getElementById('goalAnalysisModal').style.display = 'flex';
+
+      // Get year donations
+      const yearDonations = allDonations.filter(d => {
+        const donationYear = new Date(d.DonationDate).getFullYear();
+        return donationYear === year;
+      });
+
+      const goal = year === 2025 ? 500000 : year === 2024 ? 450000 : year === 2023 ? 400000 : 350000;
+      const totalRaised = yearDonations.reduce((sum, d) => sum + parseFloat(d.DonationAmount || 0), 0);
+
+      // Destroy existing charts
+      if (goalAnalysisCharts.monthly) goalAnalysisCharts.monthly.destroy();
+      if (goalAnalysisCharts.donors) goalAnalysisCharts.donors.destroy();
+
+      // Chart 1: Monthly Progress
+      const monthlyData = {};
+      yearDonations.forEach(d => {
+        const month = new Date(d.DonationDate).getMonth();
+        monthlyData[month] = (monthlyData[month] || 0) + parseFloat(d.DonationAmount || 0);
+      });
+
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const monthlyAmounts = months.map((_, i) => monthlyData[i] || 0);
+      const cumulativeAmounts = monthlyAmounts.map((_, i) => 
+        monthlyAmounts.slice(0, i + 1).reduce((sum, val) => sum + val, 0)
+      );
+
+      goalAnalysisCharts.monthly = new Chart(document.getElementById('monthlyProgressChart'), {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [{
+            label: 'Cumulative Raised',
+            data: cumulativeAmounts,
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            tension: 0.4,
+            fill: true
+          }, {
+            label: 'Goal',
+            data: Array(12).fill(goal),
+            borderColor: '#ef4444',
+            borderDash: [5, 5],
+            tension: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: true, position: 'top' } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      // Chart 2: Monthly Donation Amounts
+      goalAnalysisCharts.donors = new Chart(document.getElementById('donorGrowthChart'), {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [{
+            label: 'Amount Donated',
+            data: monthlyAmounts,
+            backgroundColor: '#0ea5e9',
+            borderColor: '#0284c7',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { 
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return '$' + context.parsed.y.toLocaleString(undefined, { minimumFractionDigits: 2 });
+                }
+              }
+            }
+          },
+          scales: { 
+            y: { 
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '$' + value.toLocaleString();
+                }
+              }
+            } 
+          }
+        }
+      });
+
+      // Generate Analysis Text
+      const percentComplete = (totalRaised / goal) * 100;
+      const remaining = Math.max(0, goal - totalRaised);
+      const uniqueDonors = new Set(yearDonations.map(d => d.AlumniID)).size;
+      const avgDonation = totalRaised / yearDonations.length;
+      const strongestMonth = monthlyAmounts.indexOf(Math.max(...monthlyAmounts));
+      const weakestMonth = monthlyAmounts.indexOf(Math.min(...monthlyAmounts.filter(v => v > 0)));
+      
+      // Find months with data
+      const activeMonths = monthlyAmounts.filter(v => v > 0).length;
+      const avgMonthlyDonation = totalRaised / activeMonths;
+
+      let analysis = `
+        <strong>Overall Progress:</strong><br>
+        The community has raised $${totalRaised.toLocaleString(undefined, { minimumFractionDigits: 2 })} toward the $${goal.toLocaleString()} goal for ${year}. 
+        ${remaining > 0 ? `$${remaining.toLocaleString(undefined, { minimumFractionDigits: 2 })} remains to reach the target.` : 'The goal has been exceeded!'}
+        <br><br>
+        <strong>Monthly Fundraising Trends:</strong><br>
+        ${months[strongestMonth]} was the strongest fundraising month with $${monthlyAmounts[strongestMonth].toLocaleString(undefined, { minimumFractionDigits: 2 })} raised. 
+        ${weakestMonth >= 0 ? `${months[weakestMonth]} showed the lowest activity with $${monthlyAmounts[weakestMonth].toLocaleString(undefined, { minimumFractionDigits: 2 })}.` : ''}
+        The average monthly donation total is $${avgMonthlyDonation.toLocaleString(undefined, { minimumFractionDigits: 2 })} across ${activeMonths} active months.
+        <br><br>
+        <strong>Donor Engagement:</strong><br>
+        ${uniqueDonors} unique donors contributed during ${year}, with an average donation of $${avgDonation.toLocaleString(undefined, { minimumFractionDigits: 2 })}. 
+        The community made ${yearDonations.length} total contributions, demonstrating ${yearDonations.length / uniqueDonors > 1 ? 'strong repeat donor engagement' : 'broad community participation'}.
+        <br><br>
+        <strong>For Alumni:</strong><br>
+        ${percentComplete < 50 ? 'Every contribution brings us closer to the goal. Consider making a donation to help bridge the gap.' : 
+          percentComplete < 90 ? 'We are approaching the goal! Your support can help us reach the finish line.' : 
+          'Amazing progress! Your continued support sustains our momentum.'}
+      `;
+
+      document.getElementById('goalAnalysisText').innerHTML = analysis;
+    }
+
+    function closeGoalAnalysisModal() {
+      document.getElementById('goalAnalysisModal').style.display = 'none';
+      if (goalAnalysisCharts.monthly) goalAnalysisCharts.monthly.destroy();
+      if (goalAnalysisCharts.donors) goalAnalysisCharts.donors.destroy();
+      goalAnalysisCharts = { monthly: null, donors: null };
+    }
+
+    // Close modals when clicking outside
+    window.onclick = function(event) {
+      const deepModal = document.getElementById('deepInsightsModal');
+      const detailModal = document.getElementById('detailModal');
+      const goalModal = document.getElementById('goalAnalysisModal');
+      if (event.target === deepModal) {
+        closeDeepInsightsModal();
+      }
+      if (event.target === detailModal) {
+        closeDetailModal();
+      }
+      if (event.target === goalModal) {
+        closeGoalAnalysisModal();
+      }
+    };
+
+    initAnalytics();
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation Strategy Report | Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .report-wrapper {
+      display: grid;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .report-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    }
+    .report-card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #1d3557;
+    }
+    .stat {
+      font-size: 28px;
+      font-weight: 600;
+      color: #14213d;
+      margin: 0;
+    }
+    .stat-note {
+      font-size: 14px;
+      color: #475569;
+      margin-top: 6px;
+    }
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .chart-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    }
+    canvas {
+      width: 100%;
+      height: auto;
+    }
+    .recommendation-list {
+      list-style: disc;
+      padding-left: 20px;
+      color: #475569;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      text-decoration: none;
+      color: #0b3d91;
+      font-weight: 600;
+    }
+    .back-link:hover {
+      color: #08306b;
+    }
+    .filter-section {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .filter-section label {
+      font-weight: 600;
+      color: #475569;
+      font-size: 14px;
+    }
+    .filter-section select, .filter-section input {
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+    }
+    .filter-section input[type="number"] {
+      width: 100px;
+    }
+    #insightCardsContainer {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .insight-card {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border-left: 4px solid #0b3d91;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .insight-card.warning {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-left-color: #f59e0b;
+    }
+    .insight-card.success {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-left-color: #10b981;
+    }
+    .insight-card h4 {
+      margin: 0 0 8px 0;
+      color: #1d3557;
+      font-size: 16px;
+    }
+    .insight-card p {
+      margin: 0;
+      color: #475569;
+      font-size: 14px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 8px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-item label {
+      display: block;
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+    .stat-item value {
+      display: block;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1d3557;
+    }
+    .drilldown-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .drilldown-content {
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .drilldown-content h3 {
+      margin-top: 0;
+      color: #1d3557;
+    }
+    .drilldown-content .close-btn {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #64748b;
+    }
+    .drilldown-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0 0;
+    }
+    .drilldown-list li {
+      padding: 12px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .drilldown-list li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="event-report.html"><i class="fas fa-chart-line"></i> Events</a>
+    <a href="mentorship-report.html"><i class="fas fa-handshake"></i> Mentorship</a>
+    <a class="active" href="donation-report.html"><i class="fas fa-bullseye"></i> Donation Report</a>
+    <a href="feedback.html"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="main-content">
+    <div class="report-wrapper">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <div>
+          <h1 style="margin: 0;">Your Personal Donation Report</h1>
+          <p style="color: #64748b; margin: 8px 0 0 0;">Track your individual donation history and impact</p>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <a href="donation-analytics.html" class="details-btn" style="text-decoration: none;">
+            <i class="fas fa-chart-line"></i> View System-Wide Analytics
+          </a>
+        <a class="back-link" href="dashboard.html"><i class="fas fa-arrow-left"></i>Back to dashboard</a>
+        </div>
+      </div>
+
+      <div id="insightCardsContainer"></div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 32px;">
+        <div style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); padding: 28px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0 0 12px 0; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Lifetime Giving</h4>
+          <p style="margin: 0 0 8px 0; color: white; font-size: 36px; font-weight: 700;" id="lifetimeTotal">$0</p>
+          <p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 13px;" id="lifetimeNote"></p>
+        </div>
+        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 28px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0 0 12px 0; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Year-to-date <span id="currentYearHeader"></span></h4>
+          <p style="margin: 0 0 8px 0; color: white; font-size: 36px; font-weight: 700;" id="yearTotal">$0</p>
+          <p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 13px;" id="yearNote"></p>
+        </div>
+        <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); padding: 28px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0 0 12px 0; color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Best Month</h4>
+          <p style="margin: 0 0 8px 0; color: white; font-size: 28px; font-weight: 700;" id="bestMonth">-</p>
+          <p style="margin: 0; color: rgba(255,255,255,0.8); font-size: 13px;" id="bestMonthNote"></p>
+        </div>
+      </div>
+
+      <!-- Summary Statistics -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 32px;">
+        <div style="background: white; padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+          <h4 style="margin: 0 0 8px 0; color: #64748b; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Min Donation</h4>
+          <p style="margin: 0; color: #1e293b; font-size: 32px; font-weight: 700;" id="statMin">-</p>
+        </div>
+        <div style="background: white; padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+          <h4 style="margin: 0 0 8px 0; color: #64748b; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Max Donation</h4>
+          <p style="margin: 0; color: #1e293b; font-size: 32px; font-weight: 700;" id="statMax">-</p>
+        </div>
+        <div style="background: white; padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+          <h4 style="margin: 0 0 8px 0; color: #64748b; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Total Donations</h4>
+          <p style="margin: 0; color: #1e293b; font-size: 32px; font-weight: 700;" id="statTotal">-</p>
+        </div>
+        <div style="background: white; padding: 24px; border-radius: 12px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+          <h4 style="margin: 0 0 8px 0; color: #64748b; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Donation Count</h4>
+          <p style="margin: 0; color: #1e293b; font-size: 32px; font-weight: 700;" id="statCount">-</p>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <h3 style="margin: 0;">Donations by Month</h3>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Year:</label>
+              <select id="monthlyChartFilterYear" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Years</option>
+              </select>
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Month:</label>
+              <select id="monthlyChartFilterMonth" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Months</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <button onclick="applyMonthlyChartFilter()" style="padding: 6px 12px; background: #0b3d91; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Apply</button>
+              <button onclick="resetMonthlyChartFilter()" style="padding: 6px 12px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Reset</button>
+            </div>
+          </div>
+          <canvas id="donationMonthlyChart"></canvas>
+          <p class="stat-note" style="font-size: 12px; color: #64748b; margin-top: 8px;">
+            <strong>Analysis:</strong> This chart shows your monthly donation totals (bars) with a 3-month moving average trendline (dashed orange line) to identify giving patterns and trends over time. Click any bar to see detailed donation breakdown for that month.
+          </p>
+        </div>
+        <div class="chart-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <h3 style="margin: 0;">Donation Velocity Trend</h3>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Year:</label>
+              <select id="velocityChartFilterYear" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Years</option>
+              </select>
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Month:</label>
+              <select id="velocityChartFilterMonth" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Months</option>
+              </select>
+              <button onclick="applyVelocityChartFilter()" style="padding: 6px 12px; background: #0b3d91; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Apply</button>
+              <button onclick="resetVelocityChartFilter()" style="padding: 6px 12px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Reset</button>
+        </div>
+          </div>
+          <canvas id="donationVelocityChart"></canvas>
+          <p class="stat-note" style="font-size: 12px; color: #64748b; margin-top: 8px;">Monthly donation velocity with trend analysis</p>
+        </div>
+        <div class="chart-card" id="goalProgressCard">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <h3 style="margin: 0;">Goal Progress Outlook</h3>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Year:</label>
+              <select id="goalChartFilterYear" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Years</option>
+              </select>
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Month:</label>
+              <select id="goalChartFilterMonth" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Months</option>
+              </select>
+              <button onclick="applyGoalChartFilter()" style="padding: 6px 12px; background: #0b3d91; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Apply</button>
+              <button onclick="resetGoalChartFilter()" style="padding: 6px 12px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Reset</button>
+            </div>
+          </div>
+          <canvas id="goalDonut"></canvas>
+          <p class="stat-note" id="goalNote"></p>
+          <p class="stat-note" style="margin-top: 8px; font-size: 12px; color: #64748b; cursor: pointer; text-decoration: underline;" id="goalAnalysisLink">Click here for detailed analysis</p>
+        </div>
+        <div class="chart-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <h3 style="margin: 0;">Donations by Year</h3>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Year:</label>
+              <select id="yearChartFilterYear" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Years</option>
+              </select>
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Campaign:</label>
+              <select id="yearChartFilterCampaign" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Campaigns</option>
+              </select>
+              <button onclick="applyYearChartFilter()" style="padding: 6px 12px; background: #0b3d91; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Apply</button>
+              <button onclick="resetYearChartFilter()" style="padding: 6px 12px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Reset</button>
+      </div>
+          </div>
+          <canvas id="donationByYearChart"></canvas>
+          <p class="stat-note" style="font-size: 12px; color: #64748b; margin-top: 8px;">Click a bar to see all donations for that year</p>
+        </div>
+        <div class="chart-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+            <h3 style="margin: 0;">Donations by Payment Method <span id="paymentMethodChartYear"></span></h3>
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Year:</label>
+              <select id="paymentMethodChartFilterYear" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Years</option>
+              </select>
+              <label style="font-size: 12px; font-weight: 600; color: #475569;">Month:</label>
+              <select id="paymentMethodChartFilterMonth" style="padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 12px; background: white;">
+                <option value="all">All Months</option>
+              </select>
+              <button onclick="applyPaymentMethodChartFilter()" style="padding: 6px 12px; background: #0b3d91; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Apply</button>
+              <button onclick="resetPaymentMethodChartFilter()" style="padding: 6px 12px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">Reset</button>
+            </div>
+          </div>
+          <canvas id="paymentMethodChart"></canvas>
+          <p class="stat-note" style="font-size: 12px; color: #64748b; margin-top: 8px;">Breakdown of donations by payment method. Click a segment to see details.</p>
+        </div>
+      </div>
+
+
+      <div class="report-card">
+        <h3>How we evaluate your giving</h3>
+        <p>These recommendations combine your historical donations with the annual goal you set on the dashboard for <span id="evaluationYear"></span>:</p>
+        <ul class="recommendation-list">
+          <li><strong>Progress ratio:</strong> total gifts divided by your goal tells us the remaining runway.</li>
+          <li><strong>Cadence projection:</strong> we compute how many $10 gifts per month/week keep you on target.</li>
+          <li><strong>Campaign focus:</strong> recent campaigns where you've invested heavily become candidates for stewardship and outreach.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Goal Analysis Modal -->
+<div class="drilldown-modal" id="goalAnalysisModal">
+  <div class="drilldown-content" style="max-width: 600px;">
+    <button class="close-btn" id="closeGoalAnalysisModal">&times;</button>
+    <h3 style="margin-top: 0; color: #1d3557;">Goal Progress Analysis</h3>
+    <div id="goalAnalysisContent" style="display: flex; flex-direction: column; gap: 12px;"></div>
+  </div>
+</div>
+
+<div class="drilldown-modal" id="drilldownModal">
+  <div class="drilldown-content">
+    <button class="close-btn" onclick="closeDrilldown()">&times;</button>
+    <h3 id="drilldownTitle">Donation Details</h3>
+    <ul class="drilldown-list" id="drilldownList"></ul>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  let allDonations = [];
+  let allAlumniRows = [];
+  let chartInstances = {};
+  // Individual chart filters
+  let monthlyChartFilters = { year: 'all', month: 'all' };
+  let velocityChartFilters = { year: 'all', month: 'all' };
+  let paymentMethodChartFilters = { year: 'all', month: 'all' };
+  let yearChartFilters = { year: 'all', campaign: 'all' };
+  let goalChartFilters = { year: 'all', month: 'all' };
+
+  function loadCSV(path) {
+    return new Promise((resolve, reject) => {
+      Papa.parse(path, {
+        download: true,
+        header: true,
+        complete: results => resolve(results.data.filter(row => Object.values(row).some(v => v))),
+        error: reject
+      });
+    });
+  }
+
+  function parseDate(value) {
+    if (!value) return null;
+    const direct = new Date(value);
+    if (!isNaN(direct)) return direct;
+    const parts = value.split("/");
+    if (parts.length === 3) {
+      const dt = new Date(parseInt(parts[2], 10), parseInt(parts[0], 10) - 1, parseInt(parts[1], 10));
+      return isNaN(dt) ? null : dt;
+    }
+    return null;
+  }
+
+  function monthKey(date) {
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+  }
+
+  function formatCurrency(value) {
+    return value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function calculateMovingAverage(data, window = 3) {
+    const result = [];
+    for (let i = 0; i < data.length; i++) {
+      const start = Math.max(0, i - window + 1);
+      const windowData = data.slice(start, i + 1);
+      const avg = windowData.reduce((sum, val) => sum + val, 0) / windowData.length;
+      result.push(avg);
+    }
+    return result;
+  }
+
+  function calculateStats(values) {
+    if (values.length === 0) return { mean: 0, median: 0, min: 0, max: 0, total: 0, count: 0 };
+    const sorted = [...values].sort((a, b) => a - b);
+    const mean = values.reduce((sum, val) => sum + val, 0) / values.length;
+    const median = sorted.length % 2 === 0
+      ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
+      : sorted[Math.floor(sorted.length / 2)];
+    return {
+      mean: mean.toFixed(2),
+      median: median.toFixed(2),
+      min: Math.min(...values),
+      max: Math.max(...values),
+      total: values.reduce((sum, val) => sum + val, 0),
+      count: values.length
+    };
+  }
+
+  function generateInsights(donations, monthlyTotals, campaignTotals, filteredYear) {
+    const insights = [];
+    
+    if (donations.length === 0) {
+      insights.push({
+        type: 'warning',
+        title: 'No donations found for selected filters',
+        message: 'Try adjusting your filters to see donation data, or make your first donation to get started.'
+      });
+      return insights;
+    }
+    
+    // Calculate average monthly donation
+    const monthlyValues = Object.values(monthlyTotals);
+    const avgMonthly = monthlyValues.length > 0
+      ? monthlyValues.reduce((sum, val) => sum + val, 0) / monthlyValues.length
+      : 0;
+    
+    // Check for increasing trend
+    if (monthlyValues.length >= 3) {
+      const recent3 = monthlyValues.slice(-3);
+      const previous3 = monthlyValues.slice(-6, -3);
+      if (previous3.length > 0) {
+        const recentAvg = recent3.reduce((sum, val) => sum + val, 0) / recent3.length;
+        const previousAvg = previous3.reduce((sum, val) => sum + val, 0) / previous3.length;
+        if (recentAvg > previousAvg * 1.1) {
+          insights.push({
+            type: 'success',
+            title: 'Donation activity is increasing over the last 3 months',
+            message: `Average monthly donations increased by ${((recentAvg / previousAvg - 1) * 100).toFixed(0)}% compared to the previous 3 months.`
+          });
+        } else if (recentAvg < previousAvg * 0.9) {
+          insights.push({
+            type: 'warning',
+            title: 'Donation activity trending downward',
+            message: `Average monthly donations decreased by ${((1 - recentAvg / previousAvg) * 100).toFixed(0)}% compared to the previous 3 months. Consider increasing engagement.`
+          });
+        }
+      }
+    }
+    
+    // Campaign insights - only show if there are multiple campaigns
+    const campaignEntries = Object.entries(campaignTotals).sort((a, b) => b[1] - a[1]);
+    if (campaignEntries.length > 1) {
+      // Only show insight if there are multiple campaigns to compare
+      const topCampaign = campaignEntries[0];
+      const totalGiving = donations.reduce((sum, d) => sum + (parseFloat(d.DonationAmount) || 0), 0);
+      if (topCampaign && topCampaign[1] > 0 && totalGiving > 0) {
+        const campaignPct = (topCampaign[1] / totalGiving * 100).toFixed(1);
+        insights.push({
+          type: 'success',
+          title: `Campaigns with highest engagement: ${topCampaign[0]}`,
+          message: `You've contributed $${formatCurrency(topCampaign[1])} to ${topCampaign[0]}${filteredYear !== 'all' ? ` in ${filteredYear}` : ''}, representing ${campaignPct}% of your ${filteredYear !== 'all' ? 'filtered ' : ''}total giving.`
+        });
+      }
+    }
+    
+    // Year comparison insight
+    if (filteredYear !== 'all') {
+      const thisYearTotal = donations.reduce((sum, d) => sum + (parseFloat(d.DonationAmount) || 0), 0);
+      // Compare with previous year if available
+      const allYears = [...new Set(donations.map(d => {
+        const dt = parseDate(d.DonationDate);
+        return dt ? dt.getFullYear() : null;
+      }).filter(Boolean))].sort((a, b) => b - a);
+      const prevYearIndex = allYears.indexOf(parseInt(filteredYear));
+      if (prevYearIndex >= 0 && prevYearIndex < allYears.length - 1) {
+        const prevYear = allYears[prevYearIndex + 1];
+        const prevYearDonations = donations.filter(d => {
+          const dt = parseDate(d.DonationDate);
+          return dt && dt.getFullYear() === prevYear;
+        });
+        const prevYearTotal = prevYearDonations.reduce((sum, d) => sum + (parseFloat(d.DonationAmount) || 0), 0);
+        if (prevYearTotal > 0) {
+          const change = ((thisYearTotal / prevYearTotal - 1) * 100).toFixed(0);
+          if (Math.abs(change) > 5) {
+            insights.push({
+              type: change > 0 ? 'success' : 'warning',
+              title: `${filteredYear} vs ${prevYear} comparison`,
+              message: `Your giving in ${filteredYear} is ${Math.abs(change)}% ${change > 0 ? 'higher' : 'lower'} than ${prevYear} ($${formatCurrency(thisYearTotal)} vs $${formatCurrency(prevYearTotal)}).`
+            });
+          }
+        }
+      }
+    }
+    
+    return insights;
+  }
+
+  function showDrilldown(title, items) {
+    const modal = document.getElementById('drilldownModal');
+    const titleEl = document.getElementById('drilldownTitle');
+    const listEl = document.getElementById('drilldownList');
+    
+    titleEl.textContent = title;
+    listEl.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+    modal.style.display = 'flex';
+  }
+
+  function closeDrilldown() {
+    document.getElementById('drilldownModal').style.display = 'none';
+  }
+
+  // Monthly chart filter functions
+  function applyMonthlyChartFilter() {
+    const year = document.getElementById('monthlyChartFilterYear')?.value || 'all';
+    const month = document.getElementById('monthlyChartFilterMonth')?.value || 'all';
+    
+    monthlyChartFilters = {
+      year: year,
+      month: month
+    };
+    
+    console.log('Applying monthly chart filters:', monthlyChartFilters);
+    renderReport();
+  }
+
+  function resetMonthlyChartFilter() {
+    if (document.getElementById('monthlyChartFilterYear')) document.getElementById('monthlyChartFilterYear').value = 'all';
+    if (document.getElementById('monthlyChartFilterMonth')) document.getElementById('monthlyChartFilterMonth').value = 'all';
+    monthlyChartFilters = { year: 'all', month: 'all' };
+    console.log('Resetting monthly chart filters');
+    renderReport();
+  }
+  
+  // Velocity chart filter functions
+  function applyVelocityChartFilter() {
+    const year = document.getElementById('velocityChartFilterYear')?.value || 'all';
+    const month = document.getElementById('velocityChartFilterMonth')?.value || 'all';
+    velocityChartFilters = { year: year, month: month };
+    console.log('Applying velocity chart filters:', velocityChartFilters);
+    renderReport();
+  }
+
+  function resetVelocityChartFilter() {
+    if (document.getElementById('velocityChartFilterYear')) document.getElementById('velocityChartFilterYear').value = 'all';
+    if (document.getElementById('velocityChartFilterMonth')) document.getElementById('velocityChartFilterMonth').value = 'all';
+    velocityChartFilters = { year: 'all', month: 'all' };
+    console.log('Resetting velocity chart filters');
+    renderReport();
+  }
+
+  // Payment method chart filter functions
+  function applyPaymentMethodChartFilter() {
+    const year = document.getElementById('paymentMethodChartFilterYear')?.value || 'all';
+    const month = document.getElementById('paymentMethodChartFilterMonth')?.value || 'all';
+    paymentMethodChartFilters = { year: year, month: month };
+    console.log('Applying payment method chart filters:', paymentMethodChartFilters);
+    renderReport();
+  }
+
+  function resetPaymentMethodChartFilter() {
+    if (document.getElementById('paymentMethodChartFilterYear')) document.getElementById('paymentMethodChartFilterYear').value = 'all';
+    if (document.getElementById('paymentMethodChartFilterMonth')) document.getElementById('paymentMethodChartFilterMonth').value = 'all';
+    paymentMethodChartFilters = { year: 'all', month: 'all' };
+    console.log('Resetting payment method chart filters');
+    renderReport();
+  }
+
+  // Year chart filter functions
+  function applyYearChartFilter() {
+    const year = document.getElementById('yearChartFilterYear')?.value || 'all';
+    const campaign = document.getElementById('yearChartFilterCampaign')?.value || 'all';
+    yearChartFilters = { year: year, campaign: campaign };
+    console.log('Applying year chart filters:', yearChartFilters);
+    renderReport();
+  }
+
+  function resetYearChartFilter() {
+    if (document.getElementById('yearChartFilterYear')) document.getElementById('yearChartFilterYear').value = 'all';
+    if (document.getElementById('yearChartFilterCampaign')) document.getElementById('yearChartFilterCampaign').value = 'all';
+    yearChartFilters = { year: 'all', campaign: 'all' };
+    console.log('Resetting year chart filters');
+    renderReport();
+  }
+  
+  // Goal chart filter functions
+  function applyGoalChartFilter() {
+    const year = document.getElementById('goalChartFilterYear')?.value || 'all';
+    const month = document.getElementById('goalChartFilterMonth')?.value || 'all';
+    goalChartFilters = { year: year, month: month };
+    console.log('Applying goal chart filters:', goalChartFilters);
+    renderReport();
+  }
+
+  function resetGoalChartFilter() {
+    if (document.getElementById('goalChartFilterYear')) document.getElementById('goalChartFilterYear').value = 'all';
+    if (document.getElementById('goalChartFilterMonth')) document.getElementById('goalChartFilterMonth').value = 'all';
+    goalChartFilters = { year: 'all', month: 'all' };
+    console.log('Resetting goal chart filters');
+    renderReport();
+  }
+  
+  // Make functions globally accessible
+  window.applyMonthlyChartFilter = applyMonthlyChartFilter;
+  window.resetMonthlyChartFilter = resetMonthlyChartFilter;
+  window.applyVelocityChartFilter = applyVelocityChartFilter;
+  window.resetVelocityChartFilter = resetVelocityChartFilter;
+  window.applyPaymentMethodChartFilter = applyPaymentMethodChartFilter;
+  window.resetPaymentMethodChartFilter = resetPaymentMethodChartFilter;
+  window.applyYearChartFilter = applyYearChartFilter;
+  window.resetYearChartFilter = resetYearChartFilter;
+  window.applyGoalChartFilter = applyGoalChartFilter;
+  window.resetGoalChartFilter = resetGoalChartFilter;
+
+  function getLocalDonationKey(email) {
+    return `localDonations:${email}`;
+  }
+
+  function loadLocalDonationsRaw(email) {
+    try {
+      return JSON.parse(localStorage.getItem(getLocalDonationKey(email)) || "[]");
+    } catch (err) {
+      console.warn("Unable to parse local donations", err);
+      return [];
+    }
+  }
+
+  function loadLocalDonations(email) {
+    return loadLocalDonationsRaw(email);
+  }
+
+  async function initDonationReport() {
+    try {
+    const [donations, alumniRows] = await Promise.all([
+        loadCSV("./data/Donation.csv").catch(err => {
+          console.warn("Error loading Donation.csv:", err);
+          return [];
+        }),
+        loadCSV("./data/Alumni.csv").catch(err => {
+          console.warn("Error loading Alumni.csv:", err);
+          return [];
+        })
+      ]);
+
+      const allCSVDonations = donations || [];
+      allAlumniRows = alumniRows || [];
+      
+    const currentEmail = (localStorage.getItem("loggedInUser") || "").toLowerCase();
+    const profileKey = `profileData:${(localStorage.getItem("activeProfileEmail") || currentEmail).toLowerCase()}`;
+    const profileData = JSON.parse(localStorage.getItem(profileKey) || "{}");
+      const userRow = allAlumniRows.find(row => (row.Email || "").toLowerCase() === currentEmail);
+    const alumniId = userRow ? userRow.AlumniID : null;
+
+      const myDonations = allCSVDonations.filter(row => row.AlumniID === alumniId);
+      
+      // Load local donations made through the portal
+      const localStorageDonations = loadLocalDonations(currentEmail).map(entry => ({
+        DonationAmount: entry.amount,
+        DonationDate: entry.date,
+        CampaignName: entry.campaign || "Direct Gift",
+        DonationMethod: entry.paymentMethod || "Online",
+        Message: entry.message,
+        Source: "Local",
+        AlumniID: alumniId
+      }));
+      
+      // Combine CSV donations with local donations
+      const combinedDonations = myDonations.concat(localStorageDonations);
+      allDonations = combinedDonations;
+      
+      // Populate filter dropdowns - always show years from 2020 to 2025
+      const allYears = [...new Set(combinedDonations.map(d => {
+        const dt = parseDate(d.DonationDate);
+        return dt ? dt.getFullYear() : null;
+      }).filter(Boolean))].sort((a, b) => b - a);
+      
+      // Always include years 2020-2025, even if there's no data for them
+      const years2020to2025 = [];
+      for (let year = 2025; year >= 2020; year--) {
+        years2020to2025.push(year);
+      }
+      
+      // Use the predefined 2020-2025 range
+      const years = years2020to2025;
+      
+      // Get all unique campaigns from ALL CSV donations (not just user's) and localStorage donations
+      const csvCampaigns = allCSVDonations
+        .map(d => d.CampaignName)
+        .filter(c => c && c !== 'undefined' && c.trim() !== '');
+      const localCampaigns = localStorageDonations
+        .map(d => d.CampaignName || 'Direct Gift')
+        .filter(c => c && c !== 'undefined' && c.trim() !== '');
+      const allUniqueCampaigns = [...new Set([...csvCampaigns, ...localCampaigns])]
+        .filter(c => c && c !== 'undefined' && c.trim() !== '')
+        .sort((a, b) => a.localeCompare(b));
+      
+      // If no campaigns found, use default
+      const campaigns = allUniqueCampaigns.length > 0 ? allUniqueCampaigns : ['Direct Gift', 'General Fund'];
+      
+      // Populate all chart filter dropdowns
+      // Monthly chart filters
+      const monthlyChartYearSelect = document.getElementById('monthlyChartFilterYear');
+      if (monthlyChartYearSelect) {
+        years.forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          monthlyChartYearSelect.appendChild(option);
+        });
+      }
+      
+      // Velocity chart filter
+      const velocityChartYearSelect = document.getElementById('velocityChartFilterYear');
+      if (velocityChartYearSelect) {
+        years.forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          velocityChartYearSelect.appendChild(option);
+        });
+      }
+      
+      const velocityChartMonthSelect = document.getElementById('velocityChartFilterMonth');
+      if (velocityChartMonthSelect) {
+        const monthNames = [
+          { value: '01', label: 'January' },
+          { value: '02', label: 'February' },
+          { value: '03', label: 'March' },
+          { value: '04', label: 'April' },
+          { value: '05', label: 'May' },
+          { value: '06', label: 'June' },
+          { value: '07', label: 'July' },
+          { value: '08', label: 'August' },
+          { value: '09', label: 'September' },
+          { value: '10', label: 'October' },
+          { value: '11', label: 'November' },
+          { value: '12', label: 'December' }
+        ];
+        monthNames.forEach(month => {
+          const option = document.createElement('option');
+          option.value = month.value;
+          option.textContent = month.label;
+          velocityChartMonthSelect.appendChild(option);
+        });
+      }
+      
+      // Payment method chart filters
+      const paymentMethodChartYearSelect = document.getElementById('paymentMethodChartFilterYear');
+      if (paymentMethodChartYearSelect) {
+        years.forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          paymentMethodChartYearSelect.appendChild(option);
+        });
+      }
+      
+      const paymentMethodChartMonthSelect = document.getElementById('paymentMethodChartFilterMonth');
+      if (paymentMethodChartMonthSelect) {
+        const monthNames = [
+          { value: '01', label: 'January' },
+          { value: '02', label: 'February' },
+          { value: '03', label: 'March' },
+          { value: '04', label: 'April' },
+          { value: '05', label: 'May' },
+          { value: '06', label: 'June' },
+          { value: '07', label: 'July' },
+          { value: '08', label: 'August' },
+          { value: '09', label: 'September' },
+          { value: '10', label: 'October' },
+          { value: '11', label: 'November' },
+          { value: '12', label: 'December' }
+        ];
+        monthNames.forEach(month => {
+          const option = document.createElement('option');
+          option.value = month.value;
+          option.textContent = month.label;
+          paymentMethodChartMonthSelect.appendChild(option);
+        });
+      }
+      
+      // Year chart filter
+      const yearChartYearSelect = document.getElementById('yearChartFilterYear');
+      if (yearChartYearSelect) {
+        years.forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          yearChartYearSelect.appendChild(option);
+        });
+      }
+      
+      const yearChartCampaignSelect = document.getElementById('yearChartFilterCampaign');
+      if (yearChartCampaignSelect) {
+        campaigns.forEach(campaign => {
+          const option = document.createElement('option');
+          option.value = campaign;
+          option.textContent = campaign;
+          yearChartCampaignSelect.appendChild(option);
+        });
+      }
+      
+      // Goal chart filters
+      const goalChartYearSelect = document.getElementById('goalChartFilterYear');
+      if (goalChartYearSelect) {
+        years.forEach(year => {
+          const option = document.createElement('option');
+          option.value = year;
+          option.textContent = year;
+          goalChartYearSelect.appendChild(option);
+        });
+      }
+      
+      const goalChartMonthSelect = document.getElementById('goalChartFilterMonth');
+      if (goalChartMonthSelect) {
+        const monthNames = [
+          { value: '01', label: 'January' },
+          { value: '02', label: 'February' },
+          { value: '03', label: 'March' },
+          { value: '04', label: 'April' },
+          { value: '05', label: 'May' },
+          { value: '06', label: 'June' },
+          { value: '07', label: 'July' },
+          { value: '08', label: 'August' },
+          { value: '09', label: 'September' },
+          { value: '10', label: 'October' },
+          { value: '11', label: 'November' },
+          { value: '12', label: 'December' }
+        ];
+        monthNames.forEach(month => {
+          const option = document.createElement('option');
+          option.value = month.value;
+          option.textContent = month.label;
+          goalChartMonthSelect.appendChild(option);
+        });
+      }
+      
+      // Ensure all filters default to 'all'
+      monthlyChartFilters = { year: 'all', month: 'all' };
+      velocityChartFilters = { year: 'all', month: 'all' };
+      paymentMethodChartFilters = { year: 'all', month: 'all' };
+      yearChartFilters = { year: 'all', campaign: 'all' };
+      
+      if (document.getElementById('monthlyChartFilterYear')) document.getElementById('monthlyChartFilterYear').value = 'all';
+      if (document.getElementById('monthlyChartFilterMonth')) document.getElementById('monthlyChartFilterMonth').value = 'all';
+      if (document.getElementById('velocityChartFilterYear')) document.getElementById('velocityChartFilterYear').value = 'all';
+      if (document.getElementById('velocityChartFilterMonth')) document.getElementById('velocityChartFilterMonth').value = 'all';
+      if (document.getElementById('paymentMethodChartFilterYear')) document.getElementById('paymentMethodChartFilterYear').value = 'all';
+      if (document.getElementById('paymentMethodChartFilterMonth')) document.getElementById('paymentMethodChartFilterMonth').value = 'all';
+      if (document.getElementById('yearChartFilterYear')) document.getElementById('yearChartFilterYear').value = 'all';
+      if (document.getElementById('yearChartFilterCampaign')) document.getElementById('yearChartFilterCampaign').value = 'all';
+      if (document.getElementById('goalChartFilterYear')) document.getElementById('goalChartFilterYear').value = 'all';
+      if (document.getElementById('goalChartFilterMonth')) document.getElementById('goalChartFilterMonth').value = 'all';
+      
+      renderReport();
+    } catch (error) {
+      console.error("Error initializing donation report:", error);
+      // Still render report with empty data
+      allDonations = [];
+      allAlumniRows = [];
+      renderReport();
+    }
+  }
+
+  function renderReport() {
+    // Check if Chart.js is loaded
+    if (typeof Chart === 'undefined') {
+      console.error("Chart.js is not loaded. Please check the script tag.");
+      // Try to show a message to the user
+      const chartCards = document.querySelectorAll('.chart-card');
+      chartCards.forEach(card => {
+        const canvas = card.querySelector('canvas');
+        if (canvas && !canvas.nextElementSibling?.classList.contains('error-message')) {
+          const errorMsg = document.createElement('p');
+          errorMsg.className = 'error-message';
+          errorMsg.style.color = '#ef4444';
+          errorMsg.style.marginTop = '10px';
+          errorMsg.textContent = 'Chart.js library failed to load. Please refresh the page.';
+          canvas.parentNode.insertBefore(errorMsg, canvas.nextSibling);
+        }
+      });
+      return;
+    }
+    
+    const currentEmail = (localStorage.getItem("loggedInUser") || "").toLowerCase();
+    const profileKey = `profileData:${(localStorage.getItem("activeProfileEmail") || currentEmail).toLowerCase()}`;
+    const profileData = JSON.parse(localStorage.getItem(profileKey) || "{}");
+    const userRow = allAlumniRows.find(row => (row.Email || "").toLowerCase() === currentEmail);
+    const alumniId = userRow ? userRow.AlumniID : null;
+
+    // Load local donations
+    const localStorageDonations = loadLocalDonations(currentEmail).map(entry => ({
+      DonationAmount: entry.amount,
+      DonationDate: entry.date,
+      CampaignName: entry.campaign || "Direct Gift",
+      DonationMethod: entry.paymentMethod || "Online",
+      Message: entry.message,
+      Source: "Local",
+      AlumniID: alumniId
+    }));
+    
+    const myDonations = allDonations.filter(row => row.AlumniID === alumniId);
+    const combinedDonations = myDonations.concat(localStorageDonations);
+
+    const lifetimeTotal = combinedDonations.reduce((sum, row) => sum + (parseFloat(row.DonationAmount) || 0), 0);
+    document.getElementById("lifetimeTotal").innerText = `$${formatCurrency(lifetimeTotal)}`;
+    const totalGiftCount = combinedDonations.length;
+    const csvGiftCount = myDonations.length;
+    const localGiftCount = localStorageDonations.length;
+    document.getElementById("lifetimeNote").innerText = totalGiftCount
+      ? `${totalGiftCount} gift(s) total${csvGiftCount > 0 ? ` (${csvGiftCount} from records, ${localGiftCount} from portal)` : ` (${localGiftCount} from portal)`}.`
+      : "No lifetime gifts recorded yet.";
+
+    const currentYear = new Date().getFullYear();
+    
+    // Set year in all headers - use current year for summary cards
+    document.getElementById("currentYearHeader").innerText = `(${currentYear})`;
+    // Year labels removed from chart titles
+    // document.getElementById("monthlyChartYear").innerText = monthlyChartFilters.year !== 'all' ? `(${monthlyChartFilters.year})` : '(All Years)';
+    // document.getElementById("velocityChartYear").innerText = velocityChartFilters.year !== 'all' ? `(${velocityChartFilters.year})` : '(All Years)';
+    document.getElementById("paymentMethodChartYear").innerText = paymentMethodChartFilters.year !== 'all' ? `(${paymentMethodChartFilters.year})` : '(All Years)';
+    
+    // Goal chart year display
+    const goalYear = goalChartFilters.year !== 'all' ? goalChartFilters.year : currentYear;
+    // Year label removed from Goal Progress title
+    // document.getElementById("goalChartYear").innerText = `(${goalYear})`;
+    document.getElementById("evaluationYear").innerText = currentYear;
+    
+    // Filter donations for goal chart based on goalChartFilters
+    const goalFilteredDonations = combinedDonations.filter(donation => {
+      const dt = parseDate(donation.DonationDate);
+      if (!dt) return false;
+      if (goalChartFilters.year !== 'all' && dt.getFullYear() !== parseInt(goalChartFilters.year)) return false;
+      if (goalChartFilters.month !== 'all') {
+        const monthStr = String(dt.getMonth() + 1).padStart(2, '0');
+        if (monthStr !== goalChartFilters.month) return false;
+      }
+      return true;
+    });
+    
+    // Use all donations for year-to-date (current year only)
+    const donationsThisYear = combinedDonations.filter(row => {
+      const dt = parseDate(row.DonationDate);
+      return dt && dt.getFullYear() === currentYear;
+    });
+    
+    const totalThisYear = donationsThisYear.reduce((sum, row) => sum + (parseFloat(row.DonationAmount) || 0), 0);
+    document.getElementById("yearTotal").innerText = `$${formatCurrency(totalThisYear)}`;
+    document.getElementById("yearNote").innerText = donationsThisYear.length
+      ? `${donationsThisYear.length} donation(s) in ${currentYear}`
+      : `Set aside a first gift to jumpstart ${currentYear}.`;
+
+    // Calculate statistics from all donations (not filtered)
+    const donationAmounts = combinedDonations.map(row => parseFloat(row.DonationAmount) || 0).filter(amt => amt > 0);
+    const stats = calculateStats(donationAmounts);
+    document.getElementById("statMin").textContent = stats.count > 0 ? `$${formatCurrency(stats.min)}` : '-';
+    document.getElementById("statMax").textContent = stats.count > 0 ? `$${formatCurrency(stats.max)}` : '-';
+    document.getElementById("statTotal").textContent = stats.count > 0 ? `$${formatCurrency(stats.total)}` : '-';
+    document.getElementById("statCount").textContent = stats.count > 0 ? stats.count : '-';
+
+    // Calculate by month for best month (from all donations)
+    const byMonth = {};
+    combinedDonations.forEach(row => {
+      const dt = parseDate(row.DonationDate);
+      if (!dt) return;
+      const key = monthKey(dt);
+      byMonth[key] = (byMonth[key] || 0) + (parseFloat(row.DonationAmount) || 0);
+    });
+    
+    const bestMonthKey = Object.entries(byMonth).sort((a, b) => b[1] - a[1])[0];
+    if (bestMonthKey) {
+      const [year, month] = bestMonthKey[0].split("-");
+      document.getElementById("bestMonth").innerText = new Date(parseInt(year, 10), parseInt(month, 10) - 1).toLocaleDateString("en-US", { month: "long" });
+      document.getElementById("bestMonthNote").innerText = `$${formatCurrency(bestMonthKey[1])} given during that month${year !== String(currentYear) ? ` in ${year}` : ''}.`;
+    } else {
+      document.getElementById("bestMonth").innerText = "Not yet";
+      document.getElementById("bestMonthNote").innerText = `Your strongest giving month will appear once you donate.`;
+    }
+    
+    // Generate insights from all donations
+    const allByMonth = {};
+    combinedDonations.forEach(row => {
+      const dt = parseDate(row.DonationDate);
+      if (!dt) return;
+      const key = monthKey(dt);
+      allByMonth[key] = (allByMonth[key] || 0) + (parseFloat(row.DonationAmount) || 0);
+    });
+    
+    const allCampaignTotals = {};
+    combinedDonations.forEach(row => {
+      let campaign = row.CampaignName || "General Fund";
+      // Filter out undefined, null, empty strings, and the string "undefined"
+      if (!campaign || campaign === 'undefined' || campaign.trim() === '') {
+        campaign = "General Fund";
+      }
+      allCampaignTotals[campaign] = (allCampaignTotals[campaign] || 0) + (parseFloat(row.DonationAmount) || 0);
+    });
+    
+    // Generate and display insights
+    const insights = generateInsights(combinedDonations, allByMonth, allCampaignTotals, 'all');
+    const insightsContainer = document.getElementById('insightCardsContainer');
+    insightsContainer.innerHTML = insights.map(insight => `
+      <div class="insight-card ${insight.type}">
+        <h4>${insight.title}</h4>
+        <p>${insight.message}</p>
+      </div>
+    `).join('');
+    
+    // Destroy existing charts
+    Object.values(chartInstances).forEach(chart => {
+      if (chart) chart.destroy();
+    });
+    chartInstances = {};
+
+    const donationGoal = parseFloat(localStorage.getItem("donationGoal") || "1000");
+    
+    // Calculate goal progress based on filtered donations
+    const goalFilteredTotal = goalFilteredDonations.reduce((sum, row) => sum + (parseFloat(row.DonationAmount) || 0), 0);
+    const goalRemaining = Math.max(0, donationGoal - goalFilteredTotal);
+    const goalPct = donationGoal > 0 ? Math.min(100, (goalFilteredTotal / donationGoal) * 100) : 0;
+
+    const goalCtx = document.getElementById("goalDonut");
+    if (goalCtx) {
+      chartInstances.goalDonut = new Chart(goalCtx, {
+      type: "doughnut",
+      data: {
+        labels: ["Achieved", "Remaining"],
+        datasets: [{
+            data: [goalFilteredTotal, goalRemaining],
+            backgroundColor: ["#0b3d91", "#e2e8f0"],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: "65%",
+        plugins: { legend: { position: "bottom" } }
+      }
+    });
+      const goalNoteEl = document.getElementById("goalNote");
+      if (goalNoteEl) {
+        const displayYear = goalChartFilters.year !== 'all' ? goalChartFilters.year : currentYear;
+        const monthText = goalChartFilters.month !== 'all' ? {
+          '01': 'January', '02': 'February', '03': 'March', '04': 'April',
+          '05': 'May', '06': 'June', '07': 'July', '08': 'August',
+          '09': 'September', '10': 'October', '11': 'November', '12': 'December'
+        }[goalChartFilters.month] : '';
+        const periodText = goalChartFilters.month !== 'all' ? `${monthText} ${displayYear}` : displayYear;
+        
+        if (goalFilteredTotal >= donationGoal) {
+          goalNoteEl.innerText = `You've exceeded your $${formatCurrency(donationGoal)} goal for ${periodText} by $${formatCurrency(goalFilteredTotal - donationGoal)}. Consider setting a stretch goal or funding a new scholarship.`;
+        } else {
+          goalNoteEl.innerText = `You've donated $${formatCurrency(goalFilteredTotal)} out of your $${formatCurrency(donationGoal)} goal for ${periodText}. $${formatCurrency(goalRemaining)} remaining.`;
+        }
+      }
+    }
+    
+    // Enhanced Goal Progress Analysis
+    const goalAnalysisContent = document.getElementById("goalAnalysisContent");
+    if (goalAnalysisContent) {
+      goalAnalysisContent.innerHTML = "";
+      
+      // Use filtered year for analysis
+      const analysisYear = goalChartFilters.year !== 'all' ? parseInt(goalChartFilters.year) : currentYear;
+      const now = new Date();
+      const yearStart = new Date(analysisYear, 0, 1);
+      const yearEnd = new Date(analysisYear, 11, 31);
+      
+      // If filtering by month, adjust the date range
+      let analysisStart = yearStart;
+      let analysisEnd = goalChartFilters.month !== 'all' 
+        ? new Date(analysisYear, parseInt(goalChartFilters.month) - 1, new Date(analysisYear, parseInt(goalChartFilters.month), 0).getDate())
+        : (analysisYear === currentYear ? now : yearEnd);
+      
+      const daysElapsed = Math.floor((analysisEnd - analysisStart) / (1000 * 60 * 60 * 24)) + 1;
+      const daysTotal = goalChartFilters.month !== 'all' 
+        ? new Date(analysisYear, parseInt(goalChartFilters.month), 0).getDate()
+        : Math.floor((yearEnd - yearStart) / (1000 * 60 * 60 * 24)) + 1;
+      const daysRemaining = daysTotal - daysElapsed;
+      const monthsElapsed = goalChartFilters.month !== 'all' ? 1 : (analysisYear === currentYear ? now.getMonth() + 1 : 12);
+      const monthsRemaining = goalChartFilters.month !== 'all' ? 0 : (analysisYear === currentYear ? 12 - monthsElapsed : 0);
+      
+      // 1. Time-based Progress Analysis (without percentages)
+      let progressStatus = "";
+      let statusColor = "";
+      let statusIcon = "";
+      let statusMessage = "";
+      
+      if (goalPct >= 100) {
+        progressStatus = "Goal Achieved!";
+        statusColor = "#10b981";
+        statusIcon = "✓";
+        const periodText = goalChartFilters.month !== 'all' 
+          ? `${['January','February','March','April','May','June','July','August','September','October','November','December'][parseInt(goalChartFilters.month) - 1]} ${analysisYear}`
+          : `${analysisYear}`;
+        statusMessage = `You've donated $${formatCurrency(goalFilteredTotal)} out of your $${formatCurrency(donationGoal)} goal for ${periodText}.`;
+      } else {
+        // Calculate expected amount based on time elapsed
+        const expectedAmount = (donationGoal / daysTotal) * daysElapsed;
+        const difference = goalFilteredTotal - expectedAmount;
+        
+        if (difference > donationGoal * 0.1) {
+          progressStatus = "Ahead of Schedule";
+          statusColor = "#10b981";
+          statusIcon = "↑";
+          const periodText = goalChartFilters.month !== 'all' ? 'this month' : 'this point in the year';
+          statusMessage = `You've donated $${formatCurrency(goalFilteredTotal)}, which is $${formatCurrency(Math.abs(difference))} more than expected at ${periodText}.`;
+        } else if (difference >= -donationGoal * 0.1) {
+          progressStatus = "On Track";
+          statusColor = "#3b82f6";
+          statusIcon = "→";
+          if (difference >= 0) {
+            statusMessage = `You've donated $${formatCurrency(goalFilteredTotal)}, which is on track with your goal.`;
+          } else {
+            statusMessage = `You've donated $${formatCurrency(goalFilteredTotal)}, slightly below the expected $${formatCurrency(expectedAmount)} at this point.`;
+          }
+        } else {
+          progressStatus = "Behind Schedule";
+          statusColor = "#ef4444";
+          statusIcon = "↓";
+          const periodText = goalChartFilters.month !== 'all' ? 'this month' : 'this point in the year';
+          statusMessage = `You've donated $${formatCurrency(goalFilteredTotal)}, which is $${formatCurrency(Math.abs(difference))} less than expected at ${periodText}.`;
+        }
+      }
+      
+      const progressAnalysis = document.createElement("div");
+      progressAnalysis.style.cssText = "padding: 12px; background: #f8fafc; border-radius: 8px; border-left: 3px solid " + statusColor + ";";
+      const periodText = goalChartFilters.month !== 'all' 
+        ? `${['January','February','March','April','May','June','July','August','September','October','November','December'][parseInt(goalChartFilters.month) - 1]} ${analysisYear}`
+        : `${analysisYear}`;
+      progressAnalysis.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+          <span style="font-size: 18px; color: ${statusColor};">${statusIcon}</span>
+          <strong style="color: #1d3557; font-size: 14px;">${progressStatus}</strong>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #475569;">
+          ${statusMessage} ${daysElapsed} day${daysElapsed !== 1 ? 's' : ''} have passed${goalChartFilters.month === 'all' ? `, ${daysRemaining} days remaining in ${analysisYear}` : ''}.
+        </p>
+      `;
+      goalAnalysisContent.appendChild(progressAnalysis);
+      
+      // 2. Monthly Donation Needed
+      if (goalPct < 100 && monthsRemaining > 0) {
+        const monthlyNeeded = goalRemaining / monthsRemaining;
+        const monthlyAnalysis = document.createElement("div");
+        monthlyAnalysis.style.cssText = "padding: 12px; background: #f8fafc; border-radius: 8px; border-left: 3px solid #3b82f6;";
+        monthlyAnalysis.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="font-size: 18px; color: #3b82f6;">💰</span>
+            <strong style="color: #1d3557; font-size: 14px;">Monthly Donation Needed</strong>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #475569;">
+            To reach your goal by year-end, donate <strong style="color: #0b3d91;">$${formatCurrency(monthlyNeeded)}</strong> per month for the remaining ${monthsRemaining} month${monthsRemaining !== 1 ? 's' : ''}.
+          </p>
+        `;
+        goalAnalysisContent.appendChild(monthlyAnalysis);
+      }
+      
+      // 3. Projected Completion Date
+      if (goalPct < 100 && goalFilteredTotal > 0 && monthsElapsed > 0) {
+        const avgMonthlyDonation = goalFilteredTotal / monthsElapsed;
+        let projectedDate = null;
+        let projectedMessage = "";
+        
+        if (avgMonthlyDonation > 0) {
+          const monthsToGoal = goalRemaining / avgMonthlyDonation;
+          const projectedMonth = now.getMonth() + Math.ceil(monthsToGoal);
+          
+          if (projectedMonth <= 12) {
+            const monthNames = ["January", "February", "March", "April", "May", "June", 
+                              "July", "August", "September", "October", "November", "December"];
+            projectedDate = monthNames[projectedMonth - 1];
+            
+            if (projectedMonth <= monthsElapsed) {
+              projectedMessage = `At your current pace, you'll reach your goal this month (${projectedDate}).`;
+            } else {
+              projectedMessage = `At your current pace, you'll reach your goal by ${projectedDate} ${currentYear}.`;
+            }
+          } else {
+            projectedMessage = `At your current pace, you'll reach your goal in ${currentYear + 1}.`;
+          }
+          
+          const projectedAnalysis = document.createElement("div");
+          projectedAnalysis.style.cssText = "padding: 12px; background: #f8fafc; border-radius: 8px; border-left: 3px solid #8b5cf6;";
+          projectedAnalysis.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <span style="font-size: 18px; color: #8b5cf6;">📅</span>
+              <strong style="color: #1d3557; font-size: 14px;">Projected Completion</strong>
+            </div>
+            <p style="margin: 0; font-size: 13px; color: #475569;">
+              ${projectedMessage}
+            </p>
+          `;
+          goalAnalysisContent.appendChild(projectedAnalysis);
+        }
+      }
+      
+      // Additional: Current pace info
+      if (goalFilteredTotal > 0 && monthsElapsed > 0) {
+        const avgMonthlyDonation = goalFilteredTotal / monthsElapsed;
+        const paceAnalysis = document.createElement("div");
+        paceAnalysis.style.cssText = "padding: 12px; background: #f8fafc; border-radius: 8px; border-left: 3px solid #f59e0b;";
+        paceAnalysis.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+            <span style="font-size: 18px; color: #f59e0b;">📊</span>
+            <strong style="color: #1d3557; font-size: 14px;">Current Giving Pace</strong>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #475569;">
+            Your average monthly donation this year: <strong style="color: #0b3d91;">$${formatCurrency(avgMonthlyDonation)}</strong>
+          </p>
+        `;
+        goalAnalysisContent.appendChild(paceAnalysis);
+      }
+    }
+    
+    // Add click handler for Goal Progress Outlook modal
+    const goalAnalysisLink = document.getElementById("goalAnalysisLink");
+    const goalAnalysisModal = document.getElementById("goalAnalysisModal");
+    const closeGoalAnalysisModal = document.getElementById("closeGoalAnalysisModal");
+    
+    function showGoalAnalysis() {
+      if (goalAnalysisModal) {
+        goalAnalysisModal.style.display = 'flex';
+      }
+    }
+    
+    function closeGoalAnalysis() {
+      if (goalAnalysisModal) {
+        goalAnalysisModal.style.display = 'none';
+      }
+    }
+    
+    if (goalAnalysisLink) {
+      goalAnalysisLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showGoalAnalysis();
+      });
+      
+      goalAnalysisLink.addEventListener("mouseenter", function() {
+        goalAnalysisLink.style.color = "#0b3d91";
+      });
+      
+      goalAnalysisLink.addEventListener("mouseleave", function() {
+        goalAnalysisLink.style.color = "#64748b";
+      });
+    }
+    
+    if (closeGoalAnalysisModal) {
+      closeGoalAnalysisModal.addEventListener("click", closeGoalAnalysis);
+    }
+    
+    // Close modal when clicking outside
+    if (goalAnalysisModal) {
+      goalAnalysisModal.addEventListener("click", function(event) {
+        if (event.target === goalAnalysisModal) {
+          closeGoalAnalysis();
+        }
+      });
+    }
+
+    // Monthly Chart with trendline and drill-down (uses separate filter)
+    const monthlyChartData = {};
+    const monthlyChartDataDetails = {};
+    
+    // Filter donations for monthly chart based on monthlyChartFilters
+    const monthlyFilteredDonations = combinedDonations.filter(donation => {
+      const dt = parseDate(donation.DonationDate);
+      if (!dt) return false;
+      
+      if (monthlyChartFilters.year !== 'all' && dt.getFullYear() !== parseInt(monthlyChartFilters.year)) return false;
+      if (monthlyChartFilters.month !== 'all' && String(dt.getMonth() + 1).padStart(2, '0') !== monthlyChartFilters.month) return false;
+      
+      return true;
+    });
+    
+    // Calculate monthly totals for the filtered data
+    monthlyFilteredDonations.forEach(row => {
+      const dt = parseDate(row.DonationDate);
+      if (!dt) return;
+      const key = monthKey(dt);
+      monthlyChartData[key] = (monthlyChartData[key] || 0) + (parseFloat(row.DonationAmount) || 0);
+      if (!monthlyChartDataDetails[key]) monthlyChartDataDetails[key] = [];
+      monthlyChartDataDetails[key].push(row);
+    });
+    
+    const monthlyKeys = Object.keys(monthlyChartData).sort();
+    const monthlyCtx = document.getElementById("donationMonthlyChart");
+    if (monthlyCtx) {
+      if (monthlyKeys.length) {
+        const monthlyValues = monthlyKeys.map(key => monthlyChartData[key]);
+        const movingAvg = calculateMovingAverage(monthlyValues, 3);
+        const monthlyLabels = monthlyKeys.map(key => {
+          const [year, month] = key.split("-");
+          return new Date(parseInt(year, 10), parseInt(month, 10) - 1).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+        });
+        
+        chartInstances.donationMonthly = new Chart(monthlyCtx, {
+      type: "bar",
+      data: {
+            labels: monthlyLabels,
+            datasets: [{
+              label: `Monthly Total ($)`,
+              data: monthlyValues,
+              backgroundColor: "#0b3d91"
+            }, {
+              label: "3-Month Moving Average",
+              data: movingAvg,
+              type: "line",
+              borderColor: "#f59e0b",
+              borderDash: [6, 6],
+              fill: false,
+              tension: 0.3,
+              pointRadius: 2,
+              yAxisID: 'y'
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                ticks: { callback: val => `$${val}` } 
+              } 
+            },
+          onClick: (event, elements) => {
+            if (elements.length > 0) {
+              const index = elements[0].index;
+              const monthKey = monthlyKeys[index];
+              const donations = monthlyChartDataDetails[monthKey] || [];
+              const donationList = donations.map(d => {
+                const dt = parseDate(d.DonationDate);
+                return `$${formatCurrency(parseFloat(d.DonationAmount) || 0)} - ${d.CampaignName || 'General Fund'} - ${dt ? dt.toLocaleDateString() : d.DonationDate}`;
+              });
+              showDrilldown(`Donations in ${monthlyLabels[index]}`, donationList.length > 0 ? donationList : ['No donations found']);
+            }
+          }
+          }
+        });
+      } else {
+        // Show empty chart
+        chartInstances.donationMonthly = new Chart(monthlyCtx, {
+          type: "bar",
+          data: {
+            labels: ["No data"],
+            datasets: [{
+              label: "Monthly Total ($)",
+              data: [0],
+              backgroundColor: "#e2e8f0"
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                ticks: { callback: val => `$${val}` } 
+              } 
+            }
+          }
+        });
+      }
+    }
+    
+    // Donation Velocity Chart (cumulative trend) - uses its own filter
+    const velocityChartData = {};
+    const velocityFilteredDonations = combinedDonations.filter(donation => {
+      const dt = parseDate(donation.DonationDate);
+      if (!dt) return false;
+      if (velocityChartFilters.year !== 'all' && dt.getFullYear() !== parseInt(velocityChartFilters.year)) return false;
+      if (velocityChartFilters.month !== 'all') {
+        const monthStr = String(dt.getMonth() + 1).padStart(2, '0');
+        if (monthStr !== velocityChartFilters.month) return false;
+      }
+      return true;
+    });
+    
+    velocityFilteredDonations.forEach(row => {
+      const dt = parseDate(row.DonationDate);
+      if (!dt) return;
+      const key = monthKey(dt);
+      velocityChartData[key] = (velocityChartData[key] || 0) + (parseFloat(row.DonationAmount) || 0);
+    });
+    
+    const velocityKeys = Object.keys(velocityChartData).sort();
+    const velocityCtx = document.getElementById("donationVelocityChart");
+    if (velocityCtx) {
+      if (velocityKeys.length) {
+        const monthlyValues = velocityKeys.map(key => velocityChartData[key]);
+        let cumulative = 0;
+        const cumulativeSeries = monthlyValues.map(val => {
+          cumulative += val;
+          return cumulative;
+        });
+        const velocityLabels = velocityKeys.map(key => {
+          const [year, month] = key.split("-");
+          return new Date(parseInt(year, 10), parseInt(month, 10) - 1).toLocaleDateString("en-US", { month: "short" });
+        });
+        const velocityAvg = calculateMovingAverage(monthlyValues, 3);
+        
+        chartInstances.donationVelocity = new Chart(velocityCtx, {
+          type: "line",
+          data: {
+            labels: velocityLabels,
+        datasets: [{
+              label: "Monthly Donation",
+              data: monthlyValues,
+              borderColor: "#0b3d91",
+              backgroundColor: "rgba(11,61,145,0.2)",
+              fill: true,
+              tension: 0.3,
+              pointRadius: 4
+            }, {
+              label: "3-Month Moving Average",
+              data: velocityAvg,
+              borderColor: "#f59e0b",
+              borderDash: [6, 6],
+              fill: false,
+              tension: 0.3,
+              pointRadius: 2
+        }]
+      },
+      options: {
+        responsive: true,
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                ticks: { callback: val => `$${val}` } 
+              } 
+            }
+          }
+        });
+      } else {
+        chartInstances.donationVelocity = new Chart(velocityCtx, {
+          type: "line",
+          data: {
+            labels: ["No data"],
+            datasets: [{
+              label: "Monthly Donation",
+              data: [0],
+              borderColor: "#e2e8f0",
+              backgroundColor: "rgba(226,232,240,0.2)",
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                ticks: { callback: val => `$${val}` } 
+              } 
+            }
+          }
+        });
+      }
+    }
+
+    // Payment Method Chart with drill-down - uses its own filter
+    const paymentMethodChartData = {};
+    const paymentMethodChartDataDetails = {};
+    const paymentMethodFilteredDonations = combinedDonations.filter(donation => {
+      const dt = parseDate(donation.DonationDate);
+      if (!dt) return false;
+      if (paymentMethodChartFilters.year !== 'all' && dt.getFullYear() !== parseInt(paymentMethodChartFilters.year)) return false;
+      if (paymentMethodChartFilters.month !== 'all') {
+        const monthStr = String(dt.getMonth() + 1).padStart(2, '0');
+        if (monthStr !== paymentMethodChartFilters.month) return false;
+      }
+      return true;
+    });
+    
+    paymentMethodFilteredDonations.forEach(row => {
+      // Get payment method and normalize it
+      let paymentMethod = row.DonationMethod || "Other";
+      
+      // Normalize common payment method names
+      if (!paymentMethod || paymentMethod.trim() === '') {
+        paymentMethod = "Other";
+      } else {
+        paymentMethod = paymentMethod.trim();
+        // Standardize common variations
+        if (paymentMethod.toLowerCase().includes('online') || paymentMethod.toLowerCase().includes('web')) {
+          paymentMethod = "Online";
+        } else if (paymentMethod.toLowerCase().includes('check') || paymentMethod.toLowerCase().includes('mail')) {
+          paymentMethod = "Check/Mail";
+        } else if (paymentMethod.toLowerCase().includes('credit') || paymentMethod.toLowerCase().includes('card')) {
+          paymentMethod = "Credit Card";
+        } else if (paymentMethod.toLowerCase().includes('bank') || paymentMethod.toLowerCase().includes('transfer')) {
+          paymentMethod = "Bank Transfer";
+        }
+      }
+      
+      paymentMethodChartData[paymentMethod] = (paymentMethodChartData[paymentMethod] || 0) + (parseFloat(row.DonationAmount) || 0);
+      if (!paymentMethodChartDataDetails[paymentMethod]) paymentMethodChartDataDetails[paymentMethod] = [];
+      paymentMethodChartDataDetails[paymentMethod].push(row);
+    });
+    
+    const paymentMethodCtx = document.getElementById("paymentMethodChart");
+    if (paymentMethodCtx) {
+      if (Object.keys(paymentMethodChartData).length) {
+        const colors = ["#10b981", "#3b82f6", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4"];
+        chartInstances.paymentMethod = new Chart(paymentMethodCtx, {
+          type: "doughnut",
+      data: {
+            labels: Object.keys(paymentMethodChartData),
+        datasets: [{
+              data: Object.values(paymentMethodChartData),
+              backgroundColor: colors.slice(0, Object.keys(paymentMethodChartData).length)
+        }]
+      },
+      options: {
+        responsive: true,
+            plugins: {
+              legend: {
+                position: 'bottom'
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const label = context.label || '';
+                    const value = context.parsed || 0;
+                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return `${label}: $${formatCurrency(value)} (${percentage}%)`;
+                  }
+                }
+              }
+            },
+            onClick: (event, elements) => {
+              if (elements.length > 0) {
+                const index = elements[0].index;
+                const paymentMethod = Object.keys(paymentMethodChartData)[index];
+                const donations = paymentMethodChartDataDetails[paymentMethod] || [];
+                const donationList = donations.map(d => {
+                  const dt = parseDate(d.DonationDate);
+                  return `$${formatCurrency(parseFloat(d.DonationAmount) || 0)} - ${dt ? dt.toLocaleDateString() : d.DonationDate}`;
+                });
+                showDrilldown(`Donations via ${paymentMethod}`, donationList.length > 0 ? donationList : ['No donations found']);
+              }
+            }
+          }
+        });
+      } else {
+        chartInstances.paymentMethod = new Chart(paymentMethodCtx, {
+          type: "doughnut",
+          data: {
+            labels: ["No data"],
+            datasets: [{
+              data: [0],
+              backgroundColor: ["#e2e8f0"]
+            }]
+          },
+          options: {
+            responsive: true
+          }
+        });
+      }
+    }
+    
+    // Donations by Year Chart with drill-down - uses its own filter
+    const yearChartData = {};
+    const yearChartDataDetails = {};
+    const yearFilteredDonations = combinedDonations.filter(donation => {
+      const dt = parseDate(donation.DonationDate);
+      if (dt) {
+        if (yearChartFilters.year !== 'all' && dt.getFullYear() !== parseInt(yearChartFilters.year)) return false;
+      }
+      if (yearChartFilters.campaign !== 'all') {
+        const donationCampaign = (donation.CampaignName && donation.CampaignName !== 'undefined' && donation.CampaignName.trim() !== '') 
+          ? donation.CampaignName 
+          : 'General Fund';
+        if (donationCampaign !== yearChartFilters.campaign) return false;
+      }
+      return true;
+    });
+    
+    yearFilteredDonations.forEach(row => {
+      // Ensure campaign name is valid
+      if (row.CampaignName === 'undefined' || !row.CampaignName || row.CampaignName.trim() === '') {
+        row.CampaignName = 'General Fund';
+      }
+      const dt = parseDate(row.DonationDate);
+      if (!dt) return;
+      const year = dt.getFullYear();
+      yearChartData[year] = (yearChartData[year] || 0) + (parseFloat(row.DonationAmount) || 0);
+      if (!yearChartDataDetails[year]) yearChartDataDetails[year] = [];
+      yearChartDataDetails[year].push(row);
+    });
+    
+    const yearKeys = Object.keys(yearChartData).sort();
+    const yearCtx = document.getElementById("donationByYearChart");
+    if (yearCtx) {
+      if (yearKeys.length) {
+        chartInstances.donationByYear = new Chart(yearCtx, {
+          type: "bar",
+          data: {
+            labels: yearKeys,
+            datasets: [{
+              label: "Total Donations",
+              data: yearKeys.map(key => yearChartData[key]),
+              backgroundColor: "#0b3d91"
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                ticks: { callback: val => `$${val}` } 
+              } 
+            },
+            onClick: (event, elements) => {
+              if (elements.length > 0) {
+                const index = elements[0].index;
+                const year = yearKeys[index];
+                const donations = yearChartDataDetails[year] || [];
+                const donationList = donations.map(d => {
+                  const dt = parseDate(d.DonationDate);
+                  return `$${formatCurrency(parseFloat(d.DonationAmount) || 0)} - ${d.CampaignName || 'General Fund'} - ${dt ? dt.toLocaleDateString() : d.DonationDate}`;
+                });
+                showDrilldown(`All Donations in ${year}`, donationList.length > 0 ? donationList : ['No donations found']);
+              }
+            }
+          }
+        });
+      } else {
+        chartInstances.donationByYear = new Chart(yearCtx, {
+          type: "bar",
+          data: {
+            labels: ["No data"],
+            datasets: [{
+              label: "Total Donations",
+              data: [0],
+              backgroundColor: "#e2e8f0"
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                ticks: { callback: val => `$${val}` } 
+              } 
+            }
+          }
+        });
+      }
+    }
+
+  }
+
+  // Close modal when clicking outside
+  window.onclick = function(event) {
+    const modal = document.getElementById('drilldownModal');
+    if (event.target === modal) {
+      closeDrilldown();
+    }
+  }
+
+  // Wait for DOM to be fully loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  } else {
+        // Wait a bit for Chart.js to load
+        setTimeout(() => {
+    initDonationReport();
+        }, 100);
+      }
+    });
+  } else {
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "index.html";
+    } else {
+      // Wait a bit for Chart.js to load
+      setTimeout(() => {
+        initDonationReport();
+      }, 100);
+    }
+  }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+  .profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .profile-form {
+    display: grid;
+    gap: 20px;
+  }
+
+  .form-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+  min-width: 0;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #1d3557;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+  box-sizing: border-box;
+  }
+
+  /* ✅ FIX: Add spacing between the buttons */
+.profile-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 18px !important;
+  margin-top: 25px !important;
+}
+
+.profile-actions button {
+  padding: 12px 22px !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 15px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto !important;
+  min-width: 160px;
+}
+
+
+  .primary-btn {
+    background: #0b3d91;
+    color: #fff;
+  }
+
+  .primary-btn:hover {
+    background: #08306b;
+  }
+
+  .secondary-btn {
+    background: #e2e8f0;
+    color: #1f2937;
+  }
+
+  .secondary-btn:hover {
+    background: #cbd5e1;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <h2>Alumni Portal</h2>
+    <a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a>
+    <a class="active" href="profile.html"><i class="fas fa-user"></i> Profile</a>
+    <a href="events.html"><i class="fas fa-calendar"></i> Events</a>
+    <a href="mentorship.html"><i class="fas fa-handshake"></i> Mentorship</a>
+    <a href="donations.html"><i class="fas fa-heart"></i> Donations</a>
+    <a href="feedback.html"><i class="fas fa-comment"></i> Feedback</a>
+    <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <div class="main-content">
+    <h1>Update Profile</h1>
+    <p>Keep your details up to date so we can tailor events, mentorship, and giving recommendations just for you.</p>
+
+    <div class="profile-card">
+      <form id="profileForm" class="profile-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="alumniID">Alumni ID</label>
+            <input type="text" id="alumniID" readonly style="background-color: #f3f4f6; cursor: not-allowed;">
+          </div>
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="careerField">Career Field / Focus</label>
+            <input type="text" id="careerField" placeholder="e.g. Leadership, Entrepreneurship">
+          </div>
+          <div class="form-group">
+            <label for="department">Department</label>
+            <input type="text" id="department" placeholder="e.g. Business, Engineering">
+          </div>
+          <div class="form-group">
+            <label for="graduationYear">Graduation Year</label>
+            <input type="number" id="graduationYear" min="1950" max="2100">
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city">
+          </div>
+          <div class="form-group">
+            <label for="occupation">Occupation</label>
+            <input type="text" id="occupation">
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <button type="submit" class="primary-btn" id="saveProfileBtn" style="min-width:160px;">Update Profile</button>
+          <button type="button" class="secondary-btn" id="resetProfile" style="min-width:160px;">Reset Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+<script>
+  const saveProfileBtn = document.getElementById("saveProfileBtn");
+  const loggedInEmail = localStorage.getItem("loggedInUser") || localStorage.getItem("profileEmail") || "";
+  let activeEmailKey = (localStorage.getItem("activeProfileEmail") || loggedInEmail || "").toLowerCase();
+  
+  // Ensure activeEmailKey is set if not already
+  if (!activeEmailKey && loggedInEmail) {
+    activeEmailKey = loggedInEmail.toLowerCase();
+    localStorage.setItem("activeProfileEmail", activeEmailKey);
+  }
+
+  function getProfileKey(emailKey) {
+    return `profileData:${emailKey}`;
+  }
+
+  function getNewUserKey(emailKey) {
+    return `newUserData:${emailKey}`;
+  }
+
+  function loadCSV(path) {
+    return new Promise((resolve, reject) => {
+      Papa.parse(path, {
+        download: true,
+        header: true,
+        complete: results => resolve(results.data.filter(row => Object.values(row).some(v => v))),
+        error: reject
+      });
+    });
+  }
+
+  function populateForm(data) {
+    if (!data) return;
+    const alumniIDField = document.getElementById("alumniID");
+    if (alumniIDField) {
+      alumniIDField.value = data.AlumniID || "Not assigned";
+      console.log("Setting AlumniID:", data.AlumniID || "Not assigned");
+    } else {
+      console.error("AlumniID field not found in DOM");
+    }
+    document.getElementById("firstName").value = data.FirstName || "";
+    document.getElementById("lastName").value = data.LastName || "";
+    if (data.Email) document.getElementById("email").value = data.Email;
+    document.getElementById("careerField").value = data.CareerField || data.FocusArea || "";
+    document.getElementById("department").value = data.Department || "";
+    document.getElementById("graduationYear").value = data.GraduationYear || "";
+    document.getElementById("city").value = data.City || "";
+    document.getElementById("occupation").value = data.Occupation || "";
+  }
+
+  document.getElementById("profileForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    // Preserve AlumniID from existing data
+    const existingProfile = activeEmailKey ? JSON.parse(localStorage.getItem(getProfileKey(activeEmailKey)) || "{}") : {};
+    const existingNewUser = activeEmailKey ? JSON.parse(localStorage.getItem(getNewUserKey(activeEmailKey)) || "{}") : {};
+    const existingAlumniID = existingProfile.AlumniID || existingNewUser.AlumniID || "";
+    
+    const profile = {
+      AlumniID: existingAlumniID, // Preserve AlumniID
+      FirstName: document.getElementById("firstName").value.trim(),
+      LastName: document.getElementById("lastName").value.trim(),
+      Email: document.getElementById("email").value.trim(),
+      CareerField: document.getElementById("careerField").value.trim(),
+      Department: document.getElementById("department").value.trim(),
+      GraduationYear: document.getElementById("graduationYear").value.trim(),
+      City: document.getElementById("city").value.trim(),
+      Occupation: document.getElementById("occupation").value.trim()
+    };
+
+    const newEmailKey = (profile.Email || "").toLowerCase();
+
+    if (activeEmailKey && activeEmailKey !== newEmailKey) {
+      localStorage.removeItem(getProfileKey(activeEmailKey));
+      localStorage.removeItem(getNewUserKey(activeEmailKey));
+    }
+
+    if (newEmailKey) {
+      localStorage.setItem(getProfileKey(newEmailKey), JSON.stringify(profile));
+      localStorage.setItem(getNewUserKey(newEmailKey), JSON.stringify(profile));
+      localStorage.setItem("activeProfileEmail", newEmailKey);
+      localStorage.setItem("loggedInUser", profile.Email);
+      activeEmailKey = newEmailKey;
+    }
+
+    localStorage.setItem("profileFullName", `${profile.FirstName} ${profile.LastName}`.trim());
+    localStorage.setItem("profileEmail", profile.Email);
+
+    alert("Profile saved! Your dashboard analytics will reflect these updates.");
+    const saveBtn = document.getElementById("saveProfileBtn");
+    if (saveBtn) {
+      saveBtn.textContent = "Update Profile";
+    }
+  });
+
+  document.getElementById("resetProfile").addEventListener("click", async () => {
+    await initializeProfile(true);
+  });
+
+  async function generateAlumniID() {
+    // Generate a new AlumniID by finding the max ID from CSV and localStorage
+    let maxID = 0;
+    
+    try {
+      const alumniRows = await loadCSV("./data/Alumni.csv");
+      alumniRows.forEach(a => {
+        if (a.AlumniID && a.AlumniID.startsWith('ALU')) {
+          const idNum = parseInt(a.AlumniID.replace('ALU', ''));
+          if (!isNaN(idNum) && idNum > maxID) {
+            maxID = idNum;
+          }
+        }
+      });
+    } catch (err) {
+      console.warn("Could not load Alumni CSV for ID generation:", err);
+    }
+    
+    // Also check localStorage for any existing IDs
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.startsWith('profileData:') || key.startsWith('newUserData:'))) {
+        try {
+          const data = JSON.parse(localStorage.getItem(key) || "{}");
+          if (data.AlumniID && data.AlumniID.startsWith('ALU')) {
+            const idNum = parseInt(data.AlumniID.replace('ALU', ''));
+            if (!isNaN(idNum) && idNum > maxID) {
+              maxID = idNum;
+            }
+          }
+        } catch (e) {
+          // Skip invalid JSON
+        }
+      }
+    }
+    
+    // Generate next sequential ID
+    const newAlumniID = `ALU${String(maxID + 1).padStart(4, '0')}`;
+    return newAlumniID;
+  }
+
+  async function initializeProfile(forceReloadCSV = false) {
+    const email = loggedInEmail;
+    document.getElementById("email").value = email;
+
+    // Load data from all possible sources to get complete profile including AlumniID
+    const savedProfile = (!forceReloadCSV && activeEmailKey)
+      ? JSON.parse(localStorage.getItem(getProfileKey(activeEmailKey)) || "{}")
+      : {};
+    
+    const signupData = activeEmailKey ? JSON.parse(localStorage.getItem(getNewUserKey(activeEmailKey)) || "{}") : {};
+    
+    // Try to load from CSV
+    let csvData = {};
+    try {
+      const alumniRows = await loadCSV("./data/Alumni.csv");
+      const match = alumniRows.find(row => (row.Email || "").toLowerCase() === email.toLowerCase());
+      if (match) {
+        csvData = match;
+      }
+    } catch (err) {
+      console.warn("Unable to load alumni CSV for profile prefilling:", err);
+    }
+
+    // Merge data: CSV has priority for AlumniID, then newUserData, then savedProfile
+    let alumniID = csvData.AlumniID || signupData.AlumniID || savedProfile.AlumniID || "";
+    
+    // If no AlumniID exists, generate one automatically
+    if (!alumniID) {
+      alumniID = await generateAlumniID();
+      console.log("Generated new AlumniID:", alumniID);
+      
+      // Save the generated ID immediately to localStorage
+      const profileToSave = {
+        ...savedProfile,
+        ...signupData,
+        AlumniID: alumniID,
+        Email: email
+      };
+      
+      if (activeEmailKey) {
+        localStorage.setItem(getProfileKey(activeEmailKey), JSON.stringify(profileToSave));
+        localStorage.setItem(getNewUserKey(activeEmailKey), JSON.stringify(profileToSave));
+      }
+    }
+    
+    const mergedData = {
+      ...savedProfile,
+      ...signupData,
+      ...csvData,
+      // Use the AlumniID (either existing or newly generated)
+      AlumniID: alumniID,
+      // Preserve email
+      Email: email
+    };
+
+    console.log("Profile data sources:", { savedProfile, signupData, csvData, mergedData });
+
+    if (Object.keys(mergedData).length > 1 || mergedData.Email) {
+      populateForm(mergedData);
+      if (saveProfileBtn) {
+        saveProfileBtn.textContent = "Update Profile";
+      }
+    } else {
+      populateForm({ Email: email, AlumniID: alumniID });
+      if (saveProfileBtn) saveProfileBtn.textContent = "Update Profile";
+    }
+  }
+
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  } else {
+    initializeProfile();
+  }
+</script>
+
+</body>
+</html>

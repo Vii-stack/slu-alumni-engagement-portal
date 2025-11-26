@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Sent | Alumni Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="main-content" style="margin-left:230px; padding-top:50px;">
+  <h1>✅ Mentor Request Submitted</h1>
+  <p>Your request to connect with <strong id="mentorName"></strong> has been sent.</p>
+  <a href="mentorship.html" class="primary-btn">Back to Mentorship</a>
+</div>
+
+<script>
+  // Check if logged in
+  if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "index.html";
+  }
+  
+  document.getElementById("mentorName").innerText = localStorage.getItem("lastMentorRequested") || "the selected mentor";
+</script>
+
+</body>
+</html>
